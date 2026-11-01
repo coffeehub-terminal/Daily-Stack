@@ -157,6 +157,35 @@ a.pshelf{text-decoration:none}a.pshelf img{transition:transform .15s}a.pshelf:ho
 .product .pk{margin:4px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
 .hero-photo{margin:0 0 22px;border-radius:var(--radius);overflow:hidden;aspect-ratio:21/9;background:#e9d6cc}.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
 @media (max-width:620px){.hero-photo{aspect-ratio:4/5}}
+
+/* USP bar + footer */
+.usp{background:var(--ink);color:#fff;font-size:14px;font-weight:600}
+.usp ul{list-style:none;margin:0 auto;padding:10px 24px;max-width:1240px;display:flex;justify-content:space-between;gap:24px}
+.usp li{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.usp svg{flex:0 0 auto;opacity:.95}
+@media (max-width:980px){.usp ul{justify-content:center}.usp li:nth-child(n+3){display:none}}
+@media (max-width:560px){.usp li:nth-child(n+2){display:none}}
+footer.big .wrap{display:block}
+footer.big{background:var(--ink);color:#fff;padding:64px 0 34px;font-size:15px;margin-top:0}
+footer.big a{color:#fff;text-decoration:none;opacity:.85}
+footer.big a:hover{opacity:1;text-decoration:underline}
+footer.big .fgrid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.6fr;gap:34px;align-items:start}
+footer.big h4{margin:0 0 14px;font:800 16px 'Inter',sans-serif;letter-spacing:-0.01em}
+footer.big ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+footer.big .logo{color:#fff}
+footer.big .flead{opacity:.8;margin:14px 0 0;max-width:260px;line-height:1.5}
+.pays{display:flex;flex-wrap:wrap;gap:8px}
+.pay{width:62px;height:40px;border-radius:7px;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font:800 12px 'Inter',sans-serif;letter-spacing:-0.02em}
+.pay.ideal{color:#CC0066;font-size:13px}.pay.visa{color:#1A1F71;font-style:italic;font-size:16px}
+.pay.amex{background:#2E77BC;color:#fff;font-size:11px}.pay.bc{color:#005498;font-size:9.5px}
+.pay.mc span{width:18px;height:18px;border-radius:50%;display:block}.pay.mc span:first-child{background:#EB001B}.pay.mc span:last-child{background:#F79E1B;margin-left:-7px;mix-blend-mode:multiply}
+.pay.apple,.pay.gpay{font-size:11px}
+.fslogan{margin:56px 0 0;font:300 clamp(48px,8vw,112px)/0.98 'Inter',sans-serif;letter-spacing:-0.055em}
+.fslogan b{font-weight:800}
+.fbottom{margin-top:44px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px;opacity:.85}
+.fbottom nav{display:flex;flex-wrap:wrap;gap:20px}
+@media (max-width:980px){footer.big .fgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){footer.big .fgrid{grid-template-columns:1fr}}
 /* inner pages */
 .crumbs{font-size:14px;margin:28px 0 18px}.crumbs a{text-decoration:none;opacity:.75}.crumbs a:hover{opacity:1}
 .page-hero{padding:0 0 40px}
@@ -261,12 +290,43 @@ for (lab, br, pr, pk, cs, im), desc in FEAT:
 idx = re.sub(r'(id="products".*?<div class="products">).*?(\n    </div>\n  </div>\n</section>)', lambda mm: mm.group(1) + cards + mm.group(2), idx, count=1, flags=re.S)
 idx = idx.replace("No white-label mystery pills. Every product is an original, sealed product from a brand we chose for its form, dose and reputation. Here's why.",
                   "No white-label mystery pills. Every product is an original, sealed 30-day pack from a brand we chose for its form, dose and reputation. Here's why.")
-write("index.html", idx)
 
+
+# ---------------- USP bar + footer (shared) ----------------
+_ic = lambda d: f'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
+USP = ('<!--USP--><div class="usp"><ul>'
+  f'<li>{_ic("<path d=\'M3 7h11v9H3z\'/><path d=\'M14 10h4l3 3v3h-7\'/><circle cx=\'7\' cy=\'17.5\' r=\'1.7\'/><circle cx=\'17\' cy=\'17.5\' r=\'1.7\'/>")}Free shipping across the EU</li>'
+  f'<li>{_ic("<rect x=\'3\' y=\'5\' width=\'18\' height=\'16\' rx=\'2\'/><path d=\'M3 10h18M8 3v4M16 3v4\'/>")}Every product a 30-day pack</li>'
+  f'<li>{_ic("<path d=\'M12 3l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 21l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z\'/><path d=\'M8.5 12l2.4 2.4 4.6-4.8\'/>")}Original, sealed products</li>'
+  f'<li>{_ic("<path d=\'M3 12a9 9 0 1 0 3-6.7L3 8\'/><path d=\'M3 3v5h5\'/>")}Pause or cancel anytime</li>'
+  '</ul></div><!--/USP-->\n')
+idx = re.sub(r'<!--USP-->.*?<!--/USP-->\n?', '', idx, flags=re.S)
+idx = idx.replace('<header class="top">', USP + '<header class="top">', 1)
+PAYS = ('<div class="pays" aria-label="Payment methods">'
+  '<span class="pay ideal">iDEAL</span><span class="pay bc">Bancontact</span><span class="pay visa">VISA</span>'
+  '<span class="pay mc" aria-label="Mastercard"><span></span><span></span></span><span class="pay amex">AMEX</span>'
+  '<span class="pay apple">Apple Pay</span><span class="pay gpay">G Pay</span></div>')
+NEWFOOT = f'''<footer class="big">
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a class="logo" href="/" aria-label="Daily Stack home" style="font-size:26px"><b>Daily</b><span>stack</span></a>
+        <p class="flead">Your vitamins in perfect 30-day packs, from trusted Dutch and European brands. Shipping to all 27 EU countries.</p></div>
+      <div><h4>Shop</h4><ul><li><a href="/#boxes">Our stacks</a></li><li><a href="/brands">Brands</a></li><li><a href="/request">Request a product</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="/#faq">FAQ</a></li><li><a href="https://instagram.com/dailystack" rel="noopener">Instagram</a></li><li><a href="/request">Contact</a></li></ul></div>
+      <div><h4>Payment methods</h4>{PAYS}</div>
+    </div>
+    <p class="fslogan"><b>Never run out.</b><br>Never pile up.</p>
+    <div class="fbottom"><span>© 2026 Daily Stack. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="/terms">Terms &amp; conditions</a><a href="/privacy">Privacy policy</a><a href="/impressum">Legal notice / Impressum</a></nav></div>
+  </div>
+</footer>'''
+idx = re.sub(r'<footer[^>]*>.*?</footer>', lambda mm: NEWFOOT, idx, count=1, flags=re.S)
+
+write("index.html", idx)
 # ---------------- shared template ----------------
 STYLE = re.search(r"<style>(.*?)</style>", idx, re.S).group(1)
 HEADER = re.search(r'<header class="top">.*?</header>', idx, re.S).group(0)
-FOOTER = re.search(r"<footer>.*?</footer>", idx, re.S).group(0).replace('href="#"', 'href="/"')
+FOOTER = re.search(r"<footer[^>]*>.*?</footer>", idx, re.S).group(0).replace('href="#"', 'href="/"')
 MENU_JS = re.search(r"// Mega menu.*?\}\)\(\);", idx, re.S).group(0)
 
 def page(title, desc, body, extra_js=""):
@@ -285,7 +345,7 @@ def page(title, desc, body, extra_js=""):
 <style>{STYLE}</style>
 </head>
 <body>
-{HEADER}
+{USP}{HEADER}
 <main>
 {body}
 </main>
