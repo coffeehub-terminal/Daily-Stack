@@ -1,4 +1,16 @@
-Put official brand logo files here (PNG or SVG with transparent background), named:
-nordic-naturals.png, pure-encapsulations.png, mattisson.png, brand-4.png ... brand-8.png
-They appear in the box cards and the logo carousel automatically.
-Only use logo files you have permission to use (ask your wholesaler or the brand).
+Drop brand logos here as PNG (transparent background). Missing:
+a-vogel.png  (A.Vogel)
+aov.png  (AOV)
+arkopharma.png  (Arkopharma)
+body-fit.png  (Body & Fit)
+bonusan.png  (Bonusan)
+davitamon.png  (Davitamon)
+energetica-natura.png  (Energetica Natura)
+golden-naturals.png  (Golden Naturals)
+lucovitaal.png  (Lucovitaal)
+orthica.png  (Orthica)
+ortholon.png  (Ortholon)
+pharma-nord.png  (Pharma Nord)
+proviform.png  (Proviform)
+roter.png  (Roter)
+xxl-nutrition.png  (XXL Nutrition)

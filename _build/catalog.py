@@ -158,8 +158,41 @@ MENU = {
                                           ("Herbs &amp; plants",[x for x in CATEGORIES if x["group"]=="Herbs &amp; plants"],"")]),
 }
 
-TOP_BRANDS = ["Vitakruid","Bonusan","Orthica","Solgar","Mattisson Healthstyle","Nordic Naturals","Pure Encapsulations"]
-ALL_BRANDS = sorted(set(["21st Century","Absonutrix","Allergy Research Group","Applied Nutrition","BioTechUSA","Blueprint","Bon Charge","Bonusan","Codeage","EuroVital","Foligain","Goli Nutrition","H2Tab","Jarrow Formulas","Kiki Health","Laveen","Life Extension","Lindens","Linn Pharma","Natrol","Nature's Answer","NatureWise","Newton-Everett","Nordic Naturals","Norsan","NOW Foods","Optimox","OstroVit","ProHealth Longevity","Quicksilver","Salte","Solgar","SuperFeast","Swanson","Ten Percent Club","Trace Minerals","Viridian","Vitakruid","Vitalized","Vitals","Vuzïmo","Watermans","Yummygums","Zooki","Pure Encapsulations","Thorne","Mattisson Healthstyle","Sunday Natural","Orthica","Garden of Life","Doppelherz","Orthomol","Vital Proteins","Bonusan"]), key=str.lower)
+# Local brands: mostly Dutch, all sold in Dutch drugstores and pharmacies (Etos, Kruidvat, De Online Drogist, Vitaminstore).
+LOCAL = {
+  "Vitamins": ["Vitakruid","Bonusan","Orthica","Lucovitaal","Proviform","Vitals","AOV","Davitamon","Solgar"],
+  "Minerals": ["Vitakruid","Orthica","Bonusan","Lucovitaal","Proviform","Golden Naturals","AOV"],
+  "Supplements": ["Bonusan","Orthica","Vitakruid","Vitals","Lucovitaal","Golden Naturals","Energetica Natura"],
+  "Herbs &amp; plants": ["A.Vogel","Bonusan","Vitakruid","Lucovitaal","Golden Naturals","Arkopharma","Ortholon"],
+  "Sport": ["Mattisson Healthstyle","XXL Nutrition","Body &amp; Fit","Vitakruid","Bonusan"],
+}
+LOCAL_OVR = {
+  "multivitamin": ["Vitakruid","Orthica","Davitamon","Lucovitaal","Vitals"],
+  "vitamin-c": ["Bonusan","Orthica","Vitakruid","Roter","Lucovitaal"],
+  "vitamin-d3": ["Vitakruid","Davitamon","Lucovitaal","Orthica","Bonusan"],
+  "selenium": ["Pharma Nord","Orthica","Bonusan","Vitakruid","Lucovitaal"],
+  "omega-3": ["Bonusan","Vitakruid","Orthica","Vitals","Lucovitaal"],
+  "probiotics": ["Orthica","Vitals","Bonusan","Lucovitaal","Golden Naturals"],
+  "collagen": ["Energetica Natura","Vitakruid","Lucovitaal","Body &amp; Fit","XXL Nutrition"],
+  "coq10": ["Pharma Nord","Bonusan","Vitakruid","Orthica","Lucovitaal"],
+  "protein": ["XXL Nutrition","Body &amp; Fit","Mattisson Healthstyle","Vitakruid"],
+  "amino-acids": ["XXL Nutrition","Body &amp; Fit","Proviform","Bonusan"],
+  "melatonin": ["Vitals","Lucovitaal","Vitakruid","Davitamon"],
+  "echinacea": ["A.Vogel","Lucovitaal","Bonusan","Arkopharma"],
+  "valerian": ["A.Vogel","Lucovitaal","Arkopharma","Vitakruid"],
+  "green-tea": ["A.Vogel","Lucovitaal","Golden Naturals","Bonusan"],
+  "electrolytes": ["XXL Nutrition","Body &amp; Fit","Mattisson Healthstyle","Vitakruid"],
+  "creatine": ["Mattisson Healthstyle","XXL Nutrition","Body &amp; Fit","Vitakruid"],
+}
+for _c in CATEGORIES:
+    _l = list(LOCAL_OVR.get(_c["slug"], LOCAL[_c["group"]]))
+    if _c["pick"] and _c["pick"][0] in _l: _l.remove(_c["pick"][0])
+    if _c["pick"]: _l.insert(0, _c["pick"][0])
+    _c["compare"] = _l[:5]
+
+TOP_BRANDS = ["Vitakruid","Bonusan","Orthica","Lucovitaal","Solgar","Mattisson Healthstyle","XXL Nutrition"]
+SPORT_BRANDS = ["Mattisson Healthstyle","XXL Nutrition","Body &amp; Fit","Vitakruid","Bonusan"]
+ALL_BRANDS = sorted(set(sum(LOCAL.values(), []) + sum(LOCAL_OVR.values(), []) + TOP_BRANDS), key=str.lower)
 
 # ---------------- Stacks (plan pages at /stack/<id>) ----------------
 # Every product is a 30-day pack, so each box is exactly one month.

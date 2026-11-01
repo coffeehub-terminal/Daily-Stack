@@ -3,7 +3,7 @@
 Run from anywhere: python3 _build/build.py"""
 import os, re, sys, html, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO
+from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BY = {c["slug"]: c for c in CATEGORIES}
@@ -48,8 +48,8 @@ panels = {
          + mcol("Type", [li_cat(s) for s in ["creatine","electrolytes","collagen","protein","protein-bars","energy-gels","pre-workout","post-workout","green-tea"]])
          + mcol("Activity", [li_cat("electrolytes","Endurance"), li_cat("creatine","Strength &amp; muscle")])
          + mcol("Amino acids", [li_cat(s) for s in ["bcaa","carnitine","glutamine"]])
-         + mcol("Brands", [li_brand(b) for b in ["Mattisson Healthstyle","NOW Foods","Applied Nutrition","BioTechUSA","OstroVit","Vitakruid"]])
-         + '</div>' + foot("Training? The <b>Energy Stack</b> already includes creatine and electrolytes.")),
+         + mcol("Brands", [li_brand(b) for b in SPORT_BRANDS])
+         + '</div>' + foot("Training? The <b>Energy Stack</b> already includes creatine and magnesium.")),
  "brands": ("Brands", '<div class="mgrid gb">' + mcol("Popular brands", [li_brand(b) for b in TOP_BRANDS])
          + mcol(f"All brands ({len(ALL_BRANDS)})", [li_brand(b) for b in ALL_BRANDS], "cols4") + '</div>'
          + foot("Want a product from any of these brands? Request it and we'll add it to your next box.", "/brands", "All brands")),
@@ -208,7 +208,7 @@ for st in STACK_LIST:
     for it in st["items"]:
         if it[1] != "Daily Stack" and it[1] not in seen: seen.append(it[1])
     row = '<div class="brand-row" aria-label="Brands in this box">' + "".join(
-        (f'<span class="brand-chip" data-logo="assets/brands/{BRAND_LOGO[b]}.png">{b}</span>' if BRAND_LOGO.get(b) else f'<span class="brand-chip">{b}</span>') for b in seen) + '</div>'
+        f'<span class="brand-chip" data-logo="assets/brands/{BRAND_LOGO.get(b) or slug(b)}.png">{b}</span>' for b in seen) + '</div>'
     a2 = re.sub(r'<div class="brand-row"[^>]*>.*?</div>', row, a2, count=1, flags=re.S)
     lis = "".join((f'<li><b>{lab}</b> · {br} {pr}<span class="pack">{pk}</span></li>' if br != "Daily Stack"
                    else '<li><b>Monthly discovery</b> · a new product to try every month</li>') for lab, br, pr, pk, cs, im in st["items"])
@@ -224,6 +224,12 @@ for st in STACK_LIST:
     a2 = re.sub(r'<span class="amount">[^<]*</span>', f'<span class="amount">{st["price"]}</span>', a2, count=1)
     a2 = re.sub(r'(<div class="price">.*?</div>)', lambda mm: mm.group(1) + f'\n        <p class="month-tag">{CHECK}Every product is a 30-day pack</p>', a2, count=1, flags=re.S)
     idx = idx.replace(art, a2)
+
+# Brand carousel: local brands. Drop a logo at assets/brands/<slug>.png and it shows automatically.
+_logo = lambda br: BRAND_LOGO.get(br) or slug(br)
+_items = "".join(f'<li class="logo-item"><span data-logo="assets/brands/{_logo(br)}.png">{br}</span></li>' for br in TOP_BRANDS + [x for x in ALL_BRANDS if x not in TOP_BRANDS])
+_dupe = _items.replace('<li class="logo-item">', '<li class="logo-item" aria-hidden="true">')
+idx = re.sub(r'<ul class="marquee-track">.*?</ul>', lambda mm: f'<ul class="marquee-track">{_items}{_dupe}</ul>', idx, count=1, flags=re.S)
 
 # "Perfect month" message above the boxes
 NOTE = ('<!--MONTH--><div class="month-note"><div class="mn-icon" aria-hidden="true">30</div><div><b>A perfect month in every box.</b> '
@@ -361,7 +367,7 @@ body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Brands</nav>
     <div class="eyebrow">Brands</div>
     <h1 class="display"><span class="bold">{len(ALL_BRANDS)} brands.</span> <span class="thin">Any of them in your box.</span></h1>
-    <p class="lead">Our stacks are built from trusted European brands like Vitakruid, Bonusan, Orthica, Solgar and Mattisson Healthstyle. Prefer another brand? <a href="/request">Request any product</a> and we'll add it to your next box.</p>
+    <p class="lead">Mostly Dutch brands, all sold in Dutch drugstores and pharmacies, and the same brands people already trust here. Our stacks use Vitakruid, Bonusan, Orthica, Solgar and Mattisson Healthstyle. Prefer another one? <a href="/request">Request any product</a> and we'll add it to your next box.</p>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="brands-az">{cards}</div>
   <p class="small-print">Daily Stack is an independent retailer. Brand names are trademarks of their owners; we are not affiliated with or endorsed by these brands.</p></div></section>'''
