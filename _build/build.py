@@ -221,6 +221,7 @@ for st in STACK_LIST:
     ex = ex.replace("your daily", "your daily")
     a2 = re.sub(r'<div class="extras">.*?</div>', f'<div class="extras">+ {ex}</div>', a2, count=1, flags=re.S)
     a2 = re.sub(r'\n\s*<p class="month-tag">.*?</p>', '', a2, flags=re.S)
+    a2 = re.sub(r'<span class="amount">[^<]*</span>', f'<span class="amount">{st["price"]}</span>', a2, count=1)
     a2 = re.sub(r'(<div class="price">.*?</div>)', lambda mm: mm.group(1) + f'\n        <p class="month-tag">{CHECK}Every product is a 30-day pack</p>', a2, count=1, flags=re.S)
     idx = idx.replace(art, a2)
 
@@ -240,9 +241,9 @@ if "Why does everything come in 30-day packs?" not in idx:
     idx = re.sub(r'(<details><summary>Can I cancel anytime\?</summary>.*?</details>)', lambda mm: FAQ + "\n      " + mm.group(1), idx, count=1, flags=re.S)
 # Products section, rebuilt
 from catalog import OMEGA, MAG, VITC, MULTI, FLORA, CREA
-FEAT = [(OMEGA, "Concentrated omega-3 from wild sardines and anchovies, with 1000 IU vitamin D3 per daily dose. EPA and DHA contribute to the normal function of the heart (250 mg per day)."),
-        (MAG, "Magnesium bound to glycine, a form that's gentle on the stomach. Magnesium contributes to the reduction of tiredness and fatigue."),
-        (VITC, "Non-acidic vitamin C with citrus bioflavonoids, easy on the stomach. Vitamin C contributes to the normal function of the immune system."),
+FEAT = [(OMEGA, "Fish oil rich in DHA from a Dutch practitioner brand, one softgel a day. DHA contributes to the maintenance of normal brain function (250 mg DHA per day)."),
+        (MAG, "Four forms of magnesium in one tablet a day. Magnesium contributes to the reduction of tiredness and fatigue."),
+        (VITC, "1000 mg of vitamin C in one tablet a day. Vitamin C contributes to the normal function of the immune system."),
         (MULTI, "A Dutch multivitamin with 21 vitamins and minerals in well-absorbed forms. Just one tablet a day."),
         (FLORA, "A Dutch daily bacterial blend with nine strains. One capsule a day, from one of the best-known Dutch brands."),
         (CREA, "Creapure® creatine made in Germany, in easy capsules. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise (3 g daily).")]
@@ -295,7 +296,7 @@ PICK_VIS = {}
 for _st in STACK_LIST:
     for _lab, _br, _pr, _pk, _cs, _im in _st["items"]:
         if _cs and _cs not in PICK_VIS: PICK_VIS[_cs] = (_br, _pr, _im)
-PICK_VIS["vitamin-d3"] = PICK_VIS.get("omega-3")
+PICK_VIS["vitamin-d3"] = PICK_VIS.get("multivitamin")
 SAFETY = "Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose. Pregnant, breastfeeding or taking medication? Check with your doctor or pharmacist first."
 
 def brand_links(bs): return "".join(f'<a href="/brands#{slug(b)}">{b}</a>' for b in bs)

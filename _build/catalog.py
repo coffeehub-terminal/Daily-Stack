@@ -15,8 +15,8 @@ CATEGORIES = [
 # ---------- Vitamins ----------
 c("Vitamins","multivitamin","Multivitamin","A broad base of vitamins and minerals in one product. Useful when you want to cover the basics without taking ten separate bottles.",
   ["Vitamin D contributes to the maintenance of normal bones.","Vitamin C contributes to the normal function of the immune system.","B vitamins contribute to normal energy-yielding metabolism."],
-  pick=("Vitakruid","Multi Basis (30 tablets) · Multi Dag Vrouw in Her",["foundation","her","energy","winter"]),compare=["Vitakruid","Thorne","Pure Encapsulations","Solgar","Orthica"],
-  note="We match the vitamin D in the multi to the separate D3 in your stack, so the total stays sensible."),
+  pick=("Vitakruid","Multi Basis (30 tablets) · Multi Dag Vrouw in Her · Multi Dag Man Sport in Energy",["foundation","her","energy","winter"]),compare=["Vitakruid","Thorne","Pure Encapsulations","Solgar","Orthica"],
+  note="Your vitamin D comes from the multivitamin, so you never double up on it."),
 c("Vitamins","vitamin-a","Vitamin A","A fat-soluble vitamin found in liver, eggs and dairy, and made from beta-carotene in orange and green vegetables.",
   ["Vitamin A contributes to the maintenance of normal vision.","Vitamin A contributes to the maintenance of normal skin.","Vitamin A contributes to the normal function of the immune system."],
   note="Pregnant? Avoid high-dose vitamin A supplements unless your doctor advises them."),
@@ -42,13 +42,13 @@ c("Vitamins","folic-acid","Vitamin B11 (folate)","Folate is found in leafy green
   ["Supplemental folic acid intake increases maternal folate status.","Folate contributes to maternal tissue growth during pregnancy.","Folate contributes to the reduction of tiredness and fatigue."]),
 c("Vitamins","vitamin-b12","Vitamin B12","B12 comes almost only from animal foods, which makes it the number one supplement for vegetarians and vegans. Methylcobalamin is a popular active form.",
   ["Vitamin B12 contributes to normal red blood cell formation.","Vitamin B12 contributes to the reduction of tiredness and fatigue.","Vitamin B12 contributes to the normal function of the immune system."],
-  pick=("Solgar","Methylcobalamin",["her"]),compare=["Solgar","Pure Encapsulations","Jarrow Formulas","Thorne","NOW Foods"]),
+  pick=("Solgar","Methylcobalamin 1000 µg (30 nuggets)",["her"]),compare=["Solgar","Pure Encapsulations","Jarrow Formulas","Thorne","NOW Foods"]),
 c("Vitamins","vitamin-c","Vitamin C","The classic. Found in citrus, peppers and kiwi. A buffered form is gentler on the stomach than plain ascorbic acid.",
   ["Vitamin C contributes to the normal function of the immune system.","Vitamin C contributes to normal collagen formation for the normal function of skin.","Vitamin C increases iron absorption."],
-  pick=("Solgar","Ester-C® Plus 1000 mg (30 tablets)",["foundation","her","energy","winter"]),compare=["Solgar","Pure Encapsulations","Bonusan","Vitakruid","Orthica"]),
+  pick=("Bonusan","Vitamine C-1000 (30 tablets)",["foundation","her","energy","winter"]),compare=["Solgar","Pure Encapsulations","Bonusan","Vitakruid","Orthica"]),
 c("Vitamins","vitamin-d3","Vitamin D3","In winter the sun in most of Europe is too weak to make enough vitamin D in your skin. That's why it's one of the most taken supplements across the EU.",
   ["Vitamin D contributes to the maintenance of normal bones.","Vitamin D contributes to the normal function of the immune system.","Vitamin D contributes to the maintenance of normal muscle function."],
-  pick=("Nordic Naturals","Ultimate Omega-D3 (vitamin D3 with your omega-3)",["foundation","her","energy","winter"]),compare=["Nordic Naturals","Sunday Natural","Solgar","Orthica","Vitakruid"],
+  pick=("Vitakruid","in your multivitamin (Multi Basis, Multi Dag Vrouw, Multi Dag Man Sport)",["foundation","her","energy","winter"]),compare=["Nordic Naturals","Sunday Natural","Solgar","Orthica","Vitakruid"],
   note="The Dutch Health Council advises extra vitamin D for many groups, including everyone over 70 and people who get little sun."),
 c("Vitamins","vitamin-e","Vitamin E","A fat-soluble vitamin found in nuts, seeds and plant oils. Look for mixed tocopherols.",
   ["Vitamin E contributes to the protection of cells from oxidative stress."]),
@@ -59,7 +59,7 @@ c("Vitamins","vitamin-k2","Vitamin K2","K2 (as MK-7) is often paired with vitami
 # ---------- Minerals ----------
 c("Minerals","magnesium","Magnesium","One of Europe's most popular supplements. Glycinate is a gentle, well-absorbed form that's easy on the stomach.",
   ["Magnesium contributes to the reduction of tiredness and fatigue.","Magnesium contributes to normal muscle function.","Magnesium contributes to normal psychological function."],
-  pick=("Pure Encapsulations","Magnesium Glycinate (90 capsules = 30 days)",["foundation","her","energy"]),compare=["Pure Encapsulations","Thorne","Solgar","NOW Foods","Vitakruid"]),
+  pick=("Vitakruid","Magnesium 200 Complex (30 tablets)",["foundation","her","energy","winter"]),compare=["Pure Encapsulations","Thorne","Solgar","NOW Foods","Vitakruid"]),
 c("Minerals","zinc","Zinc","Found in meat, shellfish, seeds and legumes. Picolinate and bisglycinate are well-absorbed forms.",
   ["Zinc contributes to the normal function of the immune system.","Zinc contributes to the maintenance of normal skin.","Zinc contributes to the maintenance of normal hair and nails."],
   compare=["Solgar","Thorne","Pure Encapsulations","NOW Foods","Orthica"]),
@@ -82,7 +82,7 @@ c("Minerals","chromium","Chromium","A trace mineral found in broccoli, whole gra
 # ---------- Supplements ----------
 c("Supplements","omega-3","Omega-3 &amp; fish oil","EPA and DHA from fish oil. Most people eat less oily fish than the recommended once a week, which makes omega-3 a staple in every one of our stacks.",
   ["EPA and DHA contribute to the normal function of the heart (with a daily intake of 250 mg EPA and DHA).","DHA contributes to the maintenance of normal brain function (250 mg DHA per day).","DHA contributes to the maintenance of normal vision (250 mg DHA per day)."],
-  pick=("Nordic Naturals","Ultimate Omega-D3 (60 softgels = 30 days)",["foundation","her","energy","winter"]),compare=["Nordic Naturals","Norsan","Solgar","Bonusan","Vitakruid"]),
+  pick=("Bonusan","Omega-3 DHA Forte (30 softgels)",["foundation","her","energy","winter"]),compare=["Nordic Naturals","Norsan","Solgar","Bonusan","Vitakruid"]),
 c("Supplements","collagen","Collagen","Collagen peptides are protein fragments, usually from beef or fish, that mix easily into coffee or a smoothie.",
   [],compare=["NOW Foods","Vital Proteins","Solgar","Jarrow Formulas","Applied Nutrition"],
   note="There are no approved EU health claims for collagen itself. Vitamin C contributes to normal collagen formation for the normal function of skin."),
@@ -132,10 +132,10 @@ c("Herbs &amp; plants","valerian","Valerian","A root traditionally used in the e
 # ---------- Sport ----------
 c("Sport","creatine","Creatine","One of the most researched sports supplements. Creapure® is a German-made, high-purity creatine monohydrate.",
   ["Creatine increases physical performance in successive bursts of short-term, high-intensity exercise (with a daily intake of 3 g)."],
-  pick=("Mattisson Healthstyle","Creatine Creapure® capsules (180 = 30 days)",["her","energy"]),compare=SPORT[:5]),
+  pick=("Mattisson Healthstyle","Creatine Creapure® capsules (180 = 30 days)",["energy"]),compare=SPORT[:5]),
 c("Sport","electrolytes","Electrolytes","Sodium, potassium and magnesium to mix into water, for long training sessions or hot days.",
   ["Carbohydrate-electrolyte solutions contribute to the maintenance of endurance performance during prolonged endurance exercise.","Carbohydrate-electrolyte solutions enhance the absorption of water during physical exercise."],
-  pick=("NOW Foods","Sports Effer-Hydrate (1 per training day)",["energy"]),compare=["NOW Foods","Applied Nutrition","Salte","BioTechUSA","OstroVit"]),
+  compare=["NOW Foods","Applied Nutrition","Salte","BioTechUSA","OstroVit"]),
 c("Sport","protein-bars","Protein bars","A quick snack with extra protein, for after training or on the go.",
   ["Protein contributes to a growth in muscle mass."],compare=SPORT[:5]),
 c("Sport","energy-gels","Energy gels","Fast carbohydrates in a small pouch, for long runs and rides.",
@@ -172,30 +172,29 @@ STRIPE = {
 }
 BRAND_LOGO = {"Nordic Naturals": "nordic-naturals", "Pure Encapsulations": "pure-encapsulations", "Solgar": "solgar", "Vitakruid": "vitakruid",
               "Mattisson Healthstyle": "mattisson", "NOW Foods": "now-foods", "Orthica": None, "Daily Stack": None}
-OMEGA = ("Omega-3 + vitamin D3", "Nordic Naturals", "Ultimate Omega-D3", "60 softgels · 2 a day", "omega-3", None)
-MAG = ("Magnesium", "Pure Encapsulations", "Magnesium Glycinate", "90 capsules · 3 a day", "magnesium", "pure-magnesium")
-VITC = ("Vitamin C", "Solgar", "Ester-C® Plus 1000 mg", "30 tablets · 1 a day", "vitamin-c", None)
+OMEGA = ("Omega-3", "Bonusan", "Omega-3 DHA Forte", "30 softgels · 1 a day", "omega-3", None)
+MAG = ("Magnesium", "Vitakruid", "Magnesium 200 Complex", "30 tablets · 1 a day", "magnesium", None)
+VITC = ("Vitamin C", "Bonusan", "Vitamine C-1000", "30 tablets · 1 a day", "vitamin-c", None)
 MULTI = ("Multivitamin", "Vitakruid", "Multi Basis", "30 tablets · 1 a day", "multivitamin", None)
 FLORA = ("Probiotic", "Orthica", "Orthiflor Original", "30 capsules · 1 a day", "probiotics", None)
 CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "180 vegicaps · 6 a day (3 g)", "creatine", None)
 DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try, picked by us", "1 product a month", None, None)
 STACK_LIST = [
-  dict(id="foundation", name="Foundation", price="€84.95", per="/ month · free shipping", badge="Most popular",
+  dict(id="foundation", name="Foundation", price="€109", per="/ month · free shipping", badge="Most popular",
        tagline="The everyday basics, done right. 5 supplements + a monthly discovery.",
        items=[MULTI, OMEGA, MAG, VITC, FLORA, DISCOVERY],
        extras=["Weekly pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Foundation"),
-  dict(id="her", name="Her", price="€99.95", per="/ month · free shipping", badge=None,
-       tagline="Put together for women. 7 supplements.",
+  dict(id="her", name="Her", price="€129", per="/ month · free shipping", badge=None,
+       tagline="Put together for women. 6 supplements.",
        items=[("Women's multivitamin", "Vitakruid", "Multi Dag Vrouw", "30 tablets · 1 a day", "multivitamin", None), OMEGA, MAG,
-              ("Vitamin B12", "Solgar", "Methylcobalamin 1000 µg", "30 nuggets · 1 a day", "vitamin-b12", "solgar-b12"), CREA, VITC, FLORA],
-       extras=["Pill organizer (first box)", "Your daily schedule", "Monthly discovery product"], cta="Subscribe to Her Stack"),
-  dict(id="energy", name="Energy", price="€89.95", per="/ month · free shipping", badge=None,
+              ("Vitamin B12", "Solgar", "Methylcobalamin 1000 µg", "30 nuggets · 1 a day", "vitamin-b12", "solgar-b12"), VITC, FLORA],
+       extras=["Pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Her Stack"),
+  dict(id="energy", name="Energy", price="€129", per="/ month · free shipping", badge=None,
        tagline="For busy days and training days. 6 supplements.",
-       items=[("Multivitamin with B vitamins", "Vitakruid", "Multi Basis", "30 tablets · 1 a day", "multivitamin", None), OMEGA, MAG, CREA, VITC,
-              ("Electrolytes", "NOW Foods", "Sports Effer-Hydrate", "10 tablets · 1 per training day", "electrolytes", "now-effer-hydrate")],
+       items=[("Sport multivitamin", "Vitakruid", "Multi Dag Man Sport", "30 tablets · 1 a day", "multivitamin", None), OMEGA, MAG, CREA, VITC, FLORA],
        extras=["Shaker (first box)", "Pill organizer (first box)", "Training-day schedule"], cta="Subscribe to Energy Stack"),
-  dict(id="winter", name="Winter", price="€69.95", per="one-time · free shipping", badge="Christmas gift",
-       tagline="A 30-day winter plan. 4 supplements + 4 extras.",
-       items=[VITC, OMEGA, MULTI, FLORA],
+  dict(id="winter", name="Winter", price="€109", per="one-time · free shipping", badge="Christmas gift",
+       tagline="A 30-day winter plan. 5 supplements + 4 extras.",
+       items=[VITC, MULTI, OMEGA, MAG, FLORA],
        extras=["Ginger-lemon tea", "Dutch honey", "Lip balm", "Gift card"], cta="Order the Winter Stack", note="Order before 15 December for delivery before Christmas."),
 ]
