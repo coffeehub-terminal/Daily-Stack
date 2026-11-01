@@ -1,16 +1,3 @@
-Drop brand logos here as PNG (transparent background). Missing:
-a-vogel.png  (A.Vogel)
-aov.png  (AOV)
-arkopharma.png  (Arkopharma)
-body-fit.png  (Body & Fit)
+Drop brand logos here as PNG. Still missing:
 bonusan.png  (Bonusan)
-davitamon.png  (Davitamon)
-energetica-natura.png  (Energetica Natura)
-golden-naturals.png  (Golden Naturals)
-lucovitaal.png  (Lucovitaal)
 orthica.png  (Orthica)
-ortholon.png  (Ortholon)
-pharma-nord.png  (Pharma Nord)
-proviform.png  (Proviform)
-roter.png  (Roter)
-xxl-nutrition.png  (XXL Nutrition)
