@@ -158,7 +158,7 @@ MENU = {
                                           ("Herbs &amp; plants",[x for x in CATEGORIES if x["group"]=="Herbs &amp; plants"],"")]),
 }
 
-TOP_BRANDS = ["Nordic Naturals","Pure Encapsulations","Solgar","Vitakruid","Orthica","Mattisson Healthstyle","NOW Foods"]
+TOP_BRANDS = ["Vitakruid","Bonusan","Orthica","Solgar","Mattisson Healthstyle","Nordic Naturals","Pure Encapsulations"]
 ALL_BRANDS = sorted(set(["21st Century","Absonutrix","Allergy Research Group","Applied Nutrition","BioTechUSA","Blueprint","Bon Charge","Bonusan","Codeage","EuroVital","Foligain","Goli Nutrition","H2Tab","Jarrow Formulas","Kiki Health","Laveen","Life Extension","Lindens","Linn Pharma","Natrol","Nature's Answer","NatureWise","Newton-Everett","Nordic Naturals","Norsan","NOW Foods","Optimox","OstroVit","ProHealth Longevity","Quicksilver","Salte","Solgar","SuperFeast","Swanson","Ten Percent Club","Trace Minerals","Viridian","Vitakruid","Vitalized","Vitals","Vuzïmo","Watermans","Yummygums","Zooki","Pure Encapsulations","Thorne","Mattisson Healthstyle","Sunday Natural","Orthica","Garden of Life","Doppelherz","Orthomol","Vital Proteins","Bonusan"]), key=str.lower)
 
 # ---------------- Stacks (plan pages at /stack/<id>) ----------------

@@ -50,9 +50,9 @@ panels = {
          + mcol("Amino acids", [li_cat(s) for s in ["bcaa","carnitine","glutamine"]])
          + mcol("Brands", [li_brand(b) for b in ["Mattisson Healthstyle","NOW Foods","Applied Nutrition","BioTechUSA","OstroVit","Vitakruid"]])
          + '</div>' + foot("Training? The <b>Energy Stack</b> already includes creatine and electrolytes.")),
- "brands": ("Brands", '<div class="mgrid gb">' + mcol("Our top picks", [li_brand(b) for b in TOP_BRANDS])
+ "brands": ("Brands", '<div class="mgrid gb">' + mcol("Popular brands", [li_brand(b) for b in TOP_BRANDS])
          + mcol(f"All brands ({len(ALL_BRANDS)})", [li_brand(b) for b in ALL_BRANDS], "cols4") + '</div>'
-         + foot("We compare all of these brands and put our top pick for each supplement in your stack.", "/brands", "All brands")),
+         + foot("Want a product from any of these brands? Request it and we'll add it to your next box.", "/brands", "All brands")),
 }
 chev = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>'
 items = "".join(f'<li class="mitem"><button type="button" class="mbtn" aria-expanded="false" aria-controls="mp-{k}">{t}{chev}</button>'
@@ -76,7 +76,7 @@ BROWSE = f'''<!--BROWSE--><section id="browse" aria-labelledby="b-title">
     <div class="sec-head">
       <div class="eyebrow">Everything we source</div>
       <h2 class="display" id="b-title"><span class="bold">{len(CATEGORIES)} supplements.</span> <span class="thin">{len(ALL_BRANDS)} brands.</span></h2>
-      <p>Our stacks cover the essentials. Want something else? Pick any product below and we'll add it to your box, from the brand we rate best. <b class="g">Green</b> = already in a stack.</p>
+      <p>Our stacks cover the essentials. Want something else? Pick any product below and we'll add it to your box, from a brand we trust. <b class="g">Green</b> = already in a stack.</p>
     </div>
     <div class="browse">{browse_cols}</div>
     <div class="browse-cta"><a class="btn green" href="/request">Request a product</a><a class="btn ghost" href="/brands">See all {len(ALL_BRANDS)} brands</a></div>
@@ -318,7 +318,7 @@ for c in CATEGORIES:
         side = f'''<div class="card">
         <div class="eyebrow">Not in a stack yet</div>
         <h2 style="margin-top:6px">Add it to your box</h2>
-        <p style="margin:0">Tell us you want it and we'll add it to your next box, from the brand we rate best. No extra shipping.</p>
+        <p style="margin:0">Tell us you want it and we'll add it to your next box, from a brand we trust. No extra shipping.</p>
         <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px"><a class="btn green" href="/request?p={q(plain)}">Request {plain}</a><a class="btn ghost" href="/#boxes">See the stacks</a></div>
       </div>'''
     note = f'<div class="info-note">{c["note"]}</div>' if c["note"] else ""
@@ -335,7 +335,7 @@ for c in CATEGORIES:
         <h2>What it does</h2>
         {claims}
         {note}
-        <h2 style="margin-top:28px">Brands we compare</h2>
+        <h2 style="margin-top:28px">Other brands you can request</h2>
         <div class="brand-list">{brand_links(c["compare"])}</div>
         <p class="small-print">{SAFETY}</p>
       </div>
@@ -353,19 +353,19 @@ cards = ""
 for b in ALL_BRANDS:
     top = b in TOP_BRANDS
     picks = [c for c in CATEGORIES if c["pick"] and c["pick"][0] == b]
-    if picks: info = "Our pick for " + ", ".join(f'<a href="/c/{c["slug"]}">{c["name"]}</a>' for c in picks) + "."
-    elif b in uses: info = "We compare it for " + ", ".join(f'<a href="/c/{c["slug"]}">{c["name"]}</a>' for c in uses[b][:4]) + "."
+    if picks: info = "In our stacks for " + ", ".join(f'<a href="/c/{c["slug"]}">{c["name"]}</a>' for c in picks) + "."
+    elif b in uses: info = "Available on request for " + ", ".join(f'<a href="/c/{c["slug"]}">{c["name"]}</a>' for c in uses[b][:4]) + "."
     else: info = f'<a href="/request?b={q(b)}">Request a product</a>'
     cards += f'<div class="b{" top" if top else ""}" id="{slug(b)}"><h3>{b}</h3><p>{info}</p></div>'
 body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Brands</nav>
     <div class="eyebrow">Brands</div>
-    <h1 class="display"><span class="bold">{len(ALL_BRANDS)} brands.</span> <span class="thin">One pick per supplement.</span></h1>
-    <p class="lead">We compare these brands on form, dose, testing and price, and put the one we rate best in your stack. Want a specific product from any of them? <a href="/request">Request it</a>.</p>
+    <h1 class="display"><span class="bold">{len(ALL_BRANDS)} brands.</span> <span class="thin">Any of them in your box.</span></h1>
+    <p class="lead">Our stacks are built from trusted European brands like Vitakruid, Bonusan, Orthica, Solgar and Mattisson Healthstyle. Prefer another brand? <a href="/request">Request any product</a> and we'll add it to your next box.</p>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="brands-az">{cards}</div>
   <p class="small-print">Daily Stack is an independent retailer. Brand names are trademarks of their owners; we are not affiliated with or endorsed by these brands.</p></div></section>'''
-write("brands.html", page("Brands", "The supplement brands Daily Stack compares, and our pick for each supplement.", body))
+write("brands.html", page("Brands", "The supplement brands you can get in your Daily Stack box.", body))
 
 
 # ---------------- stack (plan) pages ----------------
@@ -415,7 +415,7 @@ body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Request a product</nav>
     <div class="eyebrow">Request a product</div>
     <h1 class="display"><span class="bold">Want something extra?</span> <span class="thin">We'll add it.</span></h1>
-    <p class="lead">Tell us what you'd like and we'll source it from the brand we rate best, add it to your next box, and send you the price first. No extra shipping.</p>
+    <p class="lead">Tell us what you'd like and we'll source it from a brand we trust, add it to your next box, and send you the price first. No extra shipping.</p>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="card">
     <form class="form" id="req">
