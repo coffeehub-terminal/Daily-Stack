@@ -210,7 +210,7 @@ MAG = ("Magnesium", "Vitakruid", "Magnesium 200 Complex", "30 tablets · 1 a day
 VITC = ("Vitamin C", "Bonusan", "Vitamine C-1000", "30 tablets · 1 a day", "vitamin-c", "bonusan-c1000")
 MULTI = ("Multivitamin", "Vitakruid", "Multi Basis", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-basis")
 FLORA = ("Probiotic", "Orthica", "Orthiflor Original", "30 capsules · 1 a day", "probiotics", None)
-CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "180 vegicaps · 6 a day (3 g)", "creatine", None)
+CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "180 vegicaps · 6 a day (3 g)", "creatine", "mattisson-creatine")
 DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try, picked by us", "1 product a month", None, None)
 STACK_LIST = [
   dict(id="foundation", name="Foundation", price="€109", per="/ month · free shipping", badge="Most popular",
