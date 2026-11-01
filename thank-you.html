@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome to Daily Stack</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;800&family=Mulish:wght@400;700;800&display=swap">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#EAEAEA;color:#042621;font-family:'Mulish',system-ui,sans-serif;font-size:17px;line-height:1.55;display:flex;flex-direction:column}
+a{color:#042621}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px;width:100%}
+header{padding:22px 0}
+.logo{font-family:'Inter',sans-serif;font-size:27px;letter-spacing:-0.045em;text-decoration:none;color:#042621}
+.logo b{font-weight:800}.logo span{font-weight:200}
+main{flex:1;display:flex;align-items:center;padding:30px 0 60px}
+.card{background:#fff;border-radius:28px;padding:40px}
+h1{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.045em;line-height:1;font-size:clamp(40px,7vw,64px);margin:0}
+h1 span{font-weight:200}
+p{margin:16px 0 0}
+.share{margin-top:28px;background:#F6F6F6;border-radius:18px;padding:22px}
+.share h2{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.03em;font-size:24px;margin:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;border:0;background:#042621;color:#fff;font-family:'Mulish',sans-serif;font-weight:800;font-size:16px;text-decoration:none;cursor:pointer}
+.btn:hover{background:#0b3d35;color:#fff}
+.btn.green{background:#1F7A50}
+.btn.ghost{background:transparent;color:#042621;border:2px solid #042621}
+:focus-visible{outline:3px solid #2E9E6A;outline-offset:3px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="index.html"><b>Daily</b><span>stack</span></a></div></header>
+<main>
+  <div class="wrap">
+    <div class="card">
+      <h1>Welcome to <span>Daily Stack.</span></h1>
+      <p id="box-line">Thanks for your order! You'll get a confirmation email from Stripe right away. Your first box ships within [X] working days.</p>
+      <p>You can pause, switch or cancel your subscription anytime via the link in your confirmation email.</p>
+      <div class="share">
+        <h2>Share it with a friend</h2>
+        <p style="margin-top:6px">Know someone who never knows which vitamins to buy? Send them Daily Stack.</p>
+        <div class="row">
+          <a class="btn green" id="wa" href="#" rel="noopener">Share on WhatsApp</a>
+          <button class="btn ghost" id="copy" type="button">Copy link</button>
+        </div>
+        <p id="copy-msg" role="status" aria-live="polite" style="font-size:14px"></p>
+      </div>
+      <div class="row" style="margin-top:24px">
+        <a class="btn" href="https://instagram.com/dailystack" rel="noopener">Follow @dailystack</a>
+        <a class="btn ghost" href="index.html">Back to the site</a>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+const names = { foundation: 'Foundation Stack', her: 'Her Stack', energy: 'Energy Stack', winter: 'Winter Stack' };
+const box = new URLSearchParams(location.search).get('box');
+if (names[box]) {
+  document.getElementById('box-line').textContent =
+    'Your ' + names[box] + ' is reserved. We’ll email you as soon as the first boxes open, with your launch discount.';
+}
+const siteUrl = location.origin + '/';
+const text = 'The best vitamin brands in one monthly box. I just got mine: ' + siteUrl;
+document.getElementById('wa').href = 'https://wa.me/?text=' + encodeURIComponent(text);
+document.getElementById('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(siteUrl); document.getElementById('copy-msg').textContent = 'Link copied!'; }
+  catch (e) { document.getElementById('copy-msg').textContent = siteUrl; }
+});
+</script>
+</body>
+</html>

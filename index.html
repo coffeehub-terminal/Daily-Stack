@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Stack · The best vitamin brands, one monthly box</title>
+<meta name="description" content="We compared the vitamin market and picked the best brand for every supplement. One box, delivered monthly. Free shipping in the Netherlands and Germany.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Daily Stack · The best vitamin brands, one monthly box">
+<meta property="og:description" content="The best brand for every vitamin, in one box, every month.">
+<meta property="og:image" content="assets/og-image-1200x630.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;800&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --ink:#042621; --green:#2E9E6A; --green-dark:#1F7A50; --grey:#EAEAEA; --card:#FFFFFF; --soft:#F6F6F6;
+  --radius:22px; --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--grey);color:var(--ink);font-family:'Mulish',system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+a:hover{color:var(--green-dark)}
+img{max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+.display{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.045em;line-height:1;margin:0}
+.thin{font-weight:200}
+.bold{font-weight:800}
+.eyebrow{font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-dark)}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:rgba(234,234,234,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(4,38,33,.08)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:inline-flex;align-items:baseline;font-family:'Inter',sans-serif;font-size:27px;letter-spacing:-0.045em;line-height:1;text-decoration:none;color:var(--ink)}
+.logo b{font-weight:800}.logo span{font-weight:200}
+.logo svg{margin-left:3px}
+.top nav{display:flex;align-items:center;gap:22px;font-weight:700;font-size:15px}
+.top nav a{text-decoration:none}
+.top nav .hide-sm{display:inline}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;border:0;background:var(--ink);color:#fff;font-family:'Mulish',sans-serif;font-weight:800;font-size:16px;text-decoration:none;cursor:pointer;transition:transform .15s ease, background .15s ease}
+.btn:hover{background:#0b3d35;color:#fff;transform:translateY(-1px)}
+.btn.green{background:var(--green-dark)}
+.btn.green:hover{background:#17663f}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn.small{min-height:44px;padding:0 18px;font-size:15px}
+
+/* hero = subscribe */
+.hero{padding:30px 0 30px}
+.hero-head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:end;gap:18px 40px;margin-bottom:26px}
+.hero h1{font-size:clamp(38px,5.2vw,66px)}
+.hero .lead{font-size:clamp(17px,1.6vw,19px);max-width:460px;margin:0}
+.perks{display:flex;flex-wrap:wrap;gap:10px 22px;margin:18px 0 0;padding:0;list-style:none;font-weight:700;font-size:15px}
+.perks li{display:flex;align-items:center;gap:8px}
+.perks svg{flex-shrink:0}
+
+.boxes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.box{background:var(--card);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:16px;position:relative;border:2px solid transparent}
+.box.featured{border-color:var(--green)}
+.badge{position:absolute;top:-13px;left:24px;background:var(--green-dark);color:#fff;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+.box h2{font-size:34px}
+.box .for{margin:-8px 0 0;font-size:15px;opacity:.85}
+.shelf{display:flex;align-items:flex-end;justify-content:center;gap:6px;background:var(--soft);border-radius:16px;padding:20px 8px 14px;min-height:170px;overflow:hidden}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.price .amount{font-family:'Inter',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.04em;line-height:1}
+.price .per{font-size:15px}
+.box ul.inside{list-style:none;margin:0;padding:0;font-size:15px;display:flex;flex-direction:column;gap:7px}
+.box ul.inside li{display:block}
+.box ul.inside li b{font-weight:800}
+.box .extras{font-size:14px;background:var(--soft);border-radius:12px;padding:10px 12px}
+.box .actions{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.box .note{font-size:13px;text-align:center;opacity:.8;margin:0}
+
+/* bottle illustration (replace with official product photos) */
+.bottle{display:flex;flex-direction:column;align-items:center;flex:0 1 60px;min-width:38px}
+.bottle .cap{width:58%;height:14px;border-radius:5px 5px 2px 2px;background:var(--ink)}
+.bottle .body{width:100%;height:110px;border-radius:10px;background:#fff;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;padding:4px;overflow:hidden}
+.bottle .label{width:100%;background:var(--grey);border-radius:4px;padding:5px 2px;text-align:center;font-size:8px;line-height:1.15;font-weight:800;color:var(--ink);hyphens:auto;overflow-wrap:normal}
+.bottle .label small{display:block;font-weight:600;font-size:7.5px;margin-top:3px}
+.bottle.tall .body{height:124px}
+.bottle.short .body{height:90px}
+.bottle.wide{flex-basis:72px}
+.bottle.extra .cap{background:var(--green-dark)}
+.bottle.extra .body{border-color:var(--green-dark);border-style:dashed}
+
+/* sections */
+section{padding:64px 0}
+section.white{background:#fff}
+.sec-head{max-width:720px;margin-bottom:34px}
+.sec-head h2{font-size:clamp(34px,5vw,58px);margin-top:8px}
+.sec-head p{font-size:19px;margin:14px 0 0}
+
+/* products */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.product{background:var(--soft);border-radius:var(--radius);padding:22px;display:flex;gap:18px;align-items:flex-start}
+.product .bottle{flex:0 0 60px}
+.product h3{margin:0;font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.03em;font-size:21px;line-height:1.15}
+.product .brand{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark)}
+.product p{margin:8px 0 0;font-size:15px}
+.product .in{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid rgba(4,38,33,.15)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.step{background:#fff;border-radius:var(--radius);padding:26px}
+.step .n{font-family:'Inter',sans-serif;font-weight:800;font-size:64px;line-height:1;color:var(--green);letter-spacing:-0.05em}
+.step h3{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.03em;font-size:26px;margin:14px 0 6px}
+.step p{margin:0}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.trust div{border-top:3px solid var(--ink);padding-top:16px}
+.trust h3{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.03em;font-size:21px;margin:0 0 6px}
+.trust p{margin:0;font-size:16px}
+
+/* compare */
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.compare > div{border-radius:var(--radius);padding:26px}
+.compare .them{background:var(--soft)}
+.compare .us{background:var(--ink);color:#fff}
+.compare h3{font-family:'Inter',sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;margin:0 0 14px}
+.compare ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+
+/* christmas */
+.xmas{background:var(--ink);color:var(--grey);border-radius:28px;padding:42px;display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between}
+.xmas h2{font-size:clamp(34px,5vw,56px)}
+.xmas p{max-width:560px;margin:14px 0 0;font-size:18px}
+.xmas small{display:block;margin-top:12px;opacity:.85;font-size:14px}
+
+/* faq */
+.faq{max-width:820px}
+details{background:var(--soft);border-radius:16px;padding:0 22px;margin-bottom:12px}
+summary{cursor:pointer;list-style:none;font-weight:800;font-size:18px;padding:20px 0;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-family:'Inter',sans-serif;font-weight:300;font-size:26px;line-height:1}
+details[open] summary::after{content:'–'}
+details p{margin:0 0 20px}
+
+/* signup */
+.signup{background:var(--green-dark);color:#fff;border-radius:28px;padding:44px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:34px;align-items:center}
+.signup h2{font-size:clamp(36px,5vw,60px)}
+.signup p{font-size:18px;margin:14px 0 0}
+form.join{display:flex;flex-direction:column;gap:12px}
+.join label{font-weight:800;font-size:14px}
+.join select,.join input[type=email]{width:100%;min-height:52px;border-radius:14px;border:0;padding:0 16px;font-family:'Mulish',sans-serif;font-size:17px;color:var(--ink);background:#fff}
+.join .consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:600}
+.join .consent input{width:20px;height:20px;margin-top:2px;flex-shrink:0;accent-color:var(--ink)}
+.join .consent a{color:#fff}
+.join .btn{background:#fff;color:var(--ink)}
+.join .btn:hover{background:var(--grey);color:var(--ink)}
+.join .fine{font-size:13px;opacity:.9;margin:0}
+
+footer{padding:40px 0 60px;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;gap:18px}
+.disclaimer{max-width:var(--max);margin:0 auto;padding:0 22px 20px;font-size:12.5px;opacity:.8}
+
+/* mobile */
+@media (max-width: 980px){
+  .hero-head{grid-template-columns:1fr}
+  .boxes,.products,.steps{grid-template-columns:1fr}
+  .trust{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .compare,.signup{grid-template-columns:1fr}
+}
+@media (max-width: 620px){
+  .top nav .hide-sm{display:none}
+  .hero{padding-top:28px}
+  .trust{grid-template-columns:1fr}
+  .xmas,.signup{padding:28px}
+  section{padding:48px 0}
+}
+
+.boxes{grid-template-columns:repeat(2,minmax(0,1fr))}
+.brand-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:44px}
+.brand-chip{display:inline-flex;align-items:center;height:40px;padding:0 14px;border-radius:12px;background:var(--soft);font-family:'Inter',sans-serif;font-weight:800;font-size:14px;letter-spacing:-0.01em}
+.brand-chip.more{background:transparent;border:1px dashed rgba(4,38,33,.35);font-weight:600;font-family:'Mulish',sans-serif}
+.brand-chip img{height:26px;width:auto;display:block}
+.brandstrip{padding:30px 0 40px}
+.strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.brand-logo{display:flex;align-items:center;justify-content:center;text-align:center;height:76px;padding:0 12px;border-radius:16px;background:#fff;font-family:'Inter',sans-serif;font-weight:800;font-size:16px;letter-spacing:-0.02em;line-height:1.1}
+.brand-logo img{max-height:44px;max-width:100%;width:auto;display:block}
+@media (max-width: 980px){.strip{grid-template-columns:repeat(3,minmax(0,1fr))}.boxes{grid-template-columns:1fr}}
+@media (max-width: 620px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.carousel-sec{background:var(--grey);padding:60px 0}
+.marquee{margin-top:34px;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;gap:18px;width:max-content;margin:0;padding:0;list-style:none;animation:ds-scroll 32s linear infinite}
+.marquee:hover .marquee-track,.marquee:focus-within .marquee-track{animation-play-state:paused}
+.logo-item{flex:0 0 auto;width:220px;height:110px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;padding:0 22px;font-family:'Inter',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.02em;line-height:1.1;text-align:center}
+.logo-item img{max-height:56px;max-width:100%;width:auto;display:block}
+@keyframes ds-scroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 9px))}}
+@media (prefers-reduced-motion: reduce){.marquee-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto}.marquee-track .logo-item[aria-hidden]{display:none}.marquee{-webkit-mask-image:none;mask-image:none}}
+@media (max-width: 620px){.logo-item{width:170px;height:90px;font-size:16px}}
+
+.pick{display:flex;flex-direction:column;gap:10px}
+.pick-row{display:flex;justify-content:space-between;align-items:center;gap:14px;background:#fff;color:var(--ink);border-radius:16px;padding:16px 20px;text-decoration:none;min-height:64px;transition:transform .15s ease}
+.pick-row:hover{transform:translateY(-1px);color:var(--ink)}
+.pick-row b{font-family:'Inter',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.02em;display:block}
+.pick-row small{display:block;font-size:13px;font-weight:600;opacity:.8}
+.pick-row .pp{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;text-align:right;white-space:nowrap}
+.signup .fine{font-size:13px;margin:4px 0 0;opacity:.9}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Daily Stack home"><b>Daily</b><span>stack</span><svg aria-hidden="true" width="12" height="6" viewBox="0 0 12 6"><rect x="0.6" y="0.6" width="10.8" height="4.8" rx="2.4" fill="none" stroke="#2E9E6A" stroke-width="1.2"/><path d="M3 0.6 H6 V5.4 H3 A2.4 2.4 0 0 1 3 0.6 Z" fill="#2E9E6A"/></svg></a>
+    <nav aria-label="Main">
+      <a class="hide-sm" href="#products">What's inside</a>
+      <a class="hide-sm" href="#how">How it works</a>
+      <a class="hide-sm" href="#faq">FAQ</a>
+      <a class="btn small" href="#boxes">Subscribe</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO: SUBSCRIBE FIRST ============ -->
+<section class="hero" id="boxes" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero-head">
+      <div>
+        <div class="eyebrow">Vitamin subscription · NL &amp; DE</div>
+        <h1 class="display" id="hero-title" style="margin-top:10px"><span class="bold">The best brands.</span><br><span class="thin">One box. Every month.</span></h1>
+      </div>
+      <div>
+        <p class="lead">We compared the vitamin market and picked the best brand for every supplement. You just choose your stack.</p>
+        <ul class="perks">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1F7A50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Free shipping</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1F7A50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancel anytime</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1F7A50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Original, sealed products</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="boxes">
+      <article class="box featured" aria-labelledby="foundation">
+        <span class="badge">Most popular</span>
+        <h2 class="display bold" id="foundation">Foundation <span class="thin">Stack</span></h2>
+        <p class="for">The everyday basics, done right. 7 supplements.</p>
+        <div class="brand-row" aria-label="Brands in this box"><span class="brand-chip" data-logo="assets/brands/nordic-naturals.png">Nordic Naturals</span><span class="brand-chip" data-logo="assets/brands/pure-encapsulations.png">Pure Encapsulations</span><span class="brand-chip more">+ more top brands</span></div>
+        <div class="price"><span class="amount">€84.95</span><span class="per">/ month · free shipping</span></div>
+        <ul class="inside"><li><b>Multivitamin</b> · [BRAND TBC]</li><li><b>Vitamin D3</b> · [BRAND TBC]</li><li><b>Vitamin K2</b> · [BRAND TBC]</li><li><b>Omega-3</b> · Nordic Naturals Ultimate Omega</li><li><b>Magnesium</b> · Pure Encapsulations Magnesium Glycinate</li><li><b>Vitamin C</b> · Pure Encapsulations Vitamin C 1000 Buffered</li><li><b>Monthly discovery</b> · a new product to try every month</li></ul>
+        <div class="extras">+ weekly pill organizer, personal daily schedule &amp; a "why this brand" card per product</div>
+        <div class="actions">
+          <a class="btn green" href="#join" data-box="foundation">Subscribe to Foundation</a>
+          <p class="note">Monthly · pause or cancel anytime</p>
+        </div>
+      </article>
+      <article class="box" aria-labelledby="her">
+        
+        <h2 class="display bold" id="her">Her <span class="thin">Stack</span></h2>
+        <p class="for">Put together for women. 8 supplements.</p>
+        <div class="brand-row" aria-label="Brands in this box"><span class="brand-chip" data-logo="assets/brands/nordic-naturals.png">Nordic Naturals</span><span class="brand-chip" data-logo="assets/brands/pure-encapsulations.png">Pure Encapsulations</span><span class="brand-chip" data-logo="assets/brands/mattisson.png">Mattisson</span><span class="brand-chip more">+ more top brands</span></div>
+        <div class="price"><span class="amount">€99.95</span><span class="per">/ month · free shipping</span></div>
+        <ul class="inside"><li><b>Women's multivitamin</b> · with iron · [BRAND TBC]</li><li><b>Vitamin D3 + K2</b> · [BRAND TBC]</li><li><b>Omega-3</b> · Nordic Naturals Ultimate Omega</li><li><b>Magnesium</b> · Pure Encapsulations Magnesium Glycinate</li><li><b>Vitamin B12</b> · methylcobalamin · [BRAND TBC]</li><li><b>Creatine</b> · Mattisson Healthstyle Creapure®</li><li><b>Collagen powder</b> · [BRAND TBC]</li><li><b>Vitamin C</b> · Pure Encapsulations · contributes to normal collagen formation for the normal function of skin</li></ul>
+        <div class="extras">+ pill organizer, shaker, daily schedule &amp; monthly discovery product</div>
+        <div class="actions">
+          <a class="btn" href="#join" data-box="her">Subscribe to Her Stack</a>
+          <p class="note">Monthly · pause or cancel anytime</p>
+        </div>
+      </article>
+      <article class="box" aria-labelledby="energy">
+        
+        <h2 class="display bold" id="energy">Energy <span class="thin">Stack</span></h2>
+        <p class="for">For busy days and training days. 7 supplements.</p>
+        <div class="brand-row" aria-label="Brands in this box"><span class="brand-chip" data-logo="assets/brands/nordic-naturals.png">Nordic Naturals</span><span class="brand-chip" data-logo="assets/brands/pure-encapsulations.png">Pure Encapsulations</span><span class="brand-chip" data-logo="assets/brands/mattisson.png">Mattisson</span><span class="brand-chip more">+ more top brands</span></div>
+        <div class="price"><span class="amount">€89.95</span><span class="per">/ month · free shipping</span></div>
+        <ul class="inside"><li><b>B-complex</b> · [BRAND TBC]</li><li><b>Vitamin D3 + K2</b> · [BRAND TBC]</li><li><b>Omega-3</b> · Nordic Naturals Ultimate Omega</li><li><b>Magnesium</b> · Pure Encapsulations Magnesium Glycinate · contributes to the reduction of tiredness and fatigue</li><li><b>Creatine</b> · Mattisson Healthstyle Creapure®</li><li><b>Electrolytes</b> · [BRAND TBC]</li><li><b>Monthly discovery</b> · a new product to try every month</li></ul>
+        <div class="extras">+ shaker, pill organizer &amp; training-day schedule</div>
+        <div class="actions">
+          <a class="btn" href="#join" data-box="energy">Subscribe to Energy Stack</a>
+          <p class="note">Monthly · pause or cancel anytime</p>
+        </div>
+      </article>
+      <article class="box" aria-labelledby="winter">
+        <span class="badge">Christmas gift</span>
+        <h2 class="display bold" id="winter">Winter <span class="thin">Stack</span></h2>
+        <p class="for">The Christmas gift that lasts all winter. 6 supplements + 4 extras.</p>
+        <div class="brand-row" aria-label="Brands in this box"><span class="brand-chip" data-logo="assets/brands/nordic-naturals.png">Nordic Naturals</span><span class="brand-chip" data-logo="assets/brands/pure-encapsulations.png">Pure Encapsulations</span><span class="brand-chip more">+ more top brands</span></div>
+        <div class="price"><span class="amount">€69.95</span><span class="per">gift box · free shipping</span></div>
+        <ul class="inside"><li><b>Vitamin C</b> · Pure Encapsulations Vitamin C 1000 Buffered</li><li><b>Vitamin D3 + K2</b> · [BRAND TBC]</li><li><b>Zinc</b> · [BRAND TBC]</li><li><b>Selenium</b> · [BRAND TBC]</li><li><b>Omega-3</b> · Nordic Naturals Ultimate Omega</li><li><b>Multivitamin</b> · [BRAND TBC] · doses matched to the rest of the box</li><li><b>Extras</b> · ginger-lemon tea, Dutch honey, lip balm &amp; a gift card</li></ul>
+        <div class="extras">Vitamin C, D, zinc and selenium contribute to the normal function of the immune system.</div>
+        <div class="actions">
+          <a class="btn" href="#join" data-box="winter">Order the Winter Stack</a>
+          <p class="note">Order before [DATE] for delivery before Christmas</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ PRODUCTS: THE BEST OF THE BEST ============ -->
+<section class="white" id="products" aria-labelledby="p-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">What's inside</div>
+      <h2 class="display" id="p-title"><span class="bold">Real brands.</span> <span class="thin">The best of the best.</span></h2>
+      <p>No white-label mystery pills. Every product is an original, sealed product from a brand we chose for its form, dose and reputation. Here's why.</p>
+    </div>
+    <div class="products">
+      <article class="product">
+        <div class="bottle tall" aria-hidden="true"><div class="cap"></div><div class="body"><div class="label">Nordic<small>Omega-3</small></div></div></div>
+        <div>
+          <div class="brand">Nordic Naturals</div>
+          <h3>Ultimate Omega</h3>
+          <p>Concentrated omega-3 (EPA and DHA) from fish oil. EPA and DHA contribute to the normal function of the heart (at 250 mg per day).</p>
+          <div class="in"><span class="chip">Foundation</span><span class="chip">Her</span><span class="chip">Energy</span><span class="chip">Winter</span></div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="bottle" aria-hidden="true"><div class="cap"></div><div class="body"><div class="label">Pure<small>Magne&shy;sium</small></div></div></div>
+        <div>
+          <div class="brand">Pure Encapsulations</div>
+          <h3>Magnesium Glycinate</h3>
+          <p>Magnesium bound to glycine: a form that's gentle on the stomach. Magnesium contributes to the reduction of tiredness and fatigue.</p>
+          <div class="in"><span class="chip">Foundation</span><span class="chip">Her</span><span class="chip">Energy</span></div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="bottle short" aria-hidden="true"><div class="cap"></div><div class="body"><div class="label">Pure<small>Vitamin C</small></div></div></div>
+        <div>
+          <div class="brand">Pure Encapsulations</div>
+          <h3>Vitamin C 1000 Buffered</h3>
+          <p>Buffered vitamin C, gentler than regular ascorbic acid. Vitamin C contributes to the normal function of the immune system.</p>
+          <div class="in"><span class="chip">Foundation</span><span class="chip">Winter</span></div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="bottle wide" aria-hidden="true"><div class="cap"></div><div class="body"><div class="label">Mattisson<small>Creatine</small></div></div></div>
+        <div>
+          <div class="brand">Mattisson Healthstyle</div>
+          <h3>Creatine Creapure®</h3>
+          <p>Made with Creapure®, creatine monohydrate produced in Germany. Creatine increases physical performance in successive bursts of short, high-intensity exercise (3 g daily).</p>
+          <div class="in"><span class="chip">Her</span></div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="bottle" aria-hidden="true"><div class="cap"></div><div class="body"><div class="label">[MULTI]<small>Multi</small></div></div></div>
+        <div>
+          <div class="brand">[BRAND]</div>
+          <h3>[Multivitamin to confirm]</h3>
+          <p>[Why we chose it. We match the vitamin D in the multi to the separate D3, so the total stays sensible.]</p>
+          <div class="in"><span class="chip">Foundation</span><span class="chip">Her</span></div>
+        </div>
+      </article>
+      <article class="product">
+        <div class="bottle short" aria-hidden="true"><div class="cap"></div><div class="body"><div class="label">[ZINC]<small>Zinc</small></div></div></div>
+        <div>
+          <div class="brand">[BRAND]</div>
+          <h3>[Zinc to confirm]</h3>
+          <p>[Why we chose it.] Zinc contributes to the normal function of the immune system.</p>
+          <div class="in"><span class="chip">Winter</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how" aria-labelledby="h-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How it works</div>
+      <h2 class="display" id="h-title"><span class="bold">Three steps.</span> <span class="thin">Zero research.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>We compare</h3><p>We read the labels, compare forms and doses, and choose the best brand for every vitamin.</p></div>
+      <div class="step"><div class="n">2</div><h3>You pick your stack</h3><p>Foundation, Her, Energy or Winter. Every stack is matched so nothing doubles up.</p></div>
+      <div class="step"><div class="n">3</div><h3>Delivered monthly</h3><p>One box through your letterbox, shipping included. Pause, switch or cancel anytime.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ BRAND CAROUSEL ============ -->
+<section class="carousel-sec" aria-labelledby="brands-title">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">The brands in your stack</div>
+    <h2 class="display" id="brands-title" style="font-size:clamp(30px,4vw,46px);margin-top:8px"><span class="bold">Only the best brands.</span> <span class="thin">Original &amp; sealed.</span></h2>
+  </div>
+  <div class="marquee" tabindex="0" aria-label="Brands we carry">
+    <ul class="marquee-track"><li class="logo-item"><span data-logo="assets/brands/nordic-naturals.png">Nordic Naturals</span></li><li class="logo-item"><span data-logo="assets/brands/pure-encapsulations.png">Pure Encapsulations</span></li><li class="logo-item"><span data-logo="assets/brands/mattisson.png">Mattisson Healthstyle</span></li><li class="logo-item"><span data-logo="assets/brands/brand-4.png">[BRAND 4]</span></li><li class="logo-item"><span data-logo="assets/brands/brand-5.png">[BRAND 5]</span></li><li class="logo-item"><span data-logo="assets/brands/brand-6.png">[BRAND 6]</span></li><li class="logo-item"><span data-logo="assets/brands/brand-7.png">[BRAND 7]</span></li><li class="logo-item"><span data-logo="assets/brands/brand-8.png">[BRAND 8]</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/nordic-naturals.png">Nordic Naturals</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/pure-encapsulations.png">Pure Encapsulations</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/mattisson.png">Mattisson Healthstyle</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/brand-4.png">[BRAND 4]</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/brand-5.png">[BRAND 5]</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/brand-6.png">[BRAND 6]</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/brand-7.png">[BRAND 7]</span></li><li class="logo-item" aria-hidden="true"><span data-logo="assets/brands/brand-8.png">[BRAND 8]</span></li></ul>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="white" aria-labelledby="t-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Why trust us</div>
+      <h2 class="display" id="t-title"><span class="bold">Picked for you,</span> <span class="thin">explained to you.</span></h2>
+    </div>
+    <div class="trust">
+      <div><h3>Every choice explained</h3><p>Each box comes with a card per product: why this brand, why this form, why this dose.</p></div>
+      <div><h3>Nothing doubles up</h3><p>Separate bottles often repeat the same vitamins. We match every stack so the totals stay sensible.</p></div>
+      <div><h3>Original &amp; sealed</h3><p>We sell the real products, unopened, exactly as the brand made them.</p></div>
+      <div><h3>Honest claims only</h3><p>No miracle promises. We only use health claims approved by the EU.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY NOT BUY YOURSELF ============ -->
+<section aria-labelledby="c-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Why a stack</div>
+      <h2 class="display" id="c-title"><span class="bold">Same brands.</span> <span class="thin">Less hassle.</span></h2>
+    </div>
+    <div class="compare">
+      <div class="them">
+        <h3>Buying it yourself</h3>
+        <ul>
+          <li>Hours of comparing brands and reviews</li>
+          <li>3–4 webshops, several shipping costs</li>
+          <li>Bottles running out at different times</li>
+          <li>No idea if the doses add up too high</li>
+        </ul>
+      </div>
+      <div class="us">
+        <h3>Daily Stack</h3>
+        <ul>
+          <li>The best brand per vitamin, already chosen</li>
+          <li>One box, free shipping</li>
+          <li>Everything arrives together, every month</li>
+          <li>Doses matched, schedule included</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHRISTMAS ============ -->
+<section aria-labelledby="x-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="xmas">
+      <div>
+        <div class="eyebrow" style="color:#7FD1A8">Christmas</div>
+        <h2 class="display" id="x-title"><span class="bold">The gift that lasts</span><br><span class="thin">all winter.</span></h2>
+        <p>The Winter Stack: vitamin C, D3 + K2, zinc, selenium, omega-3 and a multivitamin from the best brands, with ginger-lemon tea, Dutch honey and lip balm.</p>
+        <small>Order before [DATE] for delivery before Christmas.</small>
+      </div>
+      <a class="btn" style="background:#fff;color:var(--ink)" href="#join" data-box="winter">Order the Winter Stack</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="white" id="faq" aria-labelledby="f-title">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">FAQ</div><h2 class="display" id="f-title"><span class="bold">Questions?</span></h2></div>
+    <div class="faq">
+      <details><summary>Can I cancel anytime?</summary><p>Yes. You can pause, switch stacks or cancel online whenever you want. No minimum term.</p></details>
+      <details><summary>Where do you ship?</summary><p>We ship to the Netherlands and Germany. Shipping is included in the price.</p></details>
+      <details><summary>Which brands do you use?</summary><p>Original products from top brands like Nordic Naturals, Pure Encapsulations and Mattisson Healthstyle. You can see every product above, and each box includes a card explaining why we chose it.</p></details>
+      <details><summary>Why not just buy them myself?</summary><p>You can! But you'd spend hours comparing, order from several shops and pay shipping several times. With Daily Stack everything is chosen, matched and delivered together, for the same price or less.</p></details>
+      <details><summary>When does my box arrive?</summary><p>Your first box ships within [X] working days. After that, every month around the same date.</p></details>
+      <details><summary>Is this medical advice?</summary><p>No. Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Pregnant, breastfeeding, using medication or under medical supervision? Ask your doctor or pharmacist first.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA: CHOOSE YOUR STACK ============ -->
+<section id="join" aria-labelledby="j-title">
+  <div class="wrap">
+    <div class="signup">
+      <div>
+        <h2 class="display" id="j-title"><span class="bold">Start your stack.</span></h2>
+        <p>Pick your box and check out in a minute. Free shipping in NL &amp; DE. Pause or cancel anytime in your account.</p>
+      </div>
+      <div class="pick">
+        <a class="pick-row" href="#join" data-box="foundation"><span><b>Foundation Stack</b><small>7 supplements</small></span><span class="pp">€84.95<small>/ month</small></span></a>
+        <a class="pick-row" href="#join" data-box="her"><span><b>Her Stack</b><small>8 supplements</small></span><span class="pp">€99.95<small>/ month</small></span></a>
+        <a class="pick-row" href="#join" data-box="energy"><span><b>Energy Stack</b><small>7 supplements</small></span><span class="pp">€89.95<small>/ month</small></span></a>
+        <a class="pick-row" href="#join" data-box="winter"><span><b>Winter Stack</b><small>Christmas gift box</small></span><span class="pp">€69.95<small>one-off</small></span></a>
+        <p class="fine" id="checkout-msg" role="status" aria-live="polite">Secure checkout · iDEAL, card or SEPA direct debit</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<p class="disclaimer">Brand names and logos are trademarks of their respective owners. Daily Stack is an independent retailer and is not affiliated with or endorsed by these brands. Food supplements are not a substitute for a varied and balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose. Keep out of reach of young children.</p>
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Daily Stack home" style="font-size:22px"><b>Daily</b><span>stack</span></a>
+    <nav aria-label="Footer">
+      <a href="https://instagram.com/dailystack" rel="noopener">Instagram</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="impressum.html">Legal notice / Impressum</a>
+    </nav>
+    <span>© 2026 Daily Stack</span>
+  </div>
+</footer>
+
+<script>
+/* ========= SETTINGS: fill these in ========= */
+const SETTINGS = {
+  // Paste your Stripe Payment Link per box (Stripe > Payment Links > Create link)
+  CHECKOUT: {
+    foundation: "",
+    her: "",
+    energy: "",
+    winter: ""
+  }
+};
+/* =========================================== */
+
+// Brand logos: show the image if the file exists in assets/brands/, otherwise keep the text name
+document.querySelectorAll('[data-logo]').forEach(el => {
+  const img = new Image();
+  img.alt = el.textContent.trim();
+  img.onload = () => { el.textContent = ''; el.appendChild(img); };
+  img.src = el.dataset.logo;
+});
+
+// Every Subscribe button goes straight to checkout
+const msg = document.getElementById('checkout-msg');
+document.querySelectorAll('[data-box]').forEach(btn => {
+  const link = SETTINGS.CHECKOUT[btn.dataset.box];
+  if (link) { btn.href = link; return; }
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    if (msg) {
+      msg.textContent = 'Checkout opens soon. Follow @dailystack on Instagram for the launch.';
+      document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
