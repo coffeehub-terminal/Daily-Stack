@@ -167,7 +167,7 @@ ALL_BRANDS = sorted(set(["21st Century","Absonutrix","Allergy Research Group","A
 STRIPE = {
   "foundation": "https://buy.stripe.com/test_00weVedkR8p3aUI31f97G05",
   "her": "https://buy.stripe.com/test_7sY8wQa8F0WB7Iw45j97G06",
-  "energy": "https://buy.stripe.com/test_aFa4gA6Wt9t72oc8lz97G02",
+  "energy": "https://buy.stripe.com/test_eVq8wQ80xbBfgf26dr97G07",
   "winter": "https://buy.stripe.com/test_6oUdRa80x48N2ocdFT97G01",
 }
 BRAND_LOGO = {"Nordic Naturals": "nordic-naturals", "Pure Encapsulations": "pure-encapsulations", "Solgar": "solgar", "Vitakruid": "vitakruid",
