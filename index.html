@@ -32,7 +32,7 @@ img{max-width:100%}
 
 /* header */
 header.top{position:sticky;top:0;z-index:20;background:rgba(234,234,234,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(4,38,33,.08)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+header.top>.wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
 .logo{display:inline-flex;align-items:baseline;font-family:'Inter',sans-serif;font-size:27px;letter-spacing:-0.045em;line-height:1;text-decoration:none;color:var(--ink)}
 .logo b{font-weight:800}.logo span{font-weight:200}
 .logo svg{margin-left:3px}
@@ -202,6 +202,45 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
 .pick-row .pp{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;text-align:right;white-space:nowrap}
 .signup .fine{font-size:13px;margin:4px 0 0;opacity:.9}
 :focus-visible{outline:3px solid var(--green);outline-offset:3px}
+
+/* mega menu */
+.menubar{border-top:1px solid rgba(4,38,33,.08);background:#fff}
+.menubar>.wrap{display:flex;justify-content:space-between;align-items:stretch;height:50px;gap:12px}
+.mlist,.mlinks{list-style:none;margin:0;padding:0;display:flex;align-items:stretch;gap:4px}
+.mlinks{gap:22px;align-items:center;font-weight:700;font-size:15px}
+.mlinks a{text-decoration:none}
+.mbtn{display:flex;align-items:center;gap:6px;height:100%;padding:0 14px;border:0;background:none;font:700 15px 'Mulish',sans-serif;color:var(--ink);cursor:pointer;white-space:nowrap}
+.mbtn:hover,.mbtn[aria-expanded="true"]{background:var(--soft);color:var(--green-dark)}
+.mbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mpanel{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid rgba(4,38,33,.08);box-shadow:0 24px 40px rgba(4,38,33,.12);max-height:calc(100vh - 120px);overflow-y:auto}
+.mpanel>.wrap{padding-top:30px;padding-bottom:26px}
+.mgrid{display:grid;gap:26px 30px}
+.mgrid.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.mgrid.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mgrid.gb{grid-template-columns:1fr 4fr}
+.mcol.span2 ul{columns:2;column-gap:30px}
+.mcol.span2{grid-column:span 2}
+.mcol.cols4 ul{columns:4;column-gap:30px}
+.mcol h4{margin:0 0 12px;font:800 17px 'Inter',sans-serif;letter-spacing:-0.02em}
+.mcol ul{list-style:none;margin:0;padding:0;font-size:15px;line-height:1.35}
+.mcol li{padding:5px 0;break-inside:avoid}
+.mcol li a{color:var(--green-dark);font-weight:800;text-decoration:none}
+.mcol li a:hover{text-decoration:underline}
+.mfoot{margin-top:26px;padding-top:18px;border-top:1px solid rgba(4,38,33,.1);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.mfoot p{margin:0;font-size:15px}
+header.top{position:sticky}
+@media (max-width:980px){
+  .mlinks{display:none}
+  .menubar>.wrap{overflow-x:auto}
+  .mgrid.g5,.mgrid.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mcol.span2{grid-column:span 2}
+  .mgrid.gb{grid-template-columns:1fr}
+  .mcol.cols4 ul{columns:2}
+}
+@media (max-width:620px){
+  .mbtn{padding:0 10px;font-size:14px}
+  .mgrid.g5,.mgrid.g4{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
@@ -210,12 +249,10 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
   <div class="wrap">
     <a class="logo" href="#" aria-label="Daily Stack home"><b>Daily</b><span>stack</span><svg aria-hidden="true" width="12" height="6" viewBox="0 0 12 6"><rect x="0.6" y="0.6" width="10.8" height="4.8" rx="2.4" fill="none" stroke="#2E9E6A" stroke-width="1.2"/><path d="M3 0.6 H6 V5.4 H3 A2.4 2.4 0 0 1 3 0.6 Z" fill="#2E9E6A"/></svg></a>
     <nav aria-label="Main">
-      <a class="hide-sm" href="#products">What's inside</a>
-      <a class="hide-sm" href="#how">How it works</a>
-      <a class="hide-sm" href="#faq">FAQ</a>
       <a class="btn small" href="#boxes">Subscribe</a>
     </nav>
   </div>
+  <div class="menubar"><div class="wrap"><ul class="mlist"><li class="mitem"><button type="button" class="mbtn" aria-expanded="false" aria-controls="mp-vit">Vitamins &amp; supplements<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></button><div class="mpanel" id="mp-vit" hidden><div class="wrap"><div class="mgrid g5"><div class="mcol "><h4>Vitamins</h4><ul><li><a href="#products">Multivitamin</a></li><li>Vitamin A</li><li>Vitamin B1 (thiamine)</li><li>Vitamin B2 (riboflavin)</li><li>Vitamin B3 (niacin)</li><li>Vitamin B5 (pantothenic acid)</li><li>Vitamin B6 (pyridoxine)</li><li>Vitamin B8 (biotin)</li><li>Vitamin B11 (folic acid)</li><li><a href="#products">Vitamin B12</a></li><li><a href="#products">Vitamin C</a></li><li><a href="#products">Vitamin D3</a></li><li>Vitamin E</li><li><a href="#products">Vitamin K2</a></li></ul></div><div class="mcol "><h4>Minerals</h4><ul><li><a href="#products">Magnesium</a></li><li><a href="#products">Zinc</a></li><li><a href="#products">Selenium</a></li><li>Iron</li><li>Calcium</li><li>Potassium</li><li>Iodine</li><li>Chromium</li></ul></div><div class="mcol span2"><h4>Supplements</h4><ul><li><a href="#products">Omega-3 & fish oil</a></li><li><a href="#products">Collagen</a></li><li>Probiotics</li><li>Prebiotics</li><li>CoQ10</li><li>Protein</li><li>Amino acids</li><li>Antioxidants</li><li>Astaxanthin</li><li>Colostrum</li><li>Enzymes</li><li>Glucosamine</li><li>Inositol</li><li>Lutein</li><li>Melatonin</li><li>MSM</li><li>Quercetin</li><li>Resveratrol</li><li>Taurine</li><li>5-HTP</li></ul></div><div class="mcol "><h4>Herbs &amp; plants</h4><ul><li>Ashwagandha</li><li>Turmeric (curcuma)</li><li>Rhodiola</li><li>Ginseng</li><li>Maca</li><li>Ginkgo biloba</li><li>Echinacea</li><li>Elderberry</li><li>Cranberry</li><li>Boswellia</li><li>Milk thistle</li><li>Saffron</li><li>Spirulina</li><li>Chlorella</li><li>Garlic</li><li>Valerian</li></ul></div></div><div class="mfoot"><p>We source every category from the brands we trust. <b>Green</b> = already in one of our stacks.</p><a class="btn small green" href="#boxes">See the stacks</a></div></div></div></li><li class="mitem"><button type="button" class="mbtn" aria-expanded="false" aria-controls="mp-sport">Sport<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></button><div class="mpanel" id="mp-sport" hidden><div class="wrap"><div class="mgrid g4"><div class="mcol "><h4>Type</h4><ul><li><a href="#products">Creatine</a></li><li><a href="#products">Electrolytes</a></li><li><a href="#products">Collagen</a></li><li>Protein</li><li>Protein bars</li><li>Energy gels</li><li>Pre-workout</li><li>Post-workout</li><li>Green tea extract</li></ul></div><div class="mcol "><h4>Activity</h4><ul><li>Endurance</li><li>Strength & muscle</li></ul></div><div class="mcol "><h4>Amino acids</h4><ul><li>BCAA</li><li>Carnitine</li><li>L-Glutamine</li></ul></div><div class="mcol "><h4>Brands</h4><ul><li><a href="#products">Mattisson Healthstyle</a></li><li><a href="#products">NOW Foods</a></li><li>Applied Nutrition</li><li>BioTechUSA</li><li>OstroVit</li><li>Vitakruid</li></ul></div></div><div class="mfoot"><p>Training? The <b>Energy Stack</b> already includes creatine and electrolytes.</p><a class="btn small green" href="#boxes">See the stacks</a></div></div></div></li><li class="mitem"><button type="button" class="mbtn" aria-expanded="false" aria-controls="mp-brands">Brands<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></button><div class="mpanel" id="mp-brands" hidden><div class="wrap"><div class="mgrid gb"><div class="mcol "><h4>Our top picks</h4><ul><li><a href="#products">Nordic Naturals</a></li><li><a href="#products">Pure Encapsulations</a></li><li><a href="#products">Thorne</a></li><li><a href="#products">Solgar</a></li><li><a href="#products">NOW Foods</a></li><li><a href="#products">Mattisson Healthstyle</a></li><li><a href="#products">Sunday Natural</a></li></ul></div><div class="mcol cols4"><h4>All brands (52)</h4><ul><li>21st Century</li><li>Absonutrix</li><li>Allergy Research Group</li><li>Applied Nutrition</li><li>BioTechUSA</li><li>Blueprint</li><li>Bon Charge</li><li>Bonusan</li><li>Codeage</li><li>Doppelherz</li><li>EuroVital</li><li>Foligain</li><li>Garden of Life</li><li>Goli Nutrition</li><li>H2Tab</li><li>Jarrow Formulas</li><li>Kiki Health</li><li>Laveen</li><li>Life Extension</li><li>Lindens</li><li>Linn Pharma</li><li><a href="#products">Mattisson Healthstyle</a></li><li>Natrol</li><li>Nature's Answer</li><li>NatureWise</li><li>Newton-Everett</li><li><a href="#products">Nordic Naturals</a></li><li>Norsan</li><li><a href="#products">NOW Foods</a></li><li>Optimox</li><li>Orthica</li><li>Orthomol</li><li>OstroVit</li><li>ProHealth Longevity</li><li><a href="#products">Pure Encapsulations</a></li><li>Quicksilver</li><li>Salte</li><li><a href="#products">Solgar</a></li><li><a href="#products">Sunday Natural</a></li><li>SuperFeast</li><li>Swanson</li><li>Ten Percent Club</li><li><a href="#products">Thorne</a></li><li>Trace Minerals</li><li>Viridian</li><li>Vitakruid</li><li>Vitalized</li><li>Vitals</li><li>Vuzïmo</li><li>Watermans</li><li>Yummygums</li><li>Zooki</li></ul></div></div><div class="mfoot"><p>We compare all of these brands and put our top pick for each supplement in your stack.</p><a class="btn small green" href="#boxes">See the stacks</a></div></div></div></li></ul><ul class="mlinks"><li><a href="#boxes">Our stacks</a></li><li><a href="#how">How it works</a></li><li><a href="#faq">FAQ</a></li></ul></div></div>
 </header>
 
 <main>
@@ -512,6 +549,23 @@ document.querySelectorAll('[data-box]').forEach(btn => {
     if (note) note.textContent = 'Checkout opens soon.';
   });
 });
+
+// Mega menu: click to open, hover on desktop, Esc / outside click closes
+(() => {
+  const items=[...document.querySelectorAll('.mitem')];
+  const close=(except)=>items.forEach(li=>{if(li!==except){li.querySelector('.mbtn').setAttribute('aria-expanded','false');li.querySelector('.mpanel').hidden=true;}});
+  const open=li=>{close(li);li.querySelector('.mbtn').setAttribute('aria-expanded','true');li.querySelector('.mpanel').hidden=false;};
+  let timer;
+  const hover=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  items.forEach(li=>{
+    const b=li.querySelector('.mbtn');
+    b.addEventListener('click',()=>{ if(hover||b.getAttribute('aria-expanded')!=='true') open(li); else close(); });
+    if(hover){li.addEventListener('mouseenter',()=>{clearTimeout(timer);open(li)});li.addEventListener('mouseleave',()=>{timer=setTimeout(()=>close(),180)});}
+    li.querySelectorAll('.mpanel a').forEach(a=>a.addEventListener('click',()=>close()));
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  document.addEventListener('click',e=>{if(!e.target.closest('.mitem'))close()});
+})();
 </script>
 </body>
 </html>
