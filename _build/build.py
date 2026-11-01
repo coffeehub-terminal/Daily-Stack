@@ -3,7 +3,7 @@
 Run from anywhere: python3 _build/build.py"""
 import os, re, sys, html, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE
+from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BY = {c["slug"]: c for c in CATEGORIES}
@@ -16,6 +16,17 @@ def read(p): return open(os.path.join(ROOT, p), encoding="utf-8").read()
 def write(p, s):
     full = os.path.join(ROOT, p); os.makedirs(os.path.dirname(full), exist_ok=True)
     open(full, "w", encoding="utf-8").write(s)
+
+
+def visual(brand, product, photo, cls="pv"):
+    """Product photo if we have one, else a clean brand tile marked as a 30-day pack."""
+    if photo:
+        return f'<img src="/assets/products/{photo}.webp" alt="{brand} {product}" width="640" height="640" loading="lazy">'
+    if brand == "Daily Stack":
+        return f'<div class="{cls} mystery" aria-hidden="true"><b>?</b><span>New every month</span></div>'
+    logo = BRAND_LOGO.get(brand)
+    inner = f'<img src="/assets/brands/{logo}.png" alt="{brand}">' if logo else f'<b>{brand}</b>'
+    return f'<div class="{cls}">{inner}<em>{product}</em><span>30-day pack</span></div>'
 
 # ---------------- menu ----------------
 def li_cat(s, label=None):
@@ -129,6 +140,21 @@ a.pshelf{text-decoration:none}a.pshelf img{transition:transform .15s}a.pshelf:ho
 .peek-grid img,.pmystery.small{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#fff;border:1px solid rgba(4,38,33,.1)}
 .pmystery.small{font-size:32px;display:flex}
 .peek-more{display:inline-block;margin-top:12px;font-size:14px;font-weight:800;color:var(--green-dark);text-decoration:none}
+.pack{display:block;font-size:12.5px;opacity:.65;font-weight:600}
+.month-tag{margin:-6px 0 0;font-size:14px;font-weight:800;color:var(--green-dark);display:flex;align-items:center;gap:6px}
+.month-note{display:flex;gap:16px;align-items:center;background:#fff;border-radius:18px;padding:16px 20px;margin:0 0 22px;font-size:16px;line-height:1.45;border-left:5px solid var(--green)}
+.mn-icon{flex:0 0 52px;height:52px;border-radius:14px;background:var(--green-dark);color:#fff;font:800 22px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center;letter-spacing:-0.03em}
+.pv{aspect-ratio:1;width:100%;background:linear-gradient(160deg,#fff,#f1f4f2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:14%;box-sizing:border-box;text-align:center;border-radius:inherit}
+.pv img{max-width:80%;max-height:34%;object-fit:contain;border:0!important;background:none!important;width:auto!important;height:auto!important;aspect-ratio:auto!important}
+.pv b{font:800 20px 'Inter',sans-serif;letter-spacing:-0.03em}
+.pv em{font-style:normal;font-weight:700;font-size:15px;line-height:1.2}
+.pv span{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--green-dark);padding:4px 9px;border-radius:999px}
+.pv.mystery b{font-size:72px;color:var(--green)}.pv.mystery span{background:var(--ink)}
+.pv.small{padding:10%;gap:4px;border:1px solid rgba(4,38,33,.1);border-radius:12px}.pv.small em{display:none}.pv.small span{font-size:7px;padding:2px 5px;letter-spacing:.05em}.pv.small b{font-size:12px}.pv.small.mystery b{font-size:30px}
+.pv.tiny{width:96px;border-radius:16px;padding:10px;gap:5px}.pv.tiny em{display:none}.pv.tiny span{font-size:8px;padding:2px 6px}.pv.tiny b{font-size:13px}
+.pick-vis{max-width:260px;margin:0 0 16px;border-radius:18px;overflow:hidden;border:1px solid rgba(4,38,33,.08)}
+.ppack{margin:2px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
+.product .pk{margin:4px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
 /* inner pages */
 .crumbs{font-size:14px;margin:28px 0 18px}.crumbs a{text-decoration:none;opacity:.75}.crumbs a:hover{opacity:1}
 .page-hero{padding:0 0 40px}
@@ -167,19 +193,65 @@ idx = re.sub(r"\n/\*EXTRA\*/.*?(?=</style>)", "", idx, flags=re.S)
 idx = idx.replace("</style>", EXTRA_CSS + "</style>", 1)
 # Stripe links from catalog
 idx = re.sub(r"CHECKOUT: \{.*?\}", "CHECKOUT: {\n" + ",\n".join(f'    {k}: "{v}"' for k, v in STRIPE.items()) + "\n  }", idx, count=1, flags=re.S)
-# Boxes: remove photo row / big button, add a subtle "View products" dropdown under the list
+# Boxes: rebuilt from the catalog (30-day packs)
 idx = re.sub(r'\n\s*<(?:div|a) class="pshelf".*?</(?:div|a)>', '', idx, flags=re.S)
 idx = re.sub(r'<a class="btn ghost" href="/stack/[a-z]+">See every product</a>\n\s*', '', idx)
-idx = re.sub(r'\n\s*<details class="peek">.*?</details>', '', idx, flags=re.S)
+CHECK = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1F7A50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 for st in STACK_LIST:
     sid = st["id"]
-    tiles = "".join(
-        (f'<li><img src="/assets/products/{im}.webp" alt="{br} {pr}" width="640" height="640" loading="lazy"><span>{lab}</span></li>' if im
-         else f'<li><div class="pmystery small" aria-hidden="true">?</div><span>{lab}</span></li>')
-        for lab, br, pr, cs, im in st["items"])
+    m = re.search(r'id="%s">.*?</article>' % sid, idx, re.S)
+    art = m.group(0); a2 = art
+    a2 = re.sub(r'<p class="for">.*?</p>', f'<p class="for">{st["tagline"]}</p>', a2, count=1, flags=re.S)
+    seen = []
+    for it in st["items"]:
+        if it[1] != "Daily Stack" and it[1] not in seen: seen.append(it[1])
+    row = '<div class="brand-row" aria-label="Brands in this box">' + "".join(
+        (f'<span class="brand-chip" data-logo="assets/brands/{BRAND_LOGO[b]}.png">{b}</span>' if BRAND_LOGO.get(b) else f'<span class="brand-chip">{b}</span>') for b in seen) + '</div>'
+    a2 = re.sub(r'<div class="brand-row"[^>]*>.*?</div>', row, a2, count=1, flags=re.S)
+    lis = "".join((f'<li><b>{lab}</b> · {br} {pr}<span class="pack">{pk}</span></li>' if br != "Daily Stack"
+                   else '<li><b>Monthly discovery</b> · a new product to try every month</li>') for lab, br, pr, pk, cs, im in st["items"])
+    tiles = "".join(f'<li>{visual(br, pr, im, "pv small")}<span>{lab}</span></li>' for lab, br, pr, pk, cs, im in st["items"])
     peek = (f'\n        <details class="peek"><summary>View products</summary><ul class="peek-grid">{tiles}</ul>'
             f'<a class="peek-more" href="/stack/{sid}">Full details per product →</a></details>')
-    idx = re.sub(r'(id="%s">.*?<ul class="inside">.*?</ul>)' % sid, lambda m: m.group(1) + peek, idx, count=1, flags=re.S)
+    a2 = re.sub(r'\n\s*<details class="peek">.*?</details>', '', a2, flags=re.S)
+    a2 = re.sub(r'<ul class="inside">.*?</ul>', lambda mm: f'<ul class="inside">{lis}</ul>' + peek, a2, count=1, flags=re.S)
+    ex = ", ".join(e[0].lower() + e[1:] if not e.startswith("Dutch") else e for e in st["extras"])
+    ex = ex.replace("your daily", "your daily")
+    a2 = re.sub(r'<div class="extras">.*?</div>', f'<div class="extras">+ {ex}</div>', a2, count=1, flags=re.S)
+    a2 = re.sub(r'\n\s*<p class="month-tag">.*?</p>', '', a2, flags=re.S)
+    a2 = re.sub(r'(<div class="price">.*?</div>)', lambda mm: mm.group(1) + f'\n        <p class="month-tag">{CHECK}Every product is a 30-day pack</p>', a2, count=1, flags=re.S)
+    idx = idx.replace(art, a2)
+
+# "Perfect month" message above the boxes
+NOTE = ('<!--MONTH--><div class="month-note"><div class="mn-icon" aria-hidden="true">30</div><div><b>A perfect month in every box.</b> '
+        'Every product comes in a 30-day pack: one pack per supplement, exactly enough for one month. Nothing runs out early, nothing piles up in your cupboard, '
+        'and your next box arrives just as this one runs out.</div></div><!--/MONTH-->\n    ')
+idx = re.sub(r'<!--MONTH-->.*?<!--/MONTH-->\n\s*', '', idx, flags=re.S)
+idx = idx.replace('<div class="boxes">', NOTE + '<div class="boxes">', 1)
+# hero perk
+if "30-day packs" not in idx.split('<ul class="perks">')[1].split('</ul>')[0]:
+    idx = idx.replace('Original, sealed products</li>', 'Original, sealed products</li>\n          <li>' + CHECK + '30-day packs, a perfect month</li>', 1)
+# FAQ
+FAQ = ('<details><summary>Why does everything come in 30-day packs?</summary><p>So every box is exactly one month. You get one pack per supplement with enough for 30 days, '
+       'so nothing runs out halfway and nothing piles up. When your box is almost empty, the next one is already on its way.</p></details>')
+if "Why does everything come in 30-day packs?" not in idx:
+    idx = re.sub(r'(<details><summary>Can I cancel anytime\?</summary>.*?</details>)', lambda mm: FAQ + "\n      " + mm.group(1), idx, count=1, flags=re.S)
+# Products section, rebuilt
+from catalog import OMEGA, MAG, VITC, MULTI, FLORA, CREA
+FEAT = [(OMEGA, "Concentrated omega-3 from wild sardines and anchovies, with 1000 IU vitamin D3 per daily dose. EPA and DHA contribute to the normal function of the heart (250 mg per day)."),
+        (MAG, "Magnesium bound to glycine, a form that's gentle on the stomach. Magnesium contributes to the reduction of tiredness and fatigue."),
+        (VITC, "Non-acidic vitamin C with citrus bioflavonoids, easy on the stomach. Vitamin C contributes to the normal function of the immune system."),
+        (MULTI, "A Dutch multivitamin with 21 vitamins and minerals in well-absorbed forms. Just one tablet a day."),
+        (FLORA, "A Dutch daily bacterial blend with nine strains. One capsule a day, from one of the best-known Dutch brands."),
+        (CREA, "Creapure® creatine made in Germany, in easy capsules. Creatine increases physical performance in successive bursts of short-term, high-intensity exercise (3 g daily).")]
+cards = ""
+for (lab, br, pr, pk, cs, im), desc in FEAT:
+    ins = [s2["name"] for s2 in STACK_LIST if any(x[1] == br and x[2] == pr for x in s2["items"])]
+    cards += (f'\n      <article class="product">\n        <div class="pimg">{visual(br, pr, im, "pv tiny")}</div>\n        <div>\n          <div class="brand">{br}</div>\n'
+              f'          <h3>{pr}</h3>\n          <p class="pk">30-day pack · {pk}</p>\n          <p>{desc}</p>\n          <div class="in">' + "".join(f'<span class="chip">{n}</span>' for n in ins) + '</div>\n        </div>\n      </article>')
+idx = re.sub(r'(id="products".*?<div class="products">).*?(\n    </div>\n  </div>\n</section>)', lambda mm: mm.group(1) + cards + mm.group(2), idx, count=1, flags=re.S)
+idx = idx.replace("No white-label mystery pills. Every product is an original, sealed product from a brand we chose for its form, dose and reputation. Here's why.",
+                  "No white-label mystery pills. Every product is an original, sealed 30-day pack from a brand we chose for its form, dose and reputation. Here's why.")
 write("index.html", idx)
 
 # ---------------- shared template ----------------
@@ -217,9 +289,11 @@ def page(title, desc, body, extra_js=""):
 </html>
 '''
 
-PICK_IMG = {"multivitamin":"thorne-basic-nutrients","vitamin-b-complex":"thorne-b-complex","vitamin-b12":"solgar-b12","vitamin-c":"pure-vitamin-c",
- "vitamin-d3":"sunday-d3-k2","vitamin-k2":"sunday-d3-k2","magnesium":"pure-magnesium","zinc":"solgar-zinc","selenium":"solgar-selenium","omega-3":"nordic-omega",
- "collagen":"now-collagen","creatine":"mattisson-creatine","electrolytes":"now-effer-hydrate"}
+PICK_VIS = {}
+for _st in STACK_LIST:
+    for _lab, _br, _pr, _pk, _cs, _im in _st["items"]:
+        if _cs and _cs not in PICK_VIS: PICK_VIS[_cs] = (_br, _pr, _im)
+PICK_VIS["vitamin-d3"] = PICK_VIS.get("omega-3")
 SAFETY = "Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose. Pregnant, breastfeeding or taking medication? Check with your doctor or pharmacist first."
 
 def brand_links(bs): return "".join(f'<a href="/brands#{slug(b)}">{b}</a>' for b in bs)
@@ -231,7 +305,7 @@ for c in CATEGORIES:
     if c["pick"]:
         b, prod, stacks = c["pick"]
         side = f'''<div class="card pick">
-        {f'<img class="pick-img" src="/assets/products/{PICK_IMG[c["slug"]]}.webp" alt="{b} {prod}" width="640" height="640">' if c["slug"] in PICK_IMG else ""}
+        {f'<div class="pick-vis">{visual(*PICK_VIS[c["slug"]], cls="pv")}</div>' if c["slug"] in PICK_VIS else ""}
         <div class="eyebrow">Our pick</div>
         <div class="who">{b}</div><p style="margin:0">{prod}</p>
         <div class="stack-chips">{"".join(f'<a href="/stack/{s}">In {STACKS[s]} Stack</a>' for s in stacks)}</div>
@@ -293,21 +367,20 @@ write("brands.html", page("Brands", "The supplement brands Daily Stack compares,
 
 # ---------------- stack (plan) pages ----------------
 def why(item):
-    label, brand, prod, cs, im = item
+    label, brand, prod, pk, cs, im = item
     if cs is None: return "Something new to try every month, picked by us from the brands we trust."
     c = BY[cs]
     if c["claims"]: return c["claims"][0]
-    return "Paired with vitamin C in this box, which contributes to normal collagen formation for the normal function of skin."
+    return c["intro"]
 for st in STACK_LIST:
     sid = st["id"]
     cards = ""
     for i, it in enumerate(st["items"], 1):
-        label, brand, prod, cs, im = it
-        pic = (f'<img src="/assets/products/{im}.webp" alt="{brand} {prod}" width="640" height="640" loading="lazy">' if im
-               else '<div class="pmystery" aria-hidden="true">?</div>')
+        label, brand, prod, pk, cs, im = it
+        pic = visual(brand, prod, im, "pv big")
         more = f'<a class="more" href="/c/{cs}">More about {html.unescape(label).lower() if not label.startswith(("Vitamin","Omega","B-")) else label} →</a>' if cs else ""
         cards += f'''<article class="pcard"><div class="pphoto">{pic}<span class="pnum">{i}</span></div>
-        <div class="pbody"><div class="eyebrow">{label}</div><h3>{brand}</h3><p class="pprod">{prod}</p><p class="pwhy">{why(it)}</p>{more}</div></article>'''
+        <div class="pbody"><div class="eyebrow">{label}</div><h3>{brand}</h3><p class="pprod">{prod}</p><p class="ppack">{"30-day pack · " + pk if brand != "Daily Stack" else pk}</p><p class="pwhy">{why(it)}</p>{more}</div></article>'''
     extras = "".join(f"<li>{e}</li>" for e in st["extras"])
     others = "".join(f'<a class="bchip" href="/stack/{o["id"]}">{o["name"]} Stack · {o["price"]}</a>' for o in STACK_LIST if o is not st)
     buy = f'''<div class="buy"><div class="price"><span class="amount">{st["price"]}</span><span class="per">{st["per"]}</span></div>
@@ -324,6 +397,7 @@ for st in STACK_LIST:
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <h2 class="display" style="font-size:clamp(28px,4vw,40px);margin:0 0 20px"><span class="bold">What's in your box</span></h2>
+    <div class="month-note" style="margin-bottom:20px"><div class="mn-icon" aria-hidden="true">30</div><div><b>A perfect month.</b> Every product in this box is a 30-day pack, so you have exactly enough until your next box arrives.</div></div>
     <div class="pgrid">{cards}</div>
     <div class="card" style="margin-top:22px"><h2>Also in the box</h2><ul class="claims">{extras}</ul></div>
     <div class="stack-bottom">{buy}</div>
