@@ -3,7 +3,7 @@
 Run from anywhere: python3 _build/build.py"""
 import os, re, sys, html, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS
+from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BY = {c["slug"]: c for c in CATEGORIES}
@@ -100,6 +100,26 @@ EXTRA_CSS = '''
 @media (max-width:620px){.box .pshelf{gap:6px}.box .pshelf img{width:calc((100% - 24px)/5);height:auto;aspect-ratio:1}}
 .pimg{flex:0 0 96px}.pimg img{width:96px;height:96px;object-fit:cover;border-radius:16px;background:#fff;display:block}
 .pick-img{width:100%;max-width:260px;aspect-ratio:1;object-fit:cover;border-radius:18px;background:#fff;border:1px solid rgba(4,38,33,.08);display:block;margin:0 0 16px;height:auto}
+.stack-hero{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:end}
+.stack-hero h1{font-size:clamp(46px,7vw,88px);margin-top:12px}
+.badge.static{position:static;display:inline-block}
+.buy{background:#fff;border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:12px}
+.btn.big{min-height:56px;font-size:17px}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pcard{background:#fff;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.pphoto{position:relative;background:#fff;border-bottom:1px solid rgba(4,38,33,.06)}
+.pphoto img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;display:block}
+.pmystery{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--soft);font:800 96px 'Inter',sans-serif;color:var(--green)}
+.pnum{position:absolute;top:12px;left:12px;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font:800 14px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center}
+.pbody{padding:18px 20px 20px;display:flex;flex-direction:column;gap:4px;flex:1}
+.pbody h3{margin:4px 0 0;font:800 21px 'Inter',sans-serif;letter-spacing:-0.03em;line-height:1.1}
+.pprod{margin:0;font-weight:700}
+.pwhy{margin:8px 0 0;font-size:14px;opacity:.85}
+.pbody .more{margin-top:auto;padding-top:12px;font-weight:800;font-size:14px;color:var(--green-dark);text-decoration:none}
+.stack-bottom{margin-top:22px;max-width:520px}
+a.pshelf{text-decoration:none}a.pshelf img{transition:transform .15s}a.pshelf:hover img{transform:translateY(-2px)}
+@media (max-width:980px){.stack-hero{grid-template-columns:1fr}.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.pgrid{gap:12px}.pbody{padding:14px}.pbody h3{font-size:18px}.pwhy{display:none}}
 /* inner pages */
 .crumbs{font-size:14px;margin:28px 0 18px}.crumbs a{text-decoration:none;opacity:.75}.crumbs a:hover{opacity:1}
 .page-hero{padding:0 0 40px}
@@ -136,6 +156,22 @@ EXTRA_CSS = '''
 '''
 idx = re.sub(r"\n/\*EXTRA\*/.*?(?=</style>)", "", idx, flags=re.S)
 idx = idx.replace("</style>", EXTRA_CSS + "</style>", 1)
+# Stripe links from catalog
+idx = re.sub(r"CHECKOUT: \{.*?\}", "CHECKOUT: {\n" + ",\n".join(f'    {k}: "{v}"' for k, v in STRIPE.items()) + "\n  }", idx, count=1, flags=re.S)
+for st in STACK_LIST:
+    sid = st["id"]
+    idx = re.sub(r'<(?:div|a) class="pshelf"[^>]*>(.*?)</(?:div|a)>(?=\s*<div class="brand-row")',
+                 lambda m, sid=sid: m.group(0) if False else m.group(0), idx)
+    # make this box's photo row a link to its plan page
+    blk = re.search(r'id="%s">.*?(<(?:div|a) class="pshelf"[^>]*>.*?</(?:div|a)>)' % sid, idx, re.S)
+    if blk:
+        inner = re.search(r'>(.*)</(?:div|a)>$', blk.group(1), re.S).group(1)
+        idx = idx.replace(blk.group(1), f'<a class="pshelf" href="/stack/{sid}" aria-label="See every product in the {st["name"]} Stack">{inner}</a>', 1)
+    # "See every product" button above Subscribe
+    btn = f'<a class="btn ghost" href="/stack/{sid}">See every product</a>'
+    if btn not in idx:
+        idx = idx.replace(f'<a class="btn', btn + f'\n          <a class="btn', 1) if False else re.sub(
+            r'(<div class="actions">\s*)(<a class="btn[^"]*" href="[^"]*" data-box="%s")' % sid, lambda m: m.group(1) + btn + "\n          " + m.group(2), idx, count=1)
 write("index.html", idx)
 
 # ---------------- shared template ----------------
@@ -190,7 +226,7 @@ for c in CATEGORIES:
         {f'<img class="pick-img" src="/assets/products/{PICK_IMG[c["slug"]]}.webp" alt="{b} {prod}" width="640" height="640">' if c["slug"] in PICK_IMG else ""}
         <div class="eyebrow">Our pick</div>
         <div class="who">{b}</div><p style="margin:0">{prod}</p>
-        <div class="stack-chips">{"".join(f'<a href="/#{s}">In {STACKS[s]} Stack</a>' for s in stacks)}</div>
+        <div class="stack-chips">{"".join(f'<a href="/stack/{s}">In {STACKS[s]} Stack</a>' for s in stacks)}</div>
         <div class="actions"><a class="btn green" href="/#boxes">See the stacks</a><a class="btn ghost" href="/request?p={q(plain)}">Add it on its own</a></div>
       </div>'''
     else:
@@ -245,6 +281,48 @@ body = f'''<section class="page-hero"><div class="wrap">
   <section style="padding-top:0"><div class="wrap"><div class="brands-az">{cards}</div>
   <p class="small-print">Daily Stack is an independent retailer. Brand names are trademarks of their owners; we are not affiliated with or endorsed by these brands.</p></div></section>'''
 write("brands.html", page("Brands", "The supplement brands Daily Stack compares, and our pick for each supplement.", body))
+
+
+# ---------------- stack (plan) pages ----------------
+def why(item):
+    label, brand, prod, cs, im = item
+    if cs is None: return "Something new to try every month, picked by us from the brands we trust."
+    c = BY[cs]
+    if c["claims"]: return c["claims"][0]
+    return "Paired with vitamin C in this box, which contributes to normal collagen formation for the normal function of skin."
+for st in STACK_LIST:
+    sid = st["id"]
+    cards = ""
+    for i, it in enumerate(st["items"], 1):
+        label, brand, prod, cs, im = it
+        pic = (f'<img src="/assets/products/{im}.webp" alt="{brand} {prod}" width="640" height="640" loading="lazy">' if im
+               else '<div class="pmystery" aria-hidden="true">?</div>')
+        more = f'<a class="more" href="/c/{cs}">More about {html.unescape(label).lower() if not label.startswith(("Vitamin","Omega","B-")) else label} →</a>' if cs else ""
+        cards += f'''<article class="pcard"><div class="pphoto">{pic}<span class="pnum">{i}</span></div>
+        <div class="pbody"><div class="eyebrow">{label}</div><h3>{brand}</h3><p class="pprod">{prod}</p><p class="pwhy">{why(it)}</p>{more}</div></article>'''
+    extras = "".join(f"<li>{e}</li>" for e in st["extras"])
+    others = "".join(f'<a class="bchip" href="/stack/{o["id"]}">{o["name"]} Stack · {o["price"]}</a>' for o in STACK_LIST if o is not st)
+    buy = f'''<div class="buy"><div class="price"><span class="amount">{st["price"]}</span><span class="per">{st["per"]}</span></div>
+      <a class="btn green big" href="{STRIPE[sid]}" data-box="{sid}">{st["cta"]}</a>
+      <p class="small-print" style="margin:6px 0 0">{st.get("note") or "Monthly · pause or cancel anytime · original, sealed products"}</p></div>'''
+    body = f'''<section class="page-hero"><div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#boxes">Stacks</a> / {st["name"]} Stack</nav>
+    <div class="stack-hero"><div>
+      {f'<span class="badge static">{st["badge"]}</span>' if st["badge"] else ""}
+      <h1 class="display"><span class="bold">{st["name"]}</span> <span class="thin">Stack</span></h1>
+      <p class="lead">{st["tagline"]}</p></div>
+      {buy}
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <h2 class="display" style="font-size:clamp(28px,4vw,40px);margin:0 0 20px"><span class="bold">What's in your box</span></h2>
+    <div class="pgrid">{cards}</div>
+    <div class="card" style="margin-top:22px"><h2>Also in the box</h2><ul class="claims">{extras}</ul></div>
+    <div class="stack-bottom">{buy}</div>
+    <p class="small-print">{SAFETY}</p>
+    <div class="related"><h2 class="display" style="font-size:28px;margin:30px 0 14px"><span class="bold">Other stacks</span></h2><div class="bchips">{others}</div></div>
+  </div></section>'''
+    write(f"stack/{sid}.html", page(f'{st["name"]} Stack', st["tagline"], body))
 
 # ---------------- request page ----------------
 opts = "".join(f'<option value="{html.unescape(c["name"])}">' for c in CATEGORIES)

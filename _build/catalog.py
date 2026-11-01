@@ -160,3 +160,39 @@ MENU = {
 
 TOP_BRANDS = ["Nordic Naturals","Pure Encapsulations","Thorne","Solgar","NOW Foods","Mattisson Healthstyle","Sunday Natural"]
 ALL_BRANDS = sorted(set(["21st Century","Absonutrix","Allergy Research Group","Applied Nutrition","BioTechUSA","Blueprint","Bon Charge","Bonusan","Codeage","EuroVital","Foligain","Goli Nutrition","H2Tab","Jarrow Formulas","Kiki Health","Laveen","Life Extension","Lindens","Linn Pharma","Natrol","Nature's Answer","NatureWise","Newton-Everett","Nordic Naturals","Norsan","NOW Foods","Optimox","OstroVit","ProHealth Longevity","Quicksilver","Salte","Solgar","SuperFeast","Swanson","Ten Percent Club","Trace Minerals","Viridian","Vitakruid","Vitalized","Vitals","Vuzïmo","Watermans","Yummygums","Zooki","Pure Encapsulations","Thorne","Mattisson Healthstyle","Sunday Natural","Orthica","Garden of Life","Doppelherz","Orthomol","Vital Proteins"]), key=str.lower)
+
+# ---------------- Stacks (plan pages at /stack/<id>) ----------------
+# item = (label, brand, product, category slug or None, photo name in assets/products or None)
+STRIPE = {
+  "foundation": "https://buy.stripe.com/test_14AcN680xdJn6Es9pD97G04",
+  "her": "https://buy.stripe.com/test_aFabJ2a8FeNr5Ao59n97G03",
+  "energy": "https://buy.stripe.com/test_aFa4gA6Wt9t72oc8lz97G02",
+  "winter": "https://buy.stripe.com/test_6oUdRa80x48N2ocdFT97G01",
+}
+DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try every month", None, None)
+OMEGA = ("Omega-3", "Nordic Naturals", "Ultimate Omega", "omega-3", "nordic-omega")
+MAG = ("Magnesium", "Pure Encapsulations", "Magnesium Glycinate", "magnesium", "pure-magnesium")
+VITC = ("Vitamin C", "Pure Encapsulations", "Buffered Ascorbic Acid", "vitamin-c", "pure-vitamin-c")
+D3K2 = ("Vitamin D3 + K2", "Sunday Natural", "Vitamin D3 + K2 drops", "vitamin-d3", "sunday-d3-k2")
+CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure®", "creatine", "mattisson-creatine")
+MULTI = ("Multivitamin", "Thorne", "Basic Nutrients 2/Day", "multivitamin", "thorne-basic-nutrients")
+STACK_LIST = [
+  dict(id="foundation", name="Foundation", price="€84.95", per="/ month · free shipping", badge="Most popular",
+       tagline="The everyday basics, done right. 7 supplements.",
+       items=[MULTI, ("Vitamin D3","Sunday Natural","Vitamin D3 drops","vitamin-d3","sunday-d3-k2"), ("Vitamin K2","Sunday Natural","Vitamin K2 MK-7","vitamin-k2","sunday-d3-k2"), OMEGA, MAG, VITC, DISCOVERY],
+       extras=["Weekly pill organizer", "Personal daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Foundation"),
+  dict(id="her", name="Her", price="€99.95", per="/ month · free shipping", badge=None,
+       tagline="Put together for women. 8 supplements.",
+       items=[("Women's multivitamin","Thorne","Women's Multi","multivitamin","thorne-womens-multi"), D3K2, OMEGA, MAG,
+              ("Vitamin B12","Solgar","Methylcobalamin","vitamin-b12","solgar-b12"), CREA, ("Collagen powder","NOW Foods","Collagen Peptides","collagen","now-collagen"), VITC],
+       extras=["Pill organizer", "Shaker", "Daily schedule", "Monthly discovery product"], cta="Subscribe to Her Stack"),
+  dict(id="energy", name="Energy", price="€89.95", per="/ month · free shipping", badge=None,
+       tagline="For busy days and training days. 7 supplements.",
+       items=[("B-complex","Thorne","Basic B Complex","vitamin-b-complex","thorne-b-complex"), D3K2, OMEGA, MAG, CREA,
+              ("Electrolytes","NOW Foods","NOW Sports Effer-Hydrate","electrolytes","now-effer-hydrate"), DISCOVERY],
+       extras=["Shaker", "Pill organizer", "Training-day schedule"], cta="Subscribe to Energy Stack"),
+  dict(id="winter", name="Winter", price="€69.95", per="one-time · free shipping", badge="Christmas gift",
+       tagline="Get through the cold months. 6 supplements + 4 extras.",
+       items=[VITC, D3K2, ("Zinc","Solgar","Zinc Picolinate","zinc","solgar-zinc"), ("Selenium","Solgar","Selenium","selenium","solgar-selenium"), OMEGA, MULTI],
+       extras=["Ginger-lemon tea", "Dutch honey", "Lip balm", "Gift card"], cta="Order the Winter Stack", note="Order before 15 December for delivery before Christmas."),
+]
