@@ -204,7 +204,7 @@ STRIPE = {
   "winter": "https://buy.stripe.com/test_6oU14o3Khaxb9QE31f97G08",
 }
 BRAND_LOGO = {"Nordic Naturals": "nordic-naturals", "Pure Encapsulations": "pure-encapsulations", "Solgar": "solgar", "Vitakruid": "vitakruid",
-              "Mattisson Healthstyle": "mattisson", "NOW Foods": "now-foods", "Orthica": None, "Daily Stack": None}
+              "Mattisson Healthstyle": "mattisson", "NOW Foods": "now-foods", "Orthica": "orthica", "Bonusan": "bonusan", "Daily Stack": None}
 OMEGA = ("Omega-3", "Bonusan", "Omega-3 DHA Forte", "30 softgels · 1 a day", "omega-3", None)
 MAG = ("Magnesium", "Vitakruid", "Magnesium 200 Complex", "30 tablets · 1 a day", "magnesium", None)
 VITC = ("Vitamin C", "Bonusan", "Vitamine C-1000", "30 tablets · 1 a day", "vitamin-c", None)
