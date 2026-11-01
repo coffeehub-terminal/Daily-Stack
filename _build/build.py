@@ -312,7 +312,7 @@ NEWFOOT = f'''<footer class="big">
       <div><a class="logo" href="/" aria-label="Daily Stack home" style="font-size:26px"><b>Daily</b><span>stack</span></a>
         <p class="flead">Your vitamins in perfect 30-day packs, from trusted Dutch and European brands. Shipping to all 27 EU countries.</p></div>
       <div><h4>Shop</h4><ul><li><a href="/#boxes">Our stacks</a></li><li><a href="/brands">Brands</a></li><li><a href="/request">Request a product</a></li></ul></div>
-      <div><h4>Help</h4><ul><li><a href="/#faq">FAQ</a></li><li><a href="https://instagram.com/dailystack" rel="noopener">Instagram</a></li><li><a href="/request">Contact</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="/#faq">FAQ</a></li><li><a href="https://www.instagram.com/dailystack_vitamins/" rel="noopener">Instagram</a></li><li><a href="/request">Contact</a></li></ul></div>
       <div><h4>Payment methods</h4>{PAYS}</div>
     </div>
     <p class="fslogan"><b>Never run out.</b><br>Never pile up.</p>
@@ -498,7 +498,7 @@ body = f'''<section class="page-hero"><div class="wrap">
     </form>
   </div></div></section>'''
 REQ_JS = '''// Request form: prefill from ?p= / ?b=, then send by WhatsApp or email (set below)
-const REQUEST = { whatsapp: "", email: "", instagram: "https://instagram.com/dailystack" };
+const REQUEST = { whatsapp: "", email: "", instagram: "https://ig.me/m/dailystack_vitamins" };
 (() => {
   const f=document.getElementById('req'); if(!f) return;
   const u=new URLSearchParams(location.search);
@@ -509,7 +509,7 @@ const REQUEST = { whatsapp: "", email: "", instagram: "https://instagram.com/dai
     if(REQUEST.whatsapp){location.href='https://wa.me/'+REQUEST.whatsapp.replace(/\\D/g,'')+'?text='+encodeURIComponent(t);return;}
     if(REQUEST.email){location.href='mailto:'+REQUEST.email+'?subject='+encodeURIComponent('Product request: '+f.product.value)+'&body='+encodeURIComponent(t);return;}
     navigator.clipboard&&navigator.clipboard.writeText(t).catch(()=>{});
-    document.getElementById('req-note').innerHTML='Copied! Paste it in a DM to <a href="'+REQUEST.instagram+'" target="_blank" rel="noopener">@dailystack on Instagram</a>.';
+    document.getElementById('req-note').innerHTML='Copied! Paste it in a DM to <a href="'+REQUEST.instagram+'" target="_blank" rel="noopener">@dailystack_vitamins on Instagram</a>.';
     window.open(REQUEST.instagram,'_blank','noopener');
   });
 })();'''
