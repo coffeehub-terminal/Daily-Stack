@@ -28,7 +28,7 @@ You need: KVK registration and a business bank account.
    - Winter Stack €69.95 · one-off
 4. Payment Links → Create link for each product:
    - Collect customers' shipping address: on, countries Netherlands and Germany
-   - After payment: "Don't show confirmation page" → redirect to `https://YOURDOMAIN/thank-you?box=foundation` (use her / energy / winter for the others)
+   - After payment: "Don't show confirmation page" → redirect to `https://dailystack-virid.vercel.app/thank-you?box=foundation` (use her / energy / winter for the others)
 5. Settings → Billing → Customer portal: turn it on so customers can cancel and update payment details themselves; turn on the portal link in customer emails.
 6. Open `index.html`, find `SETTINGS` near the bottom, and paste each payment link into `CHECKOUT`.
 Until the links are filled in, the Subscribe buttons show "Checkout opens soon".
@@ -41,5 +41,5 @@ Put official brand logos (with permission) in `assets/brands/` named `nordic-nat
 - Company details in `terms.html`, `privacy.html`, `impressum.html`
 - Prices checked against wholesale costs
 - Replace the drawn bottles with official product photos (with permission)
-- In `index.html`, change `og:image` to the full URL, e.g. `https://YOURDOMAIN/assets/og-image-1200x630.png`
+- In `index.html`, change `og:image` to the full URL, e.g. `https://dailystack-virid.vercel.app/assets/og-image-1200x630.png`
 - Have the health claims, terms and product information checked (NPN / KOAG-KAG) and make sure each product's label information can be viewed before purchase
