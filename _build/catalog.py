@@ -165,7 +165,7 @@ ALL_BRANDS = sorted(set(["21st Century","Absonutrix","Allergy Research Group","A
 # Every product is a 30-day pack, so each box is exactly one month.
 # item = (label, brand, product, pack (what a 30-day pack is), category slug or None, photo name in assets/products or None)
 STRIPE = {
-  "foundation": "https://buy.stripe.com/test_14AcN680xdJn6Es9pD97G04",
+  "foundation": "https://buy.stripe.com/test_00weVedkR8p3aUI31f97G05",
   "her": "https://buy.stripe.com/test_aFabJ2a8FeNr5Ao59n97G03",
   "energy": "https://buy.stripe.com/test_aFa4gA6Wt9t72oc8lz97G02",
   "winter": "https://buy.stripe.com/test_6oUdRa80x48N2ocdFT97G01",
