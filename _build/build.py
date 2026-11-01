@@ -155,6 +155,8 @@ a.pshelf{text-decoration:none}a.pshelf img{transition:transform .15s}a.pshelf:ho
 .pick-vis{max-width:260px;margin:0 0 16px;border-radius:18px;overflow:hidden;border:1px solid rgba(4,38,33,.08)}
 .ppack{margin:2px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
 .product .pk{margin:4px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
+.hero-photo{margin:0 0 22px;border-radius:var(--radius);overflow:hidden;aspect-ratio:21/9;background:#e9d6cc}.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+@media (max-width:620px){.hero-photo{aspect-ratio:4/5}}
 /* inner pages */
 .crumbs{font-size:14px;margin:28px 0 18px}.crumbs a{text-decoration:none;opacity:.75}.crumbs a:hover{opacity:1}
 .page-hero{padding:0 0 40px}
