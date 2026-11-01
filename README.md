@@ -27,7 +27,7 @@ You need: KVK registration and a business bank account.
    - Energy Stack €89.95 · recurring · monthly
    - Winter Stack €69.95 · one-off
 4. Payment Links → Create link for each product:
-   - Collect customers' shipping address: on, countries Netherlands and Germany
+   - Collect customers' shipping address: on, all 27 EU countries
    - After payment: "Don't show confirmation page" → redirect to `https://dailystack-virid.vercel.app/thank-you?box=foundation` (use her / energy / winter for the others)
 5. Settings → Billing → Customer portal: turn it on so customers can cancel and update payment details themselves; turn on the portal link in customer emails.
 6. Open `index.html`, find `SETTINGS` near the bottom, and paste each payment link into `CHECKOUT`.

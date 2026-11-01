@@ -46,7 +46,7 @@ c("Vitamins","vitamin-b12","Vitamin B12","B12 comes almost only from animal food
 c("Vitamins","vitamin-c","Vitamin C","The classic. Found in citrus, peppers and kiwi. A buffered form is gentler on the stomach than plain ascorbic acid.",
   ["Vitamin C contributes to the normal function of the immune system.","Vitamin C contributes to normal collagen formation for the normal function of skin.","Vitamin C increases iron absorption."],
   pick=("Solgar","Ester-C® Plus 1000 mg (30 tablets)",["foundation","her","energy","winter"]),compare=["Solgar","Pure Encapsulations","Bonusan","Vitakruid","Orthica"]),
-c("Vitamins","vitamin-d3","Vitamin D3","In winter the Dutch and German sun is too weak to make enough vitamin D in your skin. That's why it's one of the most taken supplements in both countries.",
+c("Vitamins","vitamin-d3","Vitamin D3","In winter the sun in most of Europe is too weak to make enough vitamin D in your skin. That's why it's one of the most taken supplements across the EU.",
   ["Vitamin D contributes to the maintenance of normal bones.","Vitamin D contributes to the normal function of the immune system.","Vitamin D contributes to the maintenance of normal muscle function."],
   pick=("Nordic Naturals","Ultimate Omega-D3 (vitamin D3 with your omega-3)",["foundation","her","energy","winter"]),compare=["Nordic Naturals","Sunday Natural","Solgar","Orthica","Vitakruid"],
   note="The Dutch Health Council advises extra vitamin D for many groups, including everyone over 70 and people who get little sun."),
@@ -57,7 +57,7 @@ c("Vitamins","vitamin-k2","Vitamin K2","K2 (as MK-7) is often paired with vitami
   compare=["Sunday Natural","Life Extension","Jarrow Formulas","Solgar","Vitakruid"],
   note="Using blood thinners such as warfarin or acenocoumarol? Do not take vitamin K without talking to your doctor."),
 # ---------- Minerals ----------
-c("Minerals","magnesium","Magnesium","One of the most popular supplements in Germany and the Netherlands. Glycinate is a gentle, well-absorbed form that's easy on the stomach.",
+c("Minerals","magnesium","Magnesium","One of Europe's most popular supplements. Glycinate is a gentle, well-absorbed form that's easy on the stomach.",
   ["Magnesium contributes to the reduction of tiredness and fatigue.","Magnesium contributes to normal muscle function.","Magnesium contributes to normal psychological function."],
   pick=("Pure Encapsulations","Magnesium Glycinate (90 capsules = 30 days)",["foundation","her","energy"]),compare=["Pure Encapsulations","Thorne","Solgar","NOW Foods","Vitakruid"]),
 c("Minerals","zinc","Zinc","Found in meat, shellfish, seeds and legumes. Picolinate and bisglycinate are well-absorbed forms.",
