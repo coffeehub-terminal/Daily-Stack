@@ -94,6 +94,12 @@ EXTRA_CSS = '''
 .browse-cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
 @media (max-width:980px){.browse{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.browse{grid-template-columns:1fr}}
+.pshelf{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 0}
+.pshelf img{width:68px;height:68px;object-fit:cover;border-radius:14px;background:#fff;border:1px solid rgba(4,38,33,.1)}
+.box .pshelf img{width:78px;height:78px}
+@media (max-width:620px){.box .pshelf{gap:6px}.box .pshelf img{width:calc((100% - 24px)/5);height:auto;aspect-ratio:1}}
+.pimg{flex:0 0 96px}.pimg img{width:96px;height:96px;object-fit:cover;border-radius:16px;background:#fff;display:block}
+.pick-img{width:100%;max-width:260px;aspect-ratio:1;object-fit:cover;border-radius:18px;background:#fff;border:1px solid rgba(4,38,33,.08);display:block;margin:0 0 16px;height:auto}
 /* inner pages */
 .crumbs{font-size:14px;margin:28px 0 18px}.crumbs a{text-decoration:none;opacity:.75}.crumbs a:hover{opacity:1}
 .page-hero{padding:0 0 40px}
@@ -111,7 +117,7 @@ EXTRA_CSS = '''
 .pick .actions{display:flex;flex-direction:column;gap:10px;margin-top:20px}
 .stack-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .stack-chips a{font-size:13px;font-weight:800;border-radius:999px;padding:4px 12px;background:var(--soft);text-decoration:none}
-.note{background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px;margin-top:16px}
+.info-note{background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px;margin-top:16px}
 .brand-list{display:flex;flex-wrap:wrap;gap:8px}
 .brand-list a{font-weight:800;font-size:15px;border-radius:999px;padding:8px 14px;background:var(--soft);text-decoration:none}
 .related{margin-top:22px}
@@ -167,6 +173,9 @@ def page(title, desc, body, extra_js=""):
 </html>
 '''
 
+PICK_IMG = {"multivitamin":"thorne-basic-nutrients","vitamin-b-complex":"thorne-b-complex","vitamin-b12":"solgar-b12","vitamin-c":"pure-vitamin-c",
+ "vitamin-d3":"sunday-d3-k2","vitamin-k2":"sunday-d3-k2","magnesium":"pure-magnesium","zinc":"solgar-zinc","selenium":"solgar-selenium","omega-3":"nordic-omega",
+ "collagen":"now-collagen","creatine":"mattisson-creatine","electrolytes":"now-effer-hydrate"}
 SAFETY = "Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Do not exceed the recommended daily dose. Pregnant, breastfeeding or taking medication? Check with your doctor or pharmacist first."
 
 def brand_links(bs): return "".join(f'<a href="/brands#{slug(b)}">{b}</a>' for b in bs)
@@ -178,6 +187,7 @@ for c in CATEGORIES:
     if c["pick"]:
         b, prod, stacks = c["pick"]
         side = f'''<div class="card pick">
+        {f'<img class="pick-img" src="/assets/products/{PICK_IMG[c["slug"]]}.webp" alt="{b} {prod}" width="640" height="640">' if c["slug"] in PICK_IMG else ""}
         <div class="eyebrow">Our pick</div>
         <div class="who">{b}</div><p style="margin:0">{prod}</p>
         <div class="stack-chips">{"".join(f'<a href="/#{s}">In {STACKS[s]} Stack</a>' for s in stacks)}</div>
@@ -190,7 +200,7 @@ for c in CATEGORIES:
         <p style="margin:0">Tell us you want it and we'll add it to your next box, from the brand we rate best. No extra shipping.</p>
         <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px"><a class="btn green" href="/request?p={q(plain)}">Request {plain}</a><a class="btn ghost" href="/#boxes">See the stacks</a></div>
       </div>'''
-    note = f'<div class="note">{c["note"]}</div>' if c["note"] else ""
+    note = f'<div class="info-note">{c["note"]}</div>' if c["note"] else ""
     related = "".join(f'<a class="bchip{" in" if r["slug"] in IN_STACK else ""}" href="/c/{r["slug"]}">{r["name"]}</a>' for r in CATEGORIES if r["group"] == c["group"] and r is not c)
     body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#browse">{c["group"]}</a> / {name}</nav>

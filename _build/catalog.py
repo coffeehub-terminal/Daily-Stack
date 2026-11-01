@@ -135,7 +135,7 @@ c("Sport","creatine","Creatine","One of the most researched sports supplements. 
   pick=("Mattisson Healthstyle","Creatine Creapure®",["her","energy"]),compare=SPORT[:5]),
 c("Sport","electrolytes","Electrolytes","Sodium, potassium and magnesium to mix into water, for long training sessions or hot days.",
   ["Carbohydrate-electrolyte solutions contribute to the maintenance of endurance performance during prolonged endurance exercise.","Carbohydrate-electrolyte solutions enhance the absorption of water during physical exercise."],
-  pick=("NOW Foods","electrolyte powder",["energy"]),compare=["NOW Foods","Applied Nutrition","Salte","BioTechUSA","OstroVit"]),
+  pick=("NOW Foods","NOW Sports Effer-Hydrate",["energy"]),compare=["NOW Foods","Applied Nutrition","Salte","BioTechUSA","OstroVit"]),
 c("Sport","protein-bars","Protein bars","A quick snack with extra protein, for after training or on the go.",
   ["Protein contributes to a growth in muscle mass."],compare=SPORT[:5]),
 c("Sport","energy-gels","Energy gels","Fast carbohydrates in a small pouch, for long runs and rides.",
