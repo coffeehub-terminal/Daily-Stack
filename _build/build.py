@@ -120,6 +120,15 @@ EXTRA_CSS = '''
 a.pshelf{text-decoration:none}a.pshelf img{transition:transform .15s}a.pshelf:hover img{transform:translateY(-2px)}
 @media (max-width:980px){.stack-hero{grid-template-columns:1fr}.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.pgrid{gap:12px}.pbody{padding:14px}.pbody h3{font-size:18px}.pwhy{display:none}}
+.box details.peek{background:none;border-radius:0;padding:10px 0 0;margin:0;border-top:1px solid rgba(4,38,33,.1)}
+.box .peek summary{padding:4px 0;font-size:15px;color:var(--green-dark);display:inline-flex;justify-content:flex-start;align-items:center;gap:8px}
+.box .peek summary::after,.box details.peek[open] summary::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-3px);font-size:0;transition:transform .15s}
+.box details.peek[open] summary::after{transform:rotate(-135deg) translate(-2px,-1px)}
+.peek-grid{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.peek-grid li{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;line-height:1.2;text-align:center}
+.peek-grid img,.pmystery.small{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#fff;border:1px solid rgba(4,38,33,.1)}
+.pmystery.small{font-size:32px;display:flex}
+.peek-more{display:inline-block;margin-top:12px;font-size:14px;font-weight:800;color:var(--green-dark);text-decoration:none}
 /* inner pages */
 .crumbs{font-size:14px;margin:28px 0 18px}.crumbs a{text-decoration:none;opacity:.75}.crumbs a:hover{opacity:1}
 .page-hero{padding:0 0 40px}
@@ -158,20 +167,19 @@ idx = re.sub(r"\n/\*EXTRA\*/.*?(?=</style>)", "", idx, flags=re.S)
 idx = idx.replace("</style>", EXTRA_CSS + "</style>", 1)
 # Stripe links from catalog
 idx = re.sub(r"CHECKOUT: \{.*?\}", "CHECKOUT: {\n" + ",\n".join(f'    {k}: "{v}"' for k, v in STRIPE.items()) + "\n  }", idx, count=1, flags=re.S)
+# Boxes: remove photo row / big button, add a subtle "View products" dropdown under the list
+idx = re.sub(r'\n\s*<(?:div|a) class="pshelf".*?</(?:div|a)>', '', idx, flags=re.S)
+idx = re.sub(r'<a class="btn ghost" href="/stack/[a-z]+">See every product</a>\n\s*', '', idx)
+idx = re.sub(r'\n\s*<details class="peek">.*?</details>', '', idx, flags=re.S)
 for st in STACK_LIST:
     sid = st["id"]
-    idx = re.sub(r'<(?:div|a) class="pshelf"[^>]*>(.*?)</(?:div|a)>(?=\s*<div class="brand-row")',
-                 lambda m, sid=sid: m.group(0) if False else m.group(0), idx)
-    # make this box's photo row a link to its plan page
-    blk = re.search(r'id="%s">.*?(<(?:div|a) class="pshelf"[^>]*>.*?</(?:div|a)>)' % sid, idx, re.S)
-    if blk:
-        inner = re.search(r'>(.*)</(?:div|a)>$', blk.group(1), re.S).group(1)
-        idx = idx.replace(blk.group(1), f'<a class="pshelf" href="/stack/{sid}" aria-label="See every product in the {st["name"]} Stack">{inner}</a>', 1)
-    # "See every product" button above Subscribe
-    btn = f'<a class="btn ghost" href="/stack/{sid}">See every product</a>'
-    if btn not in idx:
-        idx = idx.replace(f'<a class="btn', btn + f'\n          <a class="btn', 1) if False else re.sub(
-            r'(<div class="actions">\s*)(<a class="btn[^"]*" href="[^"]*" data-box="%s")' % sid, lambda m: m.group(1) + btn + "\n          " + m.group(2), idx, count=1)
+    tiles = "".join(
+        (f'<li><img src="/assets/products/{im}.webp" alt="{br} {pr}" width="640" height="640" loading="lazy"><span>{lab}</span></li>' if im
+         else f'<li><div class="pmystery small" aria-hidden="true">?</div><span>{lab}</span></li>')
+        for lab, br, pr, cs, im in st["items"])
+    peek = (f'\n        <details class="peek"><summary>View products</summary><ul class="peek-grid">{tiles}</ul>'
+            f'<a class="peek-more" href="/stack/{sid}">Full details per product →</a></details>')
+    idx = re.sub(r'(id="%s">.*?<ul class="inside">.*?</ul>)' % sid, lambda m: m.group(1) + peek, idx, count=1, flags=re.S)
 write("index.html", idx)
 
 # ---------------- shared template ----------------
