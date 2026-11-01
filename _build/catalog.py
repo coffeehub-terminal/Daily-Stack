@@ -205,10 +205,10 @@ STRIPE = {
 }
 BRAND_LOGO = {"Nordic Naturals": "nordic-naturals", "Pure Encapsulations": "pure-encapsulations", "Solgar": "solgar", "Vitakruid": "vitakruid",
               "Mattisson Healthstyle": "mattisson", "NOW Foods": "now-foods", "Orthica": "orthica", "Bonusan": "bonusan", "Daily Stack": None}
-OMEGA = ("Omega-3", "Bonusan", "Omega-3 DHA Forte", "30 softgels · 1 a day", "omega-3", None)
-MAG = ("Magnesium", "Vitakruid", "Magnesium 200 Complex", "30 tablets · 1 a day", "magnesium", None)
-VITC = ("Vitamin C", "Bonusan", "Vitamine C-1000", "30 tablets · 1 a day", "vitamin-c", None)
-MULTI = ("Multivitamin", "Vitakruid", "Multi Basis", "30 tablets · 1 a day", "multivitamin", None)
+OMEGA = ("Omega-3", "Bonusan", "Omega-3 DHA Forte", "30 softgels · 1 a day", "omega-3", "bonusan-omega3")
+MAG = ("Magnesium", "Vitakruid", "Magnesium 200 Complex", "30 tablets · 1 a day", "magnesium", "vitakruid-magnesium")
+VITC = ("Vitamin C", "Bonusan", "Vitamine C-1000", "30 tablets · 1 a day", "vitamin-c", "bonusan-c1000")
+MULTI = ("Multivitamin", "Vitakruid", "Multi Basis", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-basis")
 FLORA = ("Probiotic", "Orthica", "Orthiflor Original", "30 capsules · 1 a day", "probiotics", None)
 CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "180 vegicaps · 6 a day (3 g)", "creatine", None)
 DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try, picked by us", "1 product a month", None, None)
@@ -224,7 +224,7 @@ STACK_LIST = [
        extras=["Pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Her Stack"),
   dict(id="energy", name="Energy", price="€129", per="/ month · free shipping", badge=None,
        tagline="For busy days and training days. 6 supplements.",
-       items=[("Sport multivitamin", "Vitakruid", "Multi Dag Man Sport", "30 tablets · 1 a day", "multivitamin", None), OMEGA, MAG, CREA, VITC, FLORA],
+       items=[("Sport multivitamin", "Vitakruid", "Multi Dag Man Sport", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-sport"), OMEGA, MAG, CREA, VITC, FLORA],
        extras=["Shaker (first box)", "Pill organizer (first box)", "Training-day schedule"], cta="Subscribe to Energy Stack"),
   dict(id="winter", name="Winter", price="€109", per="one-time · free shipping", badge="Christmas gift",
        tagline="A 30-day winter plan. 5 supplements + 4 extras.",
