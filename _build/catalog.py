@@ -168,7 +168,7 @@ STRIPE = {
   "foundation": "https://buy.stripe.com/test_00weVedkR8p3aUI31f97G05",
   "her": "https://buy.stripe.com/test_7sY8wQa8F0WB7Iw45j97G06",
   "energy": "https://buy.stripe.com/test_eVq8wQ80xbBfgf26dr97G07",
-  "winter": "https://buy.stripe.com/test_6oUdRa80x48N2ocdFT97G01",
+  "winter": "https://buy.stripe.com/test_6oU14o3Khaxb9QE31f97G08",
 }
 BRAND_LOGO = {"Nordic Naturals": "nordic-naturals", "Pure Encapsulations": "pure-encapsulations", "Solgar": "solgar", "Vitakruid": "vitakruid",
               "Mattisson Healthstyle": "mattisson", "NOW Foods": "now-foods", "Orthica": None, "Daily Stack": None}
