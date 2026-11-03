@@ -5,7 +5,7 @@
    "price": 8900,
    "recurring": true,
    "count": 6,
-   "link": "https://buy.stripe.com/test_cNi5kE1C97kZ6Es59n97G09",
+   "link": "https://buy.stripe.com/bJe5kEbeoabVeqKe8r0oM00",
    "photos": [
     "vitakruid-multi-basis",
     "bonusan-omega3",
@@ -24,7 +24,7 @@
    "price": 9900,
    "recurring": true,
    "count": 6,
-   "link": "https://buy.stripe.com/test_aFa5kE3Kh5cR7IwbxL97G0a",
+   "link": "https://buy.stripe.com/aFa00kbeo1Fp2I2fcv0oM01",
    "photos": [
     "vitakruid-multi-vrouw",
     "bonusan-omega3",
@@ -43,7 +43,7 @@
    "price": 9900,
    "recurring": true,
    "count": 6,
-   "link": "https://buy.stripe.com/test_7sYfZi94B20F0g459n97G0b",
+   "link": "https://buy.stripe.com/cNibJ21DOabV2I26FZ0oM02",
    "photos": [
     "vitakruid-multi-sport",
     "bonusan-omega3",
@@ -62,7 +62,7 @@
    "price": 8900,
    "recurring": false,
    "count": 5,
-   "link": "https://buy.stripe.com/test_00wfZi5Sp5cRe6UbxL97G0c",
+   "link": "https://buy.stripe.com/5kQ9AU5U46ZJ1DYggz0oM03",
    "photos": [
     "bonusan-c1000",
     "vitakruid-multi-basis",

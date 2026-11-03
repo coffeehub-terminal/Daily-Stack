@@ -302,10 +302,10 @@ ALL_BRANDS = sorted(set(sum((_c["compare"] for _c in CATEGORIES), []) + TOP_BRAN
 # Every product is a 30-day pack, so each box is exactly one month.
 # item = (label, brand, product, pack (what a 30-day pack is), category slug or None, photo name in assets/products or None)
 STRIPE = {
-  "foundation": "https://buy.stripe.com/test_cNi5kE1C97kZ6Es59n97G09",
-  "her": "https://buy.stripe.com/test_aFa5kE3Kh5cR7IwbxL97G0a",
-  "energy": "https://buy.stripe.com/test_7sYfZi94B20F0g459n97G0b",
-  "winter": "https://buy.stripe.com/test_00wfZi5Sp5cRe6UbxL97G0c",
+  "foundation": "https://buy.stripe.com/bJe5kEbeoabVeqKe8r0oM00",
+  "her": "https://buy.stripe.com/aFa00kbeo1Fp2I2fcv0oM01",
+  "energy": "https://buy.stripe.com/cNibJ21DOabV2I26FZ0oM02",
+  "winter": "https://buy.stripe.com/5kQ9AU5U46ZJ1DYggz0oM03",
 }
 BRAND_LOGO = {"Nordic Naturals": "nordic-naturals", "Pure Encapsulations": "pure-encapsulations", "Solgar": "solgar", "Vitakruid": "vitakruid",
               "Mattisson Healthstyle": "mattisson", "NOW Foods": "now-foods", "Orthica": "orthica", "Bonusan": "bonusan", "Daily Stack": None}
