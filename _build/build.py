@@ -3,7 +3,7 @@
 Run from anywhere: python3 _build/build.py"""
 import os, re, sys, html, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import ADDON, CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
+from catalog import ADDON, ADDON_EXTRA, ADDON_PRICE, SUGGEST, CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BY = {c["slug"]: c for c in CATEGORIES}
@@ -57,7 +57,7 @@ chev = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path
 items = "".join(f'<li class="mitem"><button type="button" class="mbtn" aria-expanded="false" aria-controls="mp-{k}">{t}{chev}</button>'
                 f'<div class="mpanel" id="mp-{k}" hidden><div class="wrap">{c}</div></div></li>' for k, (t, c) in panels.items())
 MENU = (f'<!--MENU--><div class="menubar"><div class="wrap"><ul class="mlist">{items}</ul>'
-        '<ul class="mlinks"><li><a href="/#boxes">Our stacks</a></li><li><a href="/request">Request a product</a></li><li><a href="/#faq">FAQ</a></li></ul></div></div><!--/MENU-->')
+        '<ul class="mlinks"><li><a href="/#boxes">Our stacks</a></li><li><a href="/add-ons">Add-ons</a></li><li><a href="/#faq">FAQ</a></li></ul></div></div><!--/MENU-->')
 
 idx = read("index.html")
 idx = re.sub(r'(<!--MENU-->)?\s*<div class="menubar">.*?(<!--/MENU-->|</div></div>(?=\s*</header>))', "\n  " + MENU, idx, count=1, flags=re.S)
@@ -321,6 +321,9 @@ NEWFOOT = f'''<footer class="big">
 </footer>'''
 idx = re.sub(r'<footer[^>]*>.*?</footer>', lambda mm: NEWFOOT, idx, count=1, flags=re.S)
 
+CART_TAGS = '<!--CART--><link rel="stylesheet" href="/assets/cart.css"><script src="/assets/cart-data.js" defer></script><script src="/assets/cart.js" defer></script><!--/CART-->'
+idx = re.sub(r"<!--CART-->.*?<!--/CART-->", "", idx, flags=re.S).replace("</head>", CART_TAGS + "\n</head>", 1)
+idx = re.sub(r"\n// Every Subscribe button goes straight to Stripe checkout\n.*?\n\}\);\n", "\n", idx, count=1, flags=re.S)
 write("index.html", idx)
 # ---------------- shared template ----------------
 STYLE = re.search(r"<style>(.*?)</style>", idx, re.S).group(1)
@@ -342,6 +345,7 @@ def page(title, desc, body, extra_js=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;800&family=Mulish:wght@400;600;700;800&display=swap">
 <style>{STYLE}</style>
+{CART_TAGS}
 </head>
 <body>
 {USP}{HEADER}
@@ -385,8 +389,8 @@ for c in CATEGORIES:
         <div class="pick-vis">{visual(ab, ap, aimg, cls="pv")}</div>
         <div class="eyebrow">Add-on</div>
         <div class="who">{ab}</div><p style="margin:0">{ap}</p>
-        <p class="small-print" style="margin-top:10px">Add it to any stack. It ships in the same box, no extra shipping.</p>
-        <div class="actions"><a class="btn green" href="/request?p={q(plain)}">Add to my box</a><a class="btn ghost" href="/#boxes">See the stacks</a></div>
+        <p class="small-print" style="margin-top:10px">Add it to any stack. It ships in the same box every month, no extra shipping.</p>
+        <div class="actions"><button type="button" class="btn green" data-addon="{c["slug"]}">Add to my box · €{ADDON_PRICE[c["slug"]]/100:.2f}/month</button><a class="btn ghost" href="/add-ons">See all add-ons</a></div>
       </div>'''
     else:
         side = f'''<div class="card">
@@ -521,4 +525,40 @@ const REQUEST = { whatsapp: "", email: "", instagram: "https://ig.me/m/dailystac
   });
 })();'''
 write("request.html", page("Request a product", "Ask Daily Stack to add any supplement to your monthly box.", body, REQ_JS))
+# ---------------- box drawer data (browser + checkout function) ----------------
+import json
+NAMES = {c["slug"]: html.unescape(c["name"]) for c in CATEGORIES}
+ADDONS = {}
+for k, (br, pr, img) in ADDON.items():
+    if k in NAMES: ADDONS[k] = dict(name=NAMES[k], brand=html.unescape(br), product=html.unescape(pr), photo=img, price=ADDON_PRICE[k], url=f"/c/{k}")
+for k, (br, pr, img, nm) in ADDON_EXTRA.items():
+    ADDONS[k] = dict(name=nm, brand=br, product=pr, photo=img, price=ADDON_PRICE[k], url=None)
+CART_STACKS = {}
+for st in STACK_LIST:
+    CART_STACKS[st["id"]] = dict(name=f'{st["name"]} Stack', price=int(st["price"].replace("€", "")) * 100,
+        recurring=st["id"] != "winter", count=len(st["items"]), link=STRIPE[st["id"]],
+        photos=[i[5] for i in st["items"] if i[5]][:4], suggest=[s for s in SUGGEST[st["id"]] if s in ADDONS])
+CART = dict(stacks=CART_STACKS, addons=ADDONS)
+write("assets/cart-data.js", "window.DS_CART = " + json.dumps(CART, ensure_ascii=False) + ";\n")
+os.makedirs(os.path.join(ROOT, "api"), exist_ok=True)
+write("api/_catalog.json", json.dumps(CART, ensure_ascii=False, indent=1))
+
+cards = ""
+for k, a in ADDONS.items():
+    link = f'<a href="{a["url"]}">{a["name"]}</a>' if a["url"] else a["name"]
+    cards += f'''<article class="acard"><div class="aphoto"><img src="/assets/products/{a["photo"]}.webp" alt="{a["brand"]} {a["product"]}" loading="lazy"></div>
+      <div class="abody"><div class="eyebrow">{link}</div><h3>{a["brand"]}</h3><p>{a["product"]}</p>
+      <div class="aprice">€{a["price"]/100:.2f} <span>/ month</span></div>
+      <button type="button" class="btn green small" data-addon="{k}">Add to my box</button></div></article>'''
+body = f'''<section class="page-hero"><div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Add-ons</nav>
+    <div class="eyebrow">Custom box</div>
+    <h1 class="display"><span class="bold">Start with a stack.</span> <span class="thin">Make it yours.</span></h1>
+    <p class="lead">Every Daily Stack box starts with one of our four stacks. Then add the extras you need. They ship in the same box, as 30-day packs, with no extra shipping.</p>
+    <ol class="asteps"><li><b>1</b> Pick your stack</li><li><b>2</b> Add your extras</li><li><b>3</b> One box, every month</li></ol>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="agrid">{cards}</div>
+  <p class="small-print">We only list products with an approved EU health claim or solid human trials. Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle.</p></div></section>'''
+write("add-ons.html", page("Add-ons", "Start with a stack, then add the extras you need. One box, every month.", body))
+
 print("built", len(CATEGORIES), "category pages,", len(ALL_BRANDS), "brands")

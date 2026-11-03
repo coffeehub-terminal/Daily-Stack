@@ -215,8 +215,26 @@ ADDON = {
   "energy-gels": ("XXL Nutrition", "Energy Gel Pro", "xxl-energy-gel"),
   "post-workout": ("XXL Nutrition", "Muscle Grow (post-workout)", "xxl-muscle-grow"),
 }
-# Photos ready for the add-on packs (no product page yet): Vitakruid Vitamine D3 Vegan (vitakruid-d3),
-# Davitamon Baby vitamine K + D (davitamon-baby-kd), Bonusan Omega-3 algae oil (bonusan-algae-omega3).
+# Add-ons without their own product page.
+ADDON_EXTRA = {
+  "d3": ("Vitakruid", "Vitamine D3 Vegan 25 mcg", "vitakruid-d3", "Vitamin D3"),
+  "kids-d": ("Davitamon", "Baby vitamine K + D drops", "davitamon-baby-kd", "Kids' vitamin D"),
+  "algae-omega3": ("Bonusan", "Omega-3 algae oil (vegan)", "bonusan-algae-omega3", "Vegan omega-3"),
+}
+# DRAFT monthly add-on prices in euro cents (30-day pack, around shelf price). TODO: check against real shelf prices.
+ADDON_PRICE = {
+  "d3": 695, "kids-d": 995, "algae-omega3": 2495, "folic-acid": 695, "iron": 895, "zinc": 995, "iodine": 895,
+  "vitamin-a": 795, "vitamin-b-complex": 995, "vitamin-b3": 795, "vitamin-e": 995, "vitamin-k2": 1295,
+  "selenium": 1495, "calcium": 795, "prebiotics": 1295, "coq10": 1995, "antioxidants": 1995,
+  "echinacea": 1195, "cranberry": 1295, "electrolytes": 1495, "protein-bars": 2495, "energy-gels": 1995, "post-workout": 2995,
+}
+# Suggested extras in the box drawer, per stack.
+SUGGEST = {
+  "foundation": ["d3", "prebiotics", "zinc", "algae-omega3"],
+  "her": ["iron", "folic-acid", "d3", "zinc"],
+  "energy": ["electrolytes", "protein-bars", "d3", "coq10"],
+  "winter": ["d3", "echinacea", "zinc", "cranberry"],
+}
 
 # Menu groups (order shown in the menu)
 MENU = {
