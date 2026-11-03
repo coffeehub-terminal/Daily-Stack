@@ -304,7 +304,7 @@ NEWFOOT = f'''<footer class="big">
       <div><h4>Help</h4><ul><li><a href="/#faq">FAQ</a></li><li><a href="https://www.instagram.com/dailystack_vitamins/" rel="noopener">Instagram</a></li><li><a href="/request">Contact</a></li></ul></div>
       <div><h4>Payment methods</h4>{PAYS}</div>
     </div>
-    <p class="fslogan"><b>Never run out.</b><br>Never pile up.</p>
+    <p class="fslogan"><b>Selected on evidence.</b><br>Delivered every month.</p>
     <div class="fbottom"><span>© 2026 Daily Stack. All rights reserved.</span>
       <nav aria-label="Legal"><a href="/terms">Terms &amp; conditions</a><a href="/privacy">Privacy policy</a><a href="/impressum">Legal notice / Impressum</a></nav></div>
   </div>
