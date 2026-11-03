@@ -3,7 +3,7 @@
 // Needs the environment variable STRIPE_SECRET_KEY in Vercel (Settings > Environment Variables).
 const CATALOG = require('./_catalog.json');
 
-const EU = ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE'];
+const EU = ['NL']; // Netherlands only during launch
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Method not allowed' }); }

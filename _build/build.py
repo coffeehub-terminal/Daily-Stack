@@ -284,7 +284,7 @@ idx = idx.replace("No white-label mystery pills. Every product is an original, s
 # ---------------- USP bar + footer (shared) ----------------
 _ic = lambda d: f'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
 USP = ('<!--USP--><div class="usp"><ul>'
-  f'<li>{_ic("<path d=\'M3 7h11v9H3z\'/><path d=\'M14 10h4l3 3v3h-7\'/><circle cx=\'7\' cy=\'17.5\' r=\'1.7\'/><circle cx=\'17\' cy=\'17.5\' r=\'1.7\'/>")}Free shipping across the EU</li>'
+  f'<li>{_ic("<path d=\'M3 7h11v9H3z\'/><path d=\'M14 10h4l3 3v3h-7\'/><circle cx=\'7\' cy=\'17.5\' r=\'1.7\'/><circle cx=\'17\' cy=\'17.5\' r=\'1.7\'/>")}Free delivery across the Netherlands</li>'
   f'<li>{_ic("<rect x=\'3\' y=\'5\' width=\'18\' height=\'16\' rx=\'2\'/><path d=\'M3 10h18M8 3v4M16 3v4\'/>")}Every product a 30-day pack</li>'
   f'<li>{_ic("<rect x=\'2.5\' y=\'5\' width=\'19\' height=\'14\' rx=\'2\'/><path d=\'M2.5 10h19M6 15h4\'/>")}Pay with iDEAL</li>'
   f'<li>{_ic("<path d=\'M3 12a9 9 0 1 0 3-6.7L3 8\'/><path d=\'M3 3v5h5\'/>")}Pause or cancel anytime</li>'
@@ -299,7 +299,7 @@ NEWFOOT = f'''<footer class="big">
   <div class="wrap">
     <div class="fgrid">
       <div><a class="logo" href="/" aria-label="Daily Stack home" style="font-size:26px"><b>Daily</b><span>stack</span></a>
-        <p class="flead">Your vitamins in perfect 30-day packs, from trusted Dutch and European brands. Shipping to all 27 EU countries.</p></div>
+        <p class="flead">Your vitamins in perfect 30-day packs, from trusted Dutch and European brands. Delivered across the Netherlands.</p></div>
       <div><h4>Shop</h4><ul><li><a href="/#boxes">Our stacks</a></li><li><a href="/add-ons">Add-ons</a></li><li><a href="/evidence">Our standard</a></li><li><a href="/brands">Brands</a></li></ul></div>
       <div><h4>Help</h4><ul><li><a href="/#faq">FAQ</a></li><li><a href="https://www.instagram.com/dailystack_vitamins/" rel="noopener">Instagram</a></li><li><a href="/request">Contact</a></li></ul></div>
       <div><h4>Payment methods</h4>{PAYS}</div>
