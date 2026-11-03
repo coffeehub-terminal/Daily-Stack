@@ -186,7 +186,9 @@ NOT_IN_OUR_BOX = {
   "chlorella": "No solid human evidence.",
   "garlic": "Small effects, and interacts with blood thinners.",
 }
-CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX]
+# Single B vitamins are covered by the B complex, so we don't list them separately.
+COVERED_BY_B_COMPLEX = {"vitamin-b1", "vitamin-b2", "vitamin-b5", "vitamin-b6"}
+CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX and x["slug"] not in COVERED_BY_B_COMPLEX]
 
 # Add-ons: the product we put in your box when you add this to your stack. (brand, product, photo in assets/products)
 ADDON = {
@@ -196,6 +198,8 @@ ADDON = {
   "folic-acid": ("Vitakruid", "Actief Foliumzuur 400 mcg", "vitakruid-folic-acid"),
   "vitamin-e": ("Vitakruid", "Vitamine E 230 TE Complex", "vitakruid-vitamin-e"),
   "vitamin-k2": ("Vitakruid", "Vitamine K2 &amp; D3 drops", "vitakruid-k2-d3"),
+  "zinc": ("Vitakruid", "Zink-Methionine &amp; Koper", "vitakruid-zinc"),
+  "antioxidants": ("Bonusan", "Santiox", "bonusan-santiox"),
   "selenium": ("Pharma Nord", "Bio-Selenium + Zinc", "pharmanord-selenium"),
   "iron": ("Vitakruid", "IJzer Bisglycinaat Complex", "vitakruid-iron"),
   "calcium": ("Vitakruid", "Calcium 400 &amp; D3 uit Rode Alg", "vitakruid-calcium"),
