@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
     p.append(`line_items[${i}][price_data][tax_behavior]`, 'inclusive');
     p.append(`line_items[${i}][price_data][product_data][name]`, it.name);
     p.append(`line_items[${i}][price_data][product_data][description]`, it.desc);
+    p.append(`line_items[${i}][price_data][product_data][tax_code]`, 'txcd_40090001'); // dietary supplements
     if (recurring) p.append(`line_items[${i}][price_data][recurring][interval]`, 'month');
   });
   EU.forEach(c => p.append('shipping_address_collection[allowed_countries][]', c));
