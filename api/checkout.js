@@ -50,7 +50,11 @@ module.exports = async (req, res) => {
       body: p.toString(),
     });
     const j = await r.json();
-    if (!r.ok) { console.error('Stripe error', j.error); return res.status(502).json({ error: 'Payment provider error' }); }
+    if (!r.ok) {
+      console.error('Stripe error', j.error);
+      const msg = String((j.error && j.error.message) || '').replace(/(sk|pk|rk)_(test|live)_[A-Za-z0-9*]+/g, '[key]');
+      return res.status(502).json({ error: 'Payment provider error', detail: msg, code: j.error && j.error.code, param: j.error && j.error.param });
+    }
     return res.status(200).json({ url: j.url });
   } catch (e) {
     console.error(e);
