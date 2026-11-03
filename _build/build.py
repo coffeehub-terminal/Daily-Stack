@@ -3,7 +3,7 @@
 Run from anywhere: python3 _build/build.py"""
 import os, re, sys, html, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
+from catalog import ADDON, CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BY = {c["slug"]: c for c in CATEGORIES}
@@ -151,7 +151,7 @@ a.pshelf{text-decoration:none}a.pshelf img{transition:transform .15s}a.pshelf:ho
 .pv.mystery b{font-size:72px;color:var(--green)}.pv.mystery span{background:var(--ink)}
 .pv.small{padding:10%;gap:4px;border:1px solid rgba(4,38,33,.1);border-radius:12px}.pv.small em{display:none}.pv.small span{font-size:7px;padding:2px 5px;letter-spacing:.05em}.pv.small b{font-size:12px}.pv.small.mystery b{font-size:30px}
 .pv.tiny{width:96px;border-radius:16px;padding:10px;gap:5px}.pv.tiny em{display:none}.pv.tiny span{font-size:8px;padding:2px 6px}.pv.tiny b{font-size:13px}
-.pick-vis{max-width:260px;margin:0 0 16px;border-radius:18px;overflow:hidden;border:1px solid rgba(4,38,33,.08)}
+.pick-vis{max-width:260px;margin:0 0 16px;border-radius:18px;overflow:hidden;border:1px solid rgba(4,38,33,.08)}.pick-vis>img{display:block;width:100%!important;height:auto!important;aspect-ratio:1;object-fit:contain;background:#fff}
 .ppack{margin:2px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
 .product .pk{margin:4px 0 0;font-size:13px;font-weight:800;color:var(--green-dark)}
 .hero-photo{margin:0 0 22px;border-radius:var(--radius);overflow:hidden;aspect-ratio:21/9;background:#e9d6cc}.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
@@ -378,6 +378,15 @@ for c in CATEGORIES:
         <div class="who">{b}</div><p style="margin:0">{prod}</p>
         <div class="stack-chips">{"".join(f'<a href="/stack/{s}">In {STACKS[s]} Stack</a>' for s in stacks)}</div>
         <div class="actions"><a class="btn green" href="/#boxes">See the stacks</a><a class="btn ghost" href="/request?p={q(plain)}">Add it on its own</a></div>
+      </div>'''
+    elif c["slug"] in ADDON:
+        ab, ap, aimg = ADDON[c["slug"]]
+        side = f'''<div class="card pick">
+        <div class="pick-vis">{visual(ab, ap, aimg, cls="pv")}</div>
+        <div class="eyebrow">Add-on</div>
+        <div class="who">{ab}</div><p style="margin:0">{ap}</p>
+        <p class="small-print" style="margin-top:10px">Add it to any stack. It ships in the same box, no extra shipping.</p>
+        <div class="actions"><a class="btn green" href="/request?p={q(plain)}">Add to my box</a><a class="btn ghost" href="/#boxes">See the stacks</a></div>
       </div>'''
     else:
         side = f'''<div class="card">

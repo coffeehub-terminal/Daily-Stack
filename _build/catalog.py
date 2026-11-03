@@ -188,6 +188,30 @@ NOT_IN_OUR_BOX = {
 }
 CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX]
 
+# Add-ons: the product we put in your box when you add this to your stack. (brand, product, photo in assets/products)
+ADDON = {
+  "vitamin-a": ("Vitakruid", "Vitamine A 4000 IE Vegan", "vitakruid-vitamin-a"),
+  "vitamin-b-complex": ("Vitakruid", "B-Complex Actief", "vitakruid-b-complex"),
+  "vitamin-b3": ("Vitakruid", "Vitamine B3 Niacinamide 500 mg", "vitakruid-b3"),
+  "folic-acid": ("Vitakruid", "Actief Foliumzuur 400 mcg", "vitakruid-folic-acid"),
+  "vitamin-e": ("Vitakruid", "Vitamine E 230 TE Complex", "vitakruid-vitamin-e"),
+  "vitamin-k2": ("Vitakruid", "Vitamine K2 &amp; D3 drops", "vitakruid-k2-d3"),
+  "selenium": ("Pharma Nord", "Bio-Selenium + Zinc", "pharmanord-selenium"),
+  "iron": ("Vitakruid", "IJzer Bisglycinaat Complex", "vitakruid-iron"),
+  "calcium": ("Vitakruid", "Calcium 400 &amp; D3 uit Rode Alg", "vitakruid-calcium"),
+  "iodine": ("Vitakruid", "Jodium drops", "vitakruid-iodine"),
+  "prebiotics": ("Bonusan", "FibroPur Inuline FOS", "bonusan-fibropur"),
+  "coq10": ("Pharma Nord", "Bio-Qinon Active Q10 Gold 100 mg", "pharmanord-q10"),
+  "echinacea": ("A.Vogel", "Echinaforce drops", "avogel-echinaforce"),
+  "cranberry": ("A.Vogel", "Cranberry Complex", "avogel-cranberry"),
+  "electrolytes": ("XXL Nutrition", "Electrolytes", "xxl-electrolytes"),
+  "protein-bars": ("XXL Nutrition", "High Protein Bar", "xxl-protein-bar"),
+  "energy-gels": ("XXL Nutrition", "Energy Gel Pro", "xxl-energy-gel"),
+  "post-workout": ("XXL Nutrition", "Muscle Grow (post-workout)", "xxl-muscle-grow"),
+}
+# Photos ready for the add-on packs (no product page yet): Vitakruid Vitamine D3 Vegan (vitakruid-d3),
+# Davitamon Baby vitamine K + D (davitamon-baby-kd), Bonusan Omega-3 algae oil (bonusan-algae-omega3).
+
 # Menu groups (order shown in the menu)
 MENU = {
   "vit": ("Vitamins &amp; supplements", [("Vitamins",[x for x in CATEGORIES if x["group"]=="Vitamins"],""),
@@ -224,6 +248,10 @@ LOCAL_OVR = {
 }
 for _c in CATEGORIES:
     _l = list(LOCAL_OVR.get(_c["slug"], LOCAL[_c["group"]]))
+    _a = ADDON.get(_c["slug"])
+    if _a and not _c["pick"]:
+        if _a[0] in _l: _l.remove(_a[0])
+        _l.insert(0, _a[0])
     if _c["pick"] and _c["pick"][0] in _l: _l.remove(_c["pick"][0])
     if _c["pick"]: _l.insert(0, _c["pick"][0])
     _c["compare"] = _l[:5]
@@ -258,7 +286,7 @@ STACK_LIST = [
        extras=["Weekly pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Foundation"),
   dict(id="her", name="Her", price="€129", per="/ month · free shipping", badge=None,
        tagline="Put together for women. 6 supplements.",
-       items=[("Women's multivitamin", "Vitakruid", "Multi Dag Vrouw", "30 tablets · 1 a day", "multivitamin", None), OMEGA, MAG,
+       items=[("Women's multivitamin", "Vitakruid", "Multi Dag Vrouw", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-vrouw"), OMEGA, MAG,
               ("Vitamin B12", "Solgar", "Methylcobalamin 1000 µg", "30 nuggets · 1 a day", "vitamin-b12", "solgar-b12"), VITC, FLORA],
        extras=["Pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Her Stack"),
   dict(id="energy", name="Energy", price="€129", per="/ month · free shipping", badge=None,
