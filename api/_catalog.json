@@ -2,7 +2,7 @@
  "stacks": {
   "foundation": {
    "name": "Foundation Stack",
-   "price": 10900,
+   "price": 8900,
    "recurring": true,
    "count": 6,
    "link": "https://buy.stripe.com/test_00weVedkR8p3aUI31f97G05",
@@ -21,7 +21,7 @@
   },
   "her": {
    "name": "Her Stack",
-   "price": 12900,
+   "price": 9900,
    "recurring": true,
    "count": 6,
    "link": "https://buy.stripe.com/test_7sY8wQa8F0WB7Iw45j97G06",
@@ -40,7 +40,7 @@
   },
   "energy": {
    "name": "Energy Stack",
-   "price": 12900,
+   "price": 9900,
    "recurring": true,
    "count": 6,
    "link": "https://buy.stripe.com/test_eVq8wQ80xbBfgf26dr97G07",
@@ -59,7 +59,7 @@
   },
   "winter": {
    "name": "Winter Stack",
-   "price": 10900,
+   "price": 8900,
    "recurring": false,
    "count": 5,
    "link": "https://buy.stripe.com/test_6oU14o3Khaxb9QE31f97G08",
@@ -91,7 +91,7 @@
    "brand": "Vitakruid",
    "product": "B-Complex Actief",
    "photo": "vitakruid-b-complex",
-   "price": 995,
+   "price": 395,
    "url": "/c/vitamin-b-complex",
    "grade": "A"
   },
@@ -109,7 +109,7 @@
    "brand": "Vitakruid",
    "product": "Actief Foliumzuur 400 mcg",
    "photo": "vitakruid-folic-acid",
-   "price": 695,
+   "price": 495,
    "url": "/c/folic-acid",
    "grade": "A"
   },
@@ -136,7 +136,7 @@
    "brand": "Vitakruid",
    "product": "Zink-Methionine & Koper",
    "photo": "vitakruid-zinc",
-   "price": 995,
+   "price": 595,
    "url": "/c/zinc",
    "grade": "A"
   },
@@ -163,7 +163,7 @@
    "brand": "Vitakruid",
    "product": "IJzer Bisglycinaat Complex",
    "photo": "vitakruid-iron",
-   "price": 895,
+   "price": 695,
    "url": "/c/iron",
    "grade": "A"
   },
@@ -253,7 +253,7 @@
    "brand": "Vitakruid",
    "product": "Vitamine D3 Vegan 25 mcg",
    "photo": "vitakruid-d3",
-   "price": 695,
+   "price": 495,
    "url": null,
    "grade": "A"
   },
@@ -271,7 +271,7 @@
    "brand": "Bonusan",
    "product": "Omega-3 algae oil (vegan)",
    "photo": "bonusan-algae-omega3",
-   "price": 2495,
+   "price": 1995,
    "url": null,
    "grade": "A"
   }

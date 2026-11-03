@@ -233,10 +233,11 @@ ADDON_EXTRA = {
   "kids-d": ("Davitamon", "Baby vitamine K + D drops", "davitamon-baby-kd", "Kids' vitamin D"),
   "algae-omega3": ("Bonusan", "Omega-3 algae oil (vegan)", "bonusan-algae-omega3", "Vegan omega-3"),
 }
-# DRAFT monthly add-on prices in euro cents (30-day pack, around shelf price). TODO: check against real shelf prices.
+# Monthly add-on prices in euro cents: shelf price divided by the months a bottle lasts, rounded up slightly.
+# Checked: d3, folic-acid, zinc, iron, algae-omega3, coq10, vitamin-b-complex. Others are still estimates; update with wholesale prices.
 ADDON_PRICE = {
-  "d3": 695, "kids-d": 995, "algae-omega3": 2495, "folic-acid": 695, "iron": 895, "zinc": 995, "iodine": 895,
-  "vitamin-a": 795, "vitamin-b-complex": 995, "vitamin-b3": 795, "vitamin-e": 995, "vitamin-k2": 1295,
+  "d3": 495, "kids-d": 995, "algae-omega3": 1995, "folic-acid": 495, "iron": 695, "zinc": 595, "iodine": 895,
+  "vitamin-a": 795, "vitamin-b-complex": 395, "vitamin-b3": 795, "vitamin-e": 995, "vitamin-k2": 1295,
   "selenium": 1495, "calcium": 795, "prebiotics": 1295, "coq10": 2795, "antioxidants": 1995,
   "echinacea": 1195, "cranberry": 1295, "electrolytes": 1495, "protein-bars": 2495, "energy-gels": 1995, "post-workout": 2995,
 }
@@ -316,20 +317,20 @@ FLORA = ("Probiotic", "Orthica", "Orthiflor Original", "30 capsules · 1 a day",
 CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "180 vegicaps · 6 a day (3 g)", "creatine", "mattisson-creatine")
 DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try, picked by us", "1 product a month", None, None)
 STACK_LIST = [
-  dict(id="foundation", name="Foundation", price="€109", per="/ month · free shipping", badge="Most popular",
+  dict(id="foundation", name="Foundation", price="€89", per="/ month · free shipping", badge="Most popular",
        tagline="Essential daily nutrients for adults. 5 products, plus a new addition each month.",
        items=[MULTI, OMEGA, MAG, VITC, FLORA, DISCOVERY],
        extras=["Weekly pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Foundation"),
-  dict(id="her", name="Her", price="€129", per="/ month · free shipping", badge=None,
+  dict(id="her", name="Her", price="€99", per="/ month · free shipping", badge=None,
        tagline="Made for women: a women's multi, plus B12. 6 products.",
        items=[("Women's multivitamin", "Vitakruid", "Multi Dag Vrouw", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-vrouw"), OMEGA, MAG,
               ("Vitamin B12", "Solgar", "Methylcobalamin 1000 µg", "30 nuggets · 1 a day", "vitamin-b12", "solgar-b12"), VITC, FLORA],
        extras=["Pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Her Stack"),
-  dict(id="energy", name="Energy", price="€129", per="/ month · free shipping", badge=None,
+  dict(id="energy", name="Energy", price="€99", per="/ month · free shipping", badge=None,
        tagline="For active adults, with creatine for training. 6 products.",
        items=[("Sport multivitamin", "Vitakruid", "Multi Dag Man Sport", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-sport"), OMEGA, MAG, CREA, VITC, FLORA],
        extras=["Shaker (first box)", "Pill organizer (first box)", "Training-day schedule"], cta="Subscribe to Energy Stack"),
-  dict(id="winter", name="Winter", price="€109", per="one-time · free shipping", badge="Christmas gift",
+  dict(id="winter", name="Winter", price="€89", per="one-time · free shipping", badge="Christmas gift",
        tagline="For the winter months: 5 products, plus tea, honey and lip balm.",
        items=[VITC, MULTI, OMEGA, MAG, FLORA],
        extras=["Ginger-lemon tea", "Dutch honey", "Lip balm", "Gift card"], cta="Order the Winter Stack", note="Order before 15 December for delivery before Christmas."),

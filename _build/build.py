@@ -546,7 +546,7 @@ body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Add-ons</nav>
     <div class="eyebrow">Custom box</div>
     <h1 class="display"><span class="bold">Start with a stack.</span> <span class="thin">Make it yours.</span></h1>
-    <p class="lead">Every box starts with one of our four stacks. You can add extras to it, delivered in the same box at no extra shipping cost. Each extra shows its evidence grade.</p>
+    <p class="lead">Every box starts with one of our four stacks. You can add extras to it, delivered in the same box at no extra shipping cost. Each extra shows its evidence grade. Some extras come in larger bottles: you pay per month, and we send a new bottle when the old one runs out.</p>
     <ol class="asteps"><li><b>1</b> Pick your stack</li><li><b>2</b> Add your extras</li><li><b>3</b> One box, every month</li></ol>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="agrid">{cards}</div>
