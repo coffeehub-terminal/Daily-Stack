@@ -188,7 +188,9 @@ NOT_IN_OUR_BOX = {
 }
 # Single B vitamins are covered by the B complex, so we don't list them separately.
 COVERED_BY_B_COMPLEX = {"vitamin-b1", "vitamin-b2", "vitamin-b5", "vitamin-b6"}
-CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX and x["slug"] not in COVERED_BY_B_COMPLEX]
+# Low demand, so we don't list them as add-ons. People can still request them.
+LOW_DEMAND = {"rhodiola", "ginseng", "potassium", "chromium"}
+CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX and x["slug"] not in COVERED_BY_B_COMPLEX and x["slug"] not in LOW_DEMAND]
 
 # Add-ons: the product we put in your box when you add this to your stack. (brand, product, photo in assets/products)
 ADDON = {
