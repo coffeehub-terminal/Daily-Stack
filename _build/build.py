@@ -569,12 +569,10 @@ body = f'''<section class="page-hero"><div class="wrap">
     <div class="grades3">
       <div class="gcard gA"><span class="grade gA">A</span><h3>Established</h3><p>An approved EU health claim, supported by human research. For example vitamin D, magnesium, omega-3, and creatine for training.</p></div>
       <div class="gcard gB"><span class="grade gB">B</span><h3>Developing</h3><p>Promising research, but no approved EU health claim yet. Offered as optional extras, clearly marked. We review these grades as new research is published.</p></div>
-      <div class="gcard gX"><span class="grade gX">✕</span><h3>Not included</h3><p>Products with insufficient evidence or safety concerns are not part of our range. You can read why below.</p></div>
+      <div class="gcard gR"><span class="grade gA">↻</span><h3>Reviewed regularly</h3><p>We review every grade as new research is published and update our range accordingly.</p></div>
     </div>
     <h2 class="display" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Every product</span> <span class="thin">and its grade.</span></h2>
     <div class="gtable-wrap"><table class="gtable"><thead><tr><th>Product</th><th>Grade</th><th>Why</th></tr></thead><tbody>{rows}</tbody></table></div>
-    <h2 class="display" id="not-in-our-box" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Not included,</span> <span class="thin">and why.</span></h2>
-    <ul class="nob">{nob}</ul>
     <p class="small-print">Grades are our own reading of the EU register of health claims and published human trials. Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Pregnant, breastfeeding or on medication? Check with your doctor or pharmacist first.</p>
   </div></section>'''
 write("evidence.html", page("Our standard", "How Daily Stack selects supplements: every product graded on approved EU health claims and human research.", body))
