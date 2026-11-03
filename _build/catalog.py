@@ -150,6 +150,44 @@ c("Sport","carnitine","Carnitine","L-carnitine, an amino acid derivative popular
 c("Sport","glutamine","L-Glutamine","The most common amino acid in your muscles, usually sold as a powder.",compare=SPORT[:5]),
 ]
 
+# Evidence standard: we only list products with an approved EU health claim (A),
+# or with promising human trials that we describe honestly (B: probiotics, prebiotics, CoQ10, echinacea, rhodiola, ginseng, cranberry).
+# Everything below failed that test (weak or industry-only evidence, or safety concerns), so it is not in our box.
+NOT_IN_OUR_BOX = {
+  "collagen": "Independent, high-quality trials found no effect on skin.",
+  "melatonin": "Dutch supplements are capped at 0.3 mg, below the dose the approved claim needs.",
+  "ashwagandha": "Safety concerns; Denmark banned it.",
+  "turmeric": "No approved claim, and reports of liver injury from strong extracts.",
+  "valerian": "Weak evidence.",
+  "amino-acids": "Not needed if you eat enough protein.",
+  "bcaa": "Not needed if you eat enough protein.",
+  "glutamine": "No good evidence for healthy people.",
+  "carnitine": "No good evidence for healthy people.",
+  "pre-workout": "Mostly caffeine blends with unproven extras.",
+  "green-tea": "Reports of liver injury from concentrated extracts.",
+  "5-htp": "Risky interactions with medication.",
+  "resveratrol": "No solid human evidence.",
+  "quercetin": "No solid human evidence.",
+  "astaxanthin": "No solid human evidence.",
+  "colostrum": "No solid human evidence.",
+  "enzymes": "No solid evidence for healthy people.",
+  "glucosamine": "Large independent trials found little or no effect.",
+  "msm": "No solid human evidence.",
+  "inositol": "Evidence only for specific medical conditions.",
+  "lutein": "Evidence only for people with eye disease.",
+  "taurine": "No solid human evidence.",
+  "maca": "No solid human evidence.",
+  "ginkgo": "A large trial found no effect on memory.",
+  "elderberry": "Weak evidence.",
+  "boswellia": "Weak evidence.",
+  "milk-thistle": "Weak evidence.",
+  "saffron": "Small trials only.",
+  "spirulina": "No solid human evidence.",
+  "chlorella": "No solid human evidence.",
+  "garlic": "Small effects, and interacts with blood thinners.",
+}
+CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX]
+
 # Menu groups (order shown in the menu)
 MENU = {
   "vit": ("Vitamins &amp; supplements", [("Vitamins",[x for x in CATEGORIES if x["group"]=="Vitamins"],""),
@@ -192,7 +230,8 @@ for _c in CATEGORIES:
 
 TOP_BRANDS = ["Vitakruid","Bonusan","Orthica","Lucovitaal","Solgar","Mattisson Healthstyle","XXL Nutrition"]
 SPORT_BRANDS = ["Mattisson Healthstyle","XXL Nutrition","Body &amp; Fit","Vitakruid","Bonusan"]
-ALL_BRANDS = sorted(set(sum(LOCAL.values(), []) + sum(LOCAL_OVR.values(), []) + TOP_BRANDS), key=str.lower)
+# Only brands we actually list for a product (no empty brand cards).
+ALL_BRANDS = sorted(set(sum((_c["compare"] for _c in CATEGORIES), []) + TOP_BRANDS), key=str.lower)
 
 # ---------------- Stacks (plan pages at /stack/<id>) ----------------
 # Every product is a 30-day pack, so each box is exactly one month.

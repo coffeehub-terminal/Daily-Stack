@@ -43,11 +43,10 @@ def foot(t, href="/#boxes", label="See the stacks"):
 panels = {
  "vit": ("Vitamins &amp; supplements", '<div class="mgrid g5">' + mcol("Vitamins", group("Vitamins")) + mcol("Minerals", group("Minerals"))
          + mcol("Supplements", group("Supplements"), "span2") + mcol("Herbs &amp; plants", group("Herbs &amp; plants")) + '</div>'
-         + foot("We source every category from brands we trust. <b>Green</b> = already in one of our stacks.")),
+         + foot("We only list what's backed by approved EU claims or solid human trials. <b>Green</b> = already in one of our stacks.")),
  "sport": ("Sport", '<div class="mgrid g4">'
-         + mcol("Type", [li_cat(s) for s in ["creatine","electrolytes","collagen","protein","protein-bars","energy-gels","pre-workout","post-workout","green-tea"]])
+         + mcol("Type", [li_cat(s) for s in ["creatine","electrolytes","protein","protein-bars","energy-gels","post-workout"] if s in BY])
          + mcol("Activity", [li_cat("electrolytes","Endurance"), li_cat("creatine","Strength &amp; muscle")])
-         + mcol("Amino acids", [li_cat(s) for s in ["bcaa","carnitine","glutamine"]])
          + mcol("Brands", [li_brand(b) for b in SPORT_BRANDS])
          + '</div>' + foot("Training? The <b>Energy Stack</b> already includes creatine and magnesium.")),
  "brands": ("Brands", '<div class="mgrid gb">' + mcol("Popular brands", [li_brand(b) for b in TOP_BRANDS])
@@ -417,17 +416,16 @@ for c in CATEGORIES:
     for b in c["compare"]: uses.setdefault(b, []).append(c)
 cards = ""
 for b in ALL_BRANDS:
-    top = b in TOP_BRANDS
     picks = [c for c in CATEGORIES if c["pick"] and c["pick"][0] == b]
     if picks: info = "In our stacks for " + ", ".join(f'<a href="/c/{c["slug"]}">{c["name"]}</a>' for c in picks) + "."
     elif b in uses: info = "Available on request for " + ", ".join(f'<a href="/c/{c["slug"]}">{c["name"]}</a>' for c in uses[b][:4]) + "."
     else: info = f'<a href="/request?b={q(b)}">Request a product</a>'
-    cards += f'<div class="b{" top" if top else ""}" id="{slug(b)}"><h3>{b}</h3><p>{info}</p></div>'
+    cards += f'<div class="b{" top" if picks else ""}" id="{slug(b)}"><h3>{b}</h3><p>{info}</p></div>'
 body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Brands</nav>
     <div class="eyebrow">Brands</div>
     <h1 class="display"><span class="bold">{len(ALL_BRANDS)} brands.</span> <span class="thin">Any of them in your box.</span></h1>
-    <p class="lead">Mostly Dutch brands, all sold in Dutch drugstores and pharmacies, and the same brands people already trust here. Our stacks use Vitakruid, Bonusan, Orthica, Solgar and Mattisson Healthstyle. Prefer another one? <a href="/request">Request any product</a> and we'll add it to your next box.</p>
+    <p class="lead">Mostly Dutch brands, all sold in Dutch drugstores and pharmacies, and the same brands people already trust here. Our stacks use Vitakruid, Bonusan, Orthica, Solgar and Mattisson Healthstyle. We only list products backed by an approved EU health claim or solid human trials. Want one of them in your box? <a href="/request">Request it</a> and we'll add it to your next box.</p>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="brands-az">{cards}</div>
   <p class="small-print">Daily Stack is an independent retailer. Brand names are trademarks of their owners; we are not affiliated with or endorsed by these brands.</p></div></section>'''
@@ -485,7 +483,7 @@ body = f'''<section class="page-hero"><div class="wrap">
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="card">
     <form class="form" id="req">
-      <label>Product<input name="product" list="cats" required placeholder="e.g. Ashwagandha"></label>
+      <label>Product<input name="product" list="cats" required placeholder="e.g. Vitamin D3"></label>
       <datalist id="cats">{opts}</datalist>
       <label>Preferred brand (optional)<input name="brand" list="brands" placeholder="Leave empty and we'll pick"></label>
       <datalist id="brands">{"".join(f'<option value="{html.unescape(b)}">' for b in ALL_BRANDS)}</datalist>
