@@ -3,7 +3,7 @@
 Run from anywhere: python3 _build/build.py"""
 import os, re, sys, html, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from catalog import ADDON, ADDON_EXTRA, ADDON_PRICE, SUGGEST, CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
+from catalog import GRADE_B, GRADE_A_NOTE, grade, NOT_IN_OUR_BOX, ADDON, ADDON_EXTRA, ADDON_PRICE, SUGGEST, CATEGORIES, STACKS, TOP_BRANDS, ALL_BRANDS, STACK_LIST, STRIPE, BRAND_LOGO, SPORT_BRANDS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BY = {c["slug"]: c for c in CATEGORIES}
@@ -57,7 +57,7 @@ chev = '<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path
 items = "".join(f'<li class="mitem"><button type="button" class="mbtn" aria-expanded="false" aria-controls="mp-{k}">{t}{chev}</button>'
                 f'<div class="mpanel" id="mp-{k}" hidden><div class="wrap">{c}</div></div></li>' for k, (t, c) in panels.items())
 MENU = (f'<!--MENU--><div class="menubar"><div class="wrap"><ul class="mlist">{items}</ul>'
-        '<ul class="mlinks"><li><a href="/#boxes">Our stacks</a></li><li><a href="/add-ons">Add-ons</a></li><li><a href="/#faq">FAQ</a></li></ul></div></div><!--/MENU-->')
+        '<ul class="mlinks"><li><a href="/#boxes">Our stacks</a></li><li><a href="/add-ons">Add-ons</a></li><li><a href="/evidence">Our standard</a></li><li><a href="/#faq">FAQ</a></li></ul></div></div><!--/MENU-->')
 
 idx = read("index.html")
 idx = re.sub(r'(<!--MENU-->)?\s*<div class="menubar">.*?(<!--/MENU-->|</div></div>(?=\s*</header>))', "\n  " + MENU, idx, count=1, flags=re.S)
@@ -83,9 +83,8 @@ BROWSE = f'''<!--BROWSE--><section id="browse" aria-labelledby="b-title">
 </section><!--/BROWSE-->
 '''
 if "<!--BROWSE-->" in idx:
-    idx = re.sub(r"<!--BROWSE-->.*?<!--/BROWSE-->\n", BROWSE, idx, flags=re.S)
-else:
-    idx = idx.replace("<!-- ============ FAQ ============ -->", BROWSE + "\n<!-- ============ FAQ ============ -->", 1)
+    idx = re.sub(r"<!--BROWSE-->.*?<!--/BROWSE-->\n", "", idx, flags=re.S)
+# (the browse grid is no longer shown on the homepage)
 
 EXTRA_CSS = '''
 /*EXTRA*/
@@ -259,20 +258,11 @@ _items = "".join(f'<li class="logo-item"><span data-logo="assets/brands/{_logo(b
 _dupe = _items.replace('<li class="logo-item">', '<li class="logo-item" aria-hidden="true">')
 idx = re.sub(r'<ul class="marquee-track">.*?</ul>', lambda mm: f'<ul class="marquee-track">{_items}{_dupe}</ul>', idx, count=1, flags=re.S)
 
-# "Perfect month" message above the boxes
-NOTE = ('<!--MONTH--><div class="month-note"><div class="mn-icon" aria-hidden="true">30</div><div><b>A perfect month in every box.</b> '
-        'Every product comes in a 30-day pack: one pack per supplement, exactly enough for one month. Nothing runs out early, nothing piles up in your cupboard, '
-        'and your next box arrives just as this one runs out.</div></div><!--/MONTH-->\n    ')
+# Honest line above the boxes
+NOTE = ('<!--MONTH--><div class="month-note"><div class="mn-icon" aria-hidden="true">30</div><div><b>One box, one month.</b> '
+        'Every product is a 30-day pack, so nothing runs out early and nothing piles up in the cupboard.</div></div><!--/MONTH-->\n    ')
 idx = re.sub(r'<!--MONTH-->.*?<!--/MONTH-->\n\s*', '', idx, flags=re.S)
 idx = idx.replace('<div class="boxes">', NOTE + '<div class="boxes">', 1)
-# hero perk
-if "30-day packs" not in idx.split('<ul class="perks">')[1].split('</ul>')[0]:
-    idx = idx.replace('Original, sealed products</li>', 'Original, sealed products</li>\n          <li>' + CHECK + '30-day packs, a perfect month</li>', 1)
-# FAQ
-FAQ = ('<details><summary>Why does everything come in 30-day packs?</summary><p>So every box is exactly one month. You get one pack per supplement with enough for 30 days, '
-       'so nothing runs out halfway and nothing piles up. When your box is almost empty, the next one is already on its way.</p></details>')
-if "Why does everything come in 30-day packs?" not in idx:
-    idx = re.sub(r'(<details><summary>Can I cancel anytime\?</summary>.*?</details>)', lambda mm: FAQ + "\n      " + mm.group(1), idx, count=1, flags=re.S)
 # Products section, rebuilt
 from catalog import OMEGA, MAG, VITC, MULTI, FLORA, CREA
 FEAT = [(OMEGA, "Fish oil rich in DHA from a Dutch practitioner brand, one softgel a day. DHA contributes to the maintenance of normal brain function (250 mg DHA per day)."),
@@ -296,7 +286,7 @@ _ic = lambda d: f'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" st
 USP = ('<!--USP--><div class="usp"><ul>'
   f'<li>{_ic("<path d=\'M3 7h11v9H3z\'/><path d=\'M14 10h4l3 3v3h-7\'/><circle cx=\'7\' cy=\'17.5\' r=\'1.7\'/><circle cx=\'17\' cy=\'17.5\' r=\'1.7\'/>")}Free shipping across the EU</li>'
   f'<li>{_ic("<rect x=\'3\' y=\'5\' width=\'18\' height=\'16\' rx=\'2\'/><path d=\'M3 10h18M8 3v4M16 3v4\'/>")}Every product a 30-day pack</li>'
-  f'<li>{_ic("<path d=\'M12 3l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 21l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z\'/><path d=\'M8.5 12l2.4 2.4 4.6-4.8\'/>")}Original, sealed products</li>'
+  f'<li>{_ic("<rect x=\'2.5\' y=\'5\' width=\'19\' height=\'14\' rx=\'2\'/><path d=\'M2.5 10h19M6 15h4\'/>")}Pay with iDEAL</li>'
   f'<li>{_ic("<path d=\'M3 12a9 9 0 1 0 3-6.7L3 8\'/><path d=\'M3 3v5h5\'/>")}Pause or cancel anytime</li>'
   '</ul></div><!--/USP-->\n')
 idx = re.sub(r'<!--USP-->.*?<!--/USP-->\n?', '', idx, flags=re.S)
@@ -310,7 +300,7 @@ NEWFOOT = f'''<footer class="big">
     <div class="fgrid">
       <div><a class="logo" href="/" aria-label="Daily Stack home" style="font-size:26px"><b>Daily</b><span>stack</span></a>
         <p class="flead">Your vitamins in perfect 30-day packs, from trusted Dutch and European brands. Shipping to all 27 EU countries.</p></div>
-      <div><h4>Shop</h4><ul><li><a href="/#boxes">Our stacks</a></li><li><a href="/brands">Brands</a></li><li><a href="/request">Request a product</a></li></ul></div>
+      <div><h4>Shop</h4><ul><li><a href="/#boxes">Our stacks</a></li><li><a href="/add-ons">Add-ons</a></li><li><a href="/evidence">Our standard</a></li><li><a href="/brands">Brands</a></li></ul></div>
       <div><h4>Help</h4><ul><li><a href="/#faq">FAQ</a></li><li><a href="https://www.instagram.com/dailystack_vitamins/" rel="noopener">Instagram</a></li><li><a href="/request">Contact</a></li></ul></div>
       <div><h4>Payment methods</h4>{PAYS}</div>
     </div>
@@ -373,7 +363,7 @@ def brand_links(bs): return "".join(f'<a href="/brands#{slug(b)}">{b}</a>' for b
 for c in CATEGORIES:
     name = c["name"]; plain = html.unescape(name)
     claims = ("<ul class=\"claims\">" + "".join(f"<li>{x}</li>" for x in c["claims"]) + "</ul><p class=\"small-print\">Approved EU health claims.</p>") if c["claims"] else \
-             "<p>There are no approved EU health claims for this product, so we don't make any. We just help you get a quality product from a brand we trust.</p>"
+             "<p>No approved EU health claims, so we don't make any.</p>"
     if c["pick"]:
         b, prod, stacks = c["pick"]
         side = f'''<div class="card pick">
@@ -405,11 +395,13 @@ for c in CATEGORIES:
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#browse">{c["group"]}</a> / {name}</nav>
     <div class="eyebrow">{c["group"]}</div>
     <h1 class="display bold">{name}</h1>
+    <p class="grade-line"><span class="grade g{grade(c["slug"])}">Grade {grade(c["slug"])}</span> <a href="/evidence">How we grade</a></p>
     <p class="lead">{c["intro"]}</p>
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="page-grid">
       <div class="card">
+        <div class="grade-box g{grade(c["slug"])}"><b>Grade {grade(c["slug"])}.</b> {GRADE_B.get(c["slug"], GRADE_A_NOTE)}</div>
         <h2>What it does</h2>
         {claims}
         {note}
@@ -465,7 +457,7 @@ for st in STACK_LIST:
     others = "".join(f'<a class="bchip" href="/stack/{o["id"]}">{o["name"]} Stack · {o["price"]}</a>' for o in STACK_LIST if o is not st)
     buy = f'''<div class="buy"><div class="price"><span class="amount">{st["price"]}</span><span class="per">{st["per"]}</span></div>
       <a class="btn green big" href="{STRIPE[sid]}" data-box="{sid}">{st["cta"]}</a>
-      <p class="small-print" style="margin:6px 0 0">{st.get("note") or "Monthly · pause or cancel anytime · original, sealed products"}</p></div>'''
+      <p class="small-print" style="margin:6px 0 0">{st.get("note") or "Monthly · pay with iDEAL · pause or cancel anytime"}</p></div>'''
     body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/#boxes">Stacks</a> / {st["name"]} Stack</nav>
     <div class="stack-hero"><div>
@@ -477,7 +469,7 @@ for st in STACK_LIST:
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <h2 class="display" style="font-size:clamp(28px,4vw,40px);margin:0 0 20px"><span class="bold">What's in your box</span></h2>
-    <div class="month-note" style="margin-bottom:20px"><div class="mn-icon" aria-hidden="true">30</div><div><b>A perfect month.</b> Every product in this box is a 30-day pack, so you have exactly enough until your next box arrives.</div></div>
+    <div class="month-note" style="margin-bottom:20px"><div class="mn-icon" aria-hidden="true">30</div><div><b>One box, one month.</b> Every product in this box is a 30-day pack, so it runs out right when the next box lands on your doormat.</div></div>
     <div class="pgrid">{cards}</div>
     <div class="card" style="margin-top:22px"><h2>Also in the box</h2><ul class="claims">{extras}</ul></div>
     <div class="stack-bottom">{buy}</div>
@@ -530,9 +522,9 @@ import json
 NAMES = {c["slug"]: html.unescape(c["name"]) for c in CATEGORIES}
 ADDONS = {}
 for k, (br, pr, img) in ADDON.items():
-    if k in NAMES: ADDONS[k] = dict(name=NAMES[k], brand=html.unescape(br), product=html.unescape(pr), photo=img, price=ADDON_PRICE[k], url=f"/c/{k}")
+    if k in NAMES: ADDONS[k] = dict(name=NAMES[k], brand=html.unescape(br), product=html.unescape(pr), photo=img, price=ADDON_PRICE[k], url=f"/c/{k}", grade=grade(k))
 for k, (br, pr, img, nm) in ADDON_EXTRA.items():
-    ADDONS[k] = dict(name=nm, brand=br, product=pr, photo=img, price=ADDON_PRICE[k], url=None)
+    ADDONS[k] = dict(name=nm, brand=br, product=pr, photo=img, price=ADDON_PRICE[k], url=None, grade="A")
 CART_STACKS = {}
 for st in STACK_LIST:
     CART_STACKS[st["id"]] = dict(name=f'{st["name"]} Stack', price=int(st["price"].replace("€", "")) * 100,
@@ -547,18 +539,44 @@ cards = ""
 for k, a in ADDONS.items():
     link = f'<a href="{a["url"]}">{a["name"]}</a>' if a["url"] else a["name"]
     cards += f'''<article class="acard"><div class="aphoto"><img src="/assets/products/{a["photo"]}.webp" alt="{a["brand"]} {a["product"]}" loading="lazy"></div>
-      <div class="abody"><div class="eyebrow">{link}</div><h3>{a["brand"]}</h3><p>{a["product"]}</p>
+      <div class="abody"><div class="eyebrow">{link} <span class="grade g{a["grade"]}">Grade {a["grade"]}</span></div><h3>{a["brand"]}</h3><p>{a["product"]}</p>{f'<p class="bnote">{GRADE_B[k]}</p>' if a["grade"] == "B" else ""}
       <div class="aprice">€{a["price"]/100:.2f} <span>/ month</span></div>
       <button type="button" class="btn green small" data-addon="{k}">Add to my box</button></div></article>'''
 body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Add-ons</nav>
     <div class="eyebrow">Custom box</div>
     <h1 class="display"><span class="bold">Start with a stack.</span> <span class="thin">Make it yours.</span></h1>
-    <p class="lead">Every Daily Stack box starts with one of our four stacks. Then add the extras you need. They ship in the same box, as 30-day packs, with no extra shipping.</p>
+    <p class="lead">Every box starts with one of our four stacks. Add what you need on top. It comes in the same box, no extra shipping. Every extra has a grade, so you know what the science says before you pay.</p>
     <ol class="asteps"><li><b>1</b> Pick your stack</li><li><b>2</b> Add your extras</li><li><b>3</b> One box, every month</li></ol>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="agrid">{cards}</div>
   <p class="small-print">We only list products with an approved EU health claim or solid human trials. Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle.</p></div></section>'''
 write("add-ons.html", page("Add-ons", "Start with a stack, then add the extras you need. One box, every month.", body))
+
+# ---------------- Our standard (evidence) page ----------------
+rows = "".join(f'<tr><td><a href="/c/{c["slug"]}">{c["name"]}</a></td><td><span class="grade g{grade(c["slug"])}">{grade(c["slug"])}</span></td><td>{GRADE_B.get(c["slug"], (c["claims"][0] if c["claims"] else GRADE_A_NOTE))}</td></tr>'
+               for c in sorted(CATEGORIES, key=lambda c: (grade(c["slug"]), html.unescape(c["name"]))))
+NAMES_ALL = {"amino-acids": "Amino acids", "bcaa": "BCAA", "glutamine": "Glutamine", "carnitine": "Carnitine", "pre-workout": "Pre-workout",
+             "green-tea": "Green tea extract", "5-htp": "5-HTP", "msm": "MSM", "milk-thistle": "Milk thistle", "enzymes": "Digestive enzymes"}
+nob = "".join(f'<li><b>{NAMES_ALL.get(k, k.replace("-", " ").capitalize())}</b><span>{why}</span></li>' for k, why in NOT_IN_OUR_BOX.items())
+body = f'''<section class="page-hero"><div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Our standard</nav>
+    <div class="eyebrow">Our standard</div>
+    <h1 class="display"><span class="bold">Only what holds up.</span> <span class="thin">The truth about the rest.</span></h1>
+    <p class="lead">The supplement aisle is full of promises. We only sell what has an approved EU health claim or solid human research behind it, and we give every product a grade so you can see that for yourself.</p>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="grades3">
+      <div class="gcard gA"><span class="grade gA">A</span><h3>Proven</h3><p>An approved EU health claim and solid human research. Think vitamin D, magnesium, omega-3 and creatine for training.</p></div>
+      <div class="gcard gB"><span class="grade gB">B</span><h3>Promising</h3><p>No approved claim yet, or the trials are small and early. We sell these as extras and say so plainly. When the evidence changes, we tell you.</p></div>
+      <div class="gcard gX"><span class="grade gX">✕</span><h3>Not in our box</h3><p>Weak evidence, industry-funded results or safety concerns. We don't sell it, and we tell you why.</p></div>
+    </div>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Every product,</span> <span class="thin">graded.</span></h2>
+    <div class="gtable-wrap"><table class="gtable"><thead><tr><th>Product</th><th>Grade</th><th>Why</th></tr></thead><tbody>{rows}</tbody></table></div>
+    <h2 class="display" id="not-in-our-box" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Not in our box.</span> <span class="thin">And why.</span></h2>
+    <ul class="nob">{nob}</ul>
+    <p class="small-print">Grades are our own reading of the EU register of health claims and published human trials. Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Pregnant, breastfeeding or on medication? Check with your doctor or pharmacist first.</p>
+  </div></section>'''
+write("evidence.html", page("Our standard", "We only sell what holds up, and grade every product A or B. Here's what's not in our box, and why.", body))
 
 print("built", len(CATEGORIES), "category pages,", len(ALL_BRANDS), "brands")

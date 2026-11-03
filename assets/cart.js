@@ -42,23 +42,23 @@
     const c = btn.querySelector('.cart-count'); c.textContent = n; c.hidden = !n;
     const per = st && st.recurring ? ' / month' : '';
     if (!st) {
-      const waiting = state.addons.length ? `<p class="cart-msg">Your extras are saved: <b>${state.addons.map(a => D.addons[a].name).join(', ')}</b>. Choose a stack and they go in the same box.</p>` : '';
-      body.innerHTML = `<div class="cart-empty">${waiting}<p>Every Daily Stack box starts with a stack. Pick yours, then make it yours with extras.</p>
+      const waiting = state.addons.length ? `<p class="cart-msg">Saved for you: <b>${state.addons.map(a => D.addons[a].name).join(', ')}</b>. Pick a stack and it goes in the same box.</p>` : '';
+      body.innerHTML = `<div class="cart-empty">${waiting}<p>Every box starts with a stack. Pick one, then add extras if you want.</p>
         ${Object.entries(D.stacks).map(([id, s]) => `<button type="button" class="cart-line cart-pick" data-pick="${id}">
           <div class="cl-img cl-collage">${s.photos.map(p => `<img src="${img(p)}" alt="">`).join('')}</div>
           <div><h3>${s.name}</h3><p>${s.count} products · 30-day packs${s.recurring ? ' · every month' : ' · one-time'}</p></div>
           <div class="cl-right"><span class="cl-price">${eur(s.price)}${s.recurring ? '<small> /mo</small>' : ''}</span></div></button>`).join('')}</div>`;
-      foot.innerHTML = `<p class="cart-fine">Free shipping · Pause or cancel anytime · Every product a 30-day pack</p>`;
+      foot.innerHTML = `<p class="cart-fine">Free shipping · Pay with iDEAL · Cancel anytime</p>`;
       return;
     }
-    let h = `<p class="cart-banner">${st.recurring ? 'Free shipping, because your box is a subscription.' : 'Free shipping on the Winter Stack.'}</p>`;
+    let h = `<p class="cart-banner">${st.recurring ? 'Free shipping. Every month, through your letterbox.' : 'Free shipping on the Winter Stack.'}</p>`;
     h += line('cart-stack', st.photos, st.name, `${st.count} products · 30-day packs`, st.recurring ? 'Delivered every month' : 'One-time box',
       `${trash('data-rm-stack')}<span class="cl-price">${eur(st.price)}<small>${per}</small></span>`);
     state.addons.forEach(id => { const a = D.addons[id];
-      h += line('', a.photo, a.name, `${a.brand} · ${a.product}`, 'Extra · same box', `${trash(`data-rm="${id}"`)}<span class="cl-price">+${eur(a.price)}<small>${per}</small></span>`); });
+      h += line('', a.photo, a.name, `${a.brand} · ${a.product}`, a.grade === 'B' ? 'Grade B · early evidence' : 'Grade A · same box', `${trash(`data-rm="${id}"`)}<span class="cl-price">+${eur(a.price)}<small>${per}</small></span>`); });
     const sugg = st.suggest.filter(s => !state.addons.includes(s)).slice(0, 3);
     if (sugg.length) {
-      h += `<div class="cart-sub">Make it yours: add an extra</div><div class="cart-sugg">`;
+      h += `<div class="cart-sub">Add an extra</div><div class="cart-sugg">`;
       sugg.forEach(id => { const a = D.addons[id];
         h += line('', a.photo, a.name, `${a.brand} · ${a.product}`, '', `<span class="cl-price">${eur(a.price)}<small>${per}</small></span><button type="button" class="cart-add" data-add="${id}">Add</button>`); });
       h += `</div>`;
@@ -71,8 +71,8 @@
       ${extras ? `<div class="cart-row"><span>Extras (${state.addons.length})</span><span>${eur(extras)}</span></div>` : ''}
       <div class="cart-row"><span>Shipping</span><span>Free</span></div>
       <div class="cart-total"><b>Total</b><span>${eur(st.price + extras)}<small>${per}</small></span></div>
-      <button type="button" class="btn green cart-pay">Proceed to payment →</button>
-      <p class="cart-fine">${st.recurring ? 'Pause, change or cancel anytime. ' : ''}Every product is a 30-day pack.</p>`;
+      <button type="button" class="btn green cart-pay">Pay with iDEAL →</button>
+      <p class="cart-fine">iDEAL, card or Apple Pay. ${st.recurring ? 'Pause or cancel anytime.' : ''}</p>`;
   }
 
   // ---------- open / close ----------
@@ -117,7 +117,7 @@
       if (r.ok && j.url) { location.href = j.url; return; }
       throw new Error(j.error || 'checkout');
     } catch (err) {
-      b.disabled = false; b.textContent = 'Proceed to payment →';
+      b.disabled = false; b.textContent = 'Pay with iDEAL →';
       const m = foot.querySelector('.cart-msgbox');
       m.innerHTML = `<p class="cart-msg">Checkout with extras isn't available right now.${state.addons.length ? '' : ''} <a href="${st.link}">Pay for the ${st.name} only</a>, or try again in a minute.</p>`;
     }

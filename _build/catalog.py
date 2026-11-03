@@ -193,6 +193,18 @@ COVERED_BY_B_COMPLEX = {"vitamin-b1", "vitamin-b2", "vitamin-b5", "vitamin-b6"}
 LOW_DEMAND = {"rhodiola", "ginseng", "potassium", "chromium"}
 CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX and x["slug"] not in COVERED_BY_B_COMPLEX and x["slug"] not in LOW_DEMAND]
 
+# Evidence grade per product.
+# A = approved EU health claim + solid human research. B = no approved claim or early/small trials; we say so plainly.
+GRADE_B = {
+  "probiotics": "No approved EU health claim. Results depend on the exact strain, and the trials are mixed. It's in our stacks because a lot of people like it, and we'll tell you if the evidence changes.",
+  "prebiotics": "Chicory inulin has an approved EU claim, but only at 12 g a day. At lower doses the evidence is still early.",
+  "coq10": "No approved EU health claim. Your body makes CoQ10 itself, and the trials in healthy people are small. Early evidence, and we'll tell you when that changes.",
+  "antioxidants": "The vitamin C, vitamin E and selenium in it have approved EU claims. The extra plant compounds don't, so the blend gets a B.",
+  "cranberry": "No approved EU health claim, and the human trials are mixed. Early evidence, and we'll tell you when that changes.",
+}
+GRADE_A_NOTE = "Approved EU health claim and solid human research behind it."
+def grade(slug): return "B" if slug in GRADE_B else "A"
+
 # Add-ons: the product we put in your box when you add this to your stack. (brand, product, photo in assets/products)
 ADDON = {
   "vitamin-a": ("Vitakruid", "Vitamine A 4000 IE Vegan", "vitakruid-vitamin-a"),
@@ -305,20 +317,20 @@ CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "18
 DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try, picked by us", "1 product a month", None, None)
 STACK_LIST = [
   dict(id="foundation", name="Foundation", price="€109", per="/ month · free shipping", badge="Most popular",
-       tagline="The everyday basics, done right. 5 supplements + a monthly discovery.",
+       tagline="The basics most people actually need. 5 products, plus something new to try each month.",
        items=[MULTI, OMEGA, MAG, VITC, FLORA, DISCOVERY],
        extras=["Weekly pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Foundation"),
   dict(id="her", name="Her", price="€129", per="/ month · free shipping", badge=None,
-       tagline="Put together for women. 6 supplements.",
+       tagline="Made for women: a women's multi, plus B12. 6 products.",
        items=[("Women's multivitamin", "Vitakruid", "Multi Dag Vrouw", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-vrouw"), OMEGA, MAG,
               ("Vitamin B12", "Solgar", "Methylcobalamin 1000 µg", "30 nuggets · 1 a day", "vitamin-b12", "solgar-b12"), VITC, FLORA],
        extras=["Pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Her Stack"),
   dict(id="energy", name="Energy", price="€129", per="/ month · free shipping", badge=None,
-       tagline="For busy days and training days. 6 supplements.",
+       tagline="For training days and long workdays, with creatine. 6 products.",
        items=[("Sport multivitamin", "Vitakruid", "Multi Dag Man Sport", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-sport"), OMEGA, MAG, CREA, VITC, FLORA],
        extras=["Shaker (first box)", "Pill organizer (first box)", "Training-day schedule"], cta="Subscribe to Energy Stack"),
   dict(id="winter", name="Winter", price="€109", per="one-time · free shipping", badge="Christmas gift",
-       tagline="A 30-day winter plan. 5 supplements + 4 extras.",
+       tagline="Five products for the dark months, plus tea, honey and lip balm.",
        items=[VITC, MULTI, OMEGA, MAG, FLORA],
        extras=["Ginger-lemon tea", "Dutch honey", "Lip balm", "Gift card"], cta="Order the Winter Stack", note="Order before 15 December for delivery before Christmas."),
 ]

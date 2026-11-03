@@ -83,7 +83,8 @@
    "product": "Vitamine A 4000 IE Vegan",
    "photo": "vitakruid-vitamin-a",
    "price": 795,
-   "url": "/c/vitamin-a"
+   "url": "/c/vitamin-a",
+   "grade": "A"
   },
   "vitamin-b-complex": {
    "name": "Vitamin B complex",
@@ -91,7 +92,8 @@
    "product": "B-Complex Actief",
    "photo": "vitakruid-b-complex",
    "price": 995,
-   "url": "/c/vitamin-b-complex"
+   "url": "/c/vitamin-b-complex",
+   "grade": "A"
   },
   "vitamin-b3": {
    "name": "Vitamin B3 (niacin)",
@@ -99,7 +101,8 @@
    "product": "Vitamine B3 Niacinamide 500 mg",
    "photo": "vitakruid-b3",
    "price": 795,
-   "url": "/c/vitamin-b3"
+   "url": "/c/vitamin-b3",
+   "grade": "A"
   },
   "folic-acid": {
    "name": "Vitamin B11 (folate)",
@@ -107,7 +110,8 @@
    "product": "Actief Foliumzuur 400 mcg",
    "photo": "vitakruid-folic-acid",
    "price": 695,
-   "url": "/c/folic-acid"
+   "url": "/c/folic-acid",
+   "grade": "A"
   },
   "vitamin-e": {
    "name": "Vitamin E",
@@ -115,7 +119,8 @@
    "product": "Vitamine E 230 TE Complex",
    "photo": "vitakruid-vitamin-e",
    "price": 995,
-   "url": "/c/vitamin-e"
+   "url": "/c/vitamin-e",
+   "grade": "A"
   },
   "vitamin-k2": {
    "name": "Vitamin K2",
@@ -123,7 +128,8 @@
    "product": "Vitamine K2 & D3 drops",
    "photo": "vitakruid-k2-d3",
    "price": 1295,
-   "url": "/c/vitamin-k2"
+   "url": "/c/vitamin-k2",
+   "grade": "A"
   },
   "zinc": {
    "name": "Zinc",
@@ -131,7 +137,8 @@
    "product": "Zink-Methionine & Koper",
    "photo": "vitakruid-zinc",
    "price": 995,
-   "url": "/c/zinc"
+   "url": "/c/zinc",
+   "grade": "A"
   },
   "antioxidants": {
    "name": "Antioxidants",
@@ -139,7 +146,8 @@
    "product": "Santiox",
    "photo": "bonusan-santiox",
    "price": 1995,
-   "url": "/c/antioxidants"
+   "url": "/c/antioxidants",
+   "grade": "B"
   },
   "selenium": {
    "name": "Selenium",
@@ -147,7 +155,8 @@
    "product": "Bio-Selenium + Zinc",
    "photo": "pharmanord-selenium",
    "price": 1495,
-   "url": "/c/selenium"
+   "url": "/c/selenium",
+   "grade": "A"
   },
   "iron": {
    "name": "Iron",
@@ -155,7 +164,8 @@
    "product": "IJzer Bisglycinaat Complex",
    "photo": "vitakruid-iron",
    "price": 895,
-   "url": "/c/iron"
+   "url": "/c/iron",
+   "grade": "A"
   },
   "calcium": {
    "name": "Calcium",
@@ -163,7 +173,8 @@
    "product": "Calcium 400 & D3 uit Rode Alg",
    "photo": "vitakruid-calcium",
    "price": 795,
-   "url": "/c/calcium"
+   "url": "/c/calcium",
+   "grade": "A"
   },
   "iodine": {
    "name": "Iodine",
@@ -171,7 +182,8 @@
    "product": "Jodium drops",
    "photo": "vitakruid-iodine",
    "price": 895,
-   "url": "/c/iodine"
+   "url": "/c/iodine",
+   "grade": "A"
   },
   "prebiotics": {
    "name": "Prebiotics",
@@ -179,7 +191,8 @@
    "product": "FibroPur Inuline FOS",
    "photo": "bonusan-fibropur",
    "price": 1295,
-   "url": "/c/prebiotics"
+   "url": "/c/prebiotics",
+   "grade": "B"
   },
   "coq10": {
    "name": "CoQ10",
@@ -187,7 +200,8 @@
    "product": "Bio-Qinon Active Q10 Gold 100 mg",
    "photo": "pharmanord-q10",
    "price": 2795,
-   "url": "/c/coq10"
+   "url": "/c/coq10",
+   "grade": "B"
   },
   "cranberry": {
    "name": "Cranberry",
@@ -195,7 +209,8 @@
    "product": "Cranberry Complex",
    "photo": "avogel-cranberry",
    "price": 1295,
-   "url": "/c/cranberry"
+   "url": "/c/cranberry",
+   "grade": "B"
   },
   "electrolytes": {
    "name": "Electrolytes",
@@ -203,7 +218,8 @@
    "product": "Electrolytes",
    "photo": "xxl-electrolytes",
    "price": 1495,
-   "url": "/c/electrolytes"
+   "url": "/c/electrolytes",
+   "grade": "A"
   },
   "protein-bars": {
    "name": "Protein bars",
@@ -211,7 +227,8 @@
    "product": "High Protein Bar",
    "photo": "xxl-protein-bar",
    "price": 2495,
-   "url": "/c/protein-bars"
+   "url": "/c/protein-bars",
+   "grade": "A"
   },
   "energy-gels": {
    "name": "Energy gels",
@@ -219,7 +236,8 @@
    "product": "Energy Gel Pro",
    "photo": "xxl-energy-gel",
    "price": 1995,
-   "url": "/c/energy-gels"
+   "url": "/c/energy-gels",
+   "grade": "A"
   },
   "post-workout": {
    "name": "Post-workout",
@@ -227,7 +245,8 @@
    "product": "Muscle Grow (post-workout)",
    "photo": "xxl-muscle-grow",
    "price": 2995,
-   "url": "/c/post-workout"
+   "url": "/c/post-workout",
+   "grade": "A"
   },
   "d3": {
    "name": "Vitamin D3",
@@ -235,7 +254,8 @@
    "product": "Vitamine D3 Vegan 25 mcg",
    "photo": "vitakruid-d3",
    "price": 695,
-   "url": null
+   "url": null,
+   "grade": "A"
   },
   "kids-d": {
    "name": "Kids' vitamin D",
@@ -243,7 +263,8 @@
    "product": "Baby vitamine K + D drops",
    "photo": "davitamon-baby-kd",
    "price": 995,
-   "url": null
+   "url": null,
+   "grade": "A"
   },
   "algae-omega3": {
    "name": "Vegan omega-3",
@@ -251,7 +272,8 @@
    "product": "Omega-3 algae oil (vegan)",
    "photo": "bonusan-algae-omega3",
    "price": 2495,
-   "url": null
+   "url": null,
+   "grade": "A"
   }
  }
 }
