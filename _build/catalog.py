@@ -185,6 +185,7 @@ NOT_IN_OUR_BOX = {
   "spirulina": "No solid human evidence.",
   "chlorella": "No solid human evidence.",
   "garlic": "Small effects, and interacts with blood thinners.",
+  "echinacea": "A.Vogel Echinaforce drops are registered as a medicine in the Netherlands; selling them needs a drugstore licence.",
 }
 # Single B vitamins are covered by the B complex, so we don't list them separately.
 COVERED_BY_B_COMPLEX = {"vitamin-b1", "vitamin-b2", "vitamin-b5", "vitamin-b6"}
@@ -208,7 +209,6 @@ ADDON = {
   "iodine": ("Vitakruid", "Jodium drops", "vitakruid-iodine"),
   "prebiotics": ("Bonusan", "FibroPur Inuline FOS", "bonusan-fibropur"),
   "coq10": ("Pharma Nord", "Bio-Qinon Active Q10 Gold 100 mg", "pharmanord-q10"),
-  "echinacea": ("A.Vogel", "Echinaforce drops", "avogel-echinaforce"),
   "cranberry": ("A.Vogel", "Cranberry Complex", "avogel-cranberry"),
   "electrolytes": ("XXL Nutrition", "Electrolytes", "xxl-electrolytes"),
   "protein-bars": ("XXL Nutrition", "High Protein Bar", "xxl-protein-bar"),
@@ -225,7 +225,7 @@ ADDON_EXTRA = {
 ADDON_PRICE = {
   "d3": 695, "kids-d": 995, "algae-omega3": 2495, "folic-acid": 695, "iron": 895, "zinc": 995, "iodine": 895,
   "vitamin-a": 795, "vitamin-b-complex": 995, "vitamin-b3": 795, "vitamin-e": 995, "vitamin-k2": 1295,
-  "selenium": 1495, "calcium": 795, "prebiotics": 1295, "coq10": 1995, "antioxidants": 1995,
+  "selenium": 1495, "calcium": 795, "prebiotics": 1295, "coq10": 2795, "antioxidants": 1995,
   "echinacea": 1195, "cranberry": 1295, "electrolytes": 1495, "protein-bars": 2495, "energy-gels": 1995, "post-workout": 2995,
 }
 # Suggested extras in the box drawer, per stack.
@@ -233,7 +233,7 @@ SUGGEST = {
   "foundation": ["d3", "prebiotics", "zinc", "algae-omega3"],
   "her": ["iron", "folic-acid", "d3", "zinc"],
   "energy": ["electrolytes", "protein-bars", "d3", "coq10"],
-  "winter": ["d3", "echinacea", "zinc", "cranberry"],
+  "winter": ["d3", "zinc", "cranberry"],
 }
 
 # Menu groups (order shown in the menu)

@@ -71,7 +71,6 @@
    ],
    "suggest": [
     "d3",
-    "echinacea",
     "zinc",
     "cranberry"
    ]
@@ -187,16 +186,8 @@
    "brand": "Pharma Nord",
    "product": "Bio-Qinon Active Q10 Gold 100 mg",
    "photo": "pharmanord-q10",
-   "price": 1995,
+   "price": 2795,
    "url": "/c/coq10"
-  },
-  "echinacea": {
-   "name": "Echinacea",
-   "brand": "A.Vogel",
-   "product": "Echinaforce drops",
-   "photo": "avogel-echinaforce",
-   "price": 1195,
-   "url": "/c/echinacea"
   },
   "cranberry": {
    "name": "Cranberry",
