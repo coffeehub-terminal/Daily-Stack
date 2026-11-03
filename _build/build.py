@@ -546,7 +546,7 @@ body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Add-ons</nav>
     <div class="eyebrow">Custom box</div>
     <h1 class="display"><span class="bold">Start with a stack.</span> <span class="thin">Make it yours.</span></h1>
-    <p class="lead">Every box starts with one of our four stacks. Add what you need on top. It comes in the same box, no extra shipping. Every extra has a grade, so you know what the science says before you pay.</p>
+    <p class="lead">Every box starts with one of our four stacks. You can add extras to it, delivered in the same box at no extra shipping cost. Each extra shows its evidence grade.</p>
     <ol class="asteps"><li><b>1</b> Pick your stack</li><li><b>2</b> Add your extras</li><li><b>3</b> One box, every month</li></ol>
   </div></section>
   <section style="padding-top:0"><div class="wrap"><div class="agrid">{cards}</div>
@@ -562,21 +562,21 @@ nob = "".join(f'<li><b>{NAMES_ALL.get(k, k.replace("-", " ").capitalize())}</b><
 body = f'''<section class="page-hero"><div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Our standard</nav>
     <div class="eyebrow">Our standard</div>
-    <h1 class="display"><span class="bold">Only what holds up.</span> <span class="thin">The truth about the rest.</span></h1>
-    <p class="lead">The supplement aisle is full of promises. We only sell what has an approved EU health claim or solid human research behind it, and we give every product a grade so you can see that for yourself.</p>
+    <h1 class="display"><span class="bold">Our evidence standard.</span> <span class="thin">How we select every product.</span></h1>
+    <p class="lead">Every product in Daily Stack is selected on the basis of approved EU health claims and published human research. Each one carries a grade, so you can see exactly where it stands.</p>
   </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="grades3">
-      <div class="gcard gA"><span class="grade gA">A</span><h3>Proven</h3><p>An approved EU health claim and solid human research. Think vitamin D, magnesium, omega-3 and creatine for training.</p></div>
-      <div class="gcard gB"><span class="grade gB">B</span><h3>Promising</h3><p>No approved claim yet, or the trials are small and early. We sell these as extras and say so plainly. When the evidence changes, we tell you.</p></div>
-      <div class="gcard gX"><span class="grade gX">✕</span><h3>Not in our box</h3><p>Weak evidence, industry-funded results or safety concerns. We don't sell it, and we tell you why.</p></div>
+      <div class="gcard gA"><span class="grade gA">A</span><h3>Established</h3><p>An approved EU health claim, supported by human research. For example vitamin D, magnesium, omega-3, and creatine for training.</p></div>
+      <div class="gcard gB"><span class="grade gB">B</span><h3>Developing</h3><p>Promising research, but no approved EU health claim yet. Offered as optional extras, clearly marked. We review these grades as new research is published.</p></div>
+      <div class="gcard gX"><span class="grade gX">✕</span><h3>Not included</h3><p>Products with insufficient evidence or safety concerns are not part of our range. You can read why below.</p></div>
     </div>
-    <h2 class="display" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Every product,</span> <span class="thin">graded.</span></h2>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Every product</span> <span class="thin">and its grade.</span></h2>
     <div class="gtable-wrap"><table class="gtable"><thead><tr><th>Product</th><th>Grade</th><th>Why</th></tr></thead><tbody>{rows}</tbody></table></div>
-    <h2 class="display" id="not-in-our-box" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Not in our box.</span> <span class="thin">And why.</span></h2>
+    <h2 class="display" id="not-in-our-box" style="font-size:clamp(28px,3.5vw,40px);margin:48px 0 14px"><span class="bold">Not included,</span> <span class="thin">and why.</span></h2>
     <ul class="nob">{nob}</ul>
     <p class="small-print">Grades are our own reading of the EU register of health claims and published human trials. Food supplements are not a substitute for a varied, balanced diet and a healthy lifestyle. Pregnant, breastfeeding or on medication? Check with your doctor or pharmacist first.</p>
   </div></section>'''
-write("evidence.html", page("Our standard", "We only sell what holds up, and grade every product A or B. Here's what's not in our box, and why.", body))
+write("evidence.html", page("Our standard", "How Daily Stack selects supplements: every product graded on approved EU health claims and human research.", body))
 
 print("built", len(CATEGORIES), "category pages,", len(ALL_BRANDS), "brands")

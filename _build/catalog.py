@@ -154,16 +154,16 @@ c("Sport","glutamine","L-Glutamine","The most common amino acid in your muscles,
 # or with promising human trials that we describe honestly (B: probiotics, prebiotics, CoQ10, echinacea, rhodiola, ginseng, cranberry).
 # Everything below failed that test (weak or industry-only evidence, or safety concerns), so it is not in our box.
 NOT_IN_OUR_BOX = {
-  "collagen": "Independent, high-quality trials found no effect on skin.",
+  "collagen": "Independent, high-quality studies have not shown an effect on the skin.",
   "melatonin": "Dutch supplements are capped at 0.3 mg, below the dose the approved claim needs.",
-  "ashwagandha": "Safety concerns; Denmark banned it.",
+  "ashwagandha": "Not included because of safety concerns; Denmark has banned it in supplements.",
   "turmeric": "No approved claim, and reports of liver injury from strong extracts.",
   "valerian": "Weak evidence.",
-  "amino-acids": "Not needed if you eat enough protein.",
-  "bcaa": "Not needed if you eat enough protein.",
+  "amino-acids": "Not needed with an adequate protein intake.",
+  "bcaa": "Not needed with an adequate protein intake.",
   "glutamine": "No good evidence for healthy people.",
   "carnitine": "No good evidence for healthy people.",
-  "pre-workout": "Mostly caffeine blends with unproven extras.",
+  "pre-workout": "Mostly caffeine blends with ingredients that lack evidence.",
   "green-tea": "Reports of liver injury from concentrated extracts.",
   "5-htp": "Risky interactions with medication.",
   "resveratrol": "No solid human evidence.",
@@ -196,13 +196,13 @@ CATEGORIES = [x for x in CATEGORIES if x["slug"] not in NOT_IN_OUR_BOX and x["sl
 # Evidence grade per product.
 # A = approved EU health claim + solid human research. B = no approved claim or early/small trials; we say so plainly.
 GRADE_B = {
-  "probiotics": "No approved EU health claim. Results depend on the exact strain, and the trials are mixed. It's in our stacks because a lot of people like it, and we'll tell you if the evidence changes.",
-  "prebiotics": "Chicory inulin has an approved EU claim, but only at 12 g a day. At lower doses the evidence is still early.",
-  "coq10": "No approved EU health claim. Your body makes CoQ10 itself, and the trials in healthy people are small. Early evidence, and we'll tell you when that changes.",
-  "antioxidants": "The vitamin C, vitamin E and selenium in it have approved EU claims. The extra plant compounds don't, so the blend gets a B.",
-  "cranberry": "No approved EU health claim, and the human trials are mixed. Early evidence, and we'll tell you when that changes.",
+  "probiotics": "No approved EU health claim yet. Effects depend on the specific strain, and research is still developing. We review this grade as new research is published.",
+  "prebiotics": "Chicory inulin has an approved EU health claim at 12 g per day. At lower amounts the evidence is still developing. We review this grade as new research is published.",
+  "coq10": "No approved EU health claim yet. The body produces CoQ10 itself, and studies in healthy adults are still limited. We review this grade as new research is published.",
+  "antioxidants": "Vitamin C, vitamin E and selenium in this product have approved EU health claims. The added plant extracts do not yet. We review this grade as new research is published.",
+  "cranberry": "No approved EU health claim yet, and the human research is still developing. We review this grade as new research is published.",
 }
-GRADE_A_NOTE = "Approved EU health claim and solid human research behind it."
+GRADE_A_NOTE = "Approved EU health claim, supported by human research."
 def grade(slug): return "B" if slug in GRADE_B else "A"
 
 # Add-ons: the product we put in your box when you add this to your stack. (brand, product, photo in assets/products)
@@ -317,7 +317,7 @@ CREA = ("Creatine", "Mattisson Healthstyle", "Creatine Creapure® capsules", "18
 DISCOVERY = ("Monthly discovery", "Daily Stack", "A new product to try, picked by us", "1 product a month", None, None)
 STACK_LIST = [
   dict(id="foundation", name="Foundation", price="€109", per="/ month · free shipping", badge="Most popular",
-       tagline="The basics most people actually need. 5 products, plus something new to try each month.",
+       tagline="Essential daily nutrients for adults. 5 products, plus a new addition each month.",
        items=[MULTI, OMEGA, MAG, VITC, FLORA, DISCOVERY],
        extras=["Weekly pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Foundation"),
   dict(id="her", name="Her", price="€129", per="/ month · free shipping", badge=None,
@@ -326,11 +326,11 @@ STACK_LIST = [
               ("Vitamin B12", "Solgar", "Methylcobalamin 1000 µg", "30 nuggets · 1 a day", "vitamin-b12", "solgar-b12"), VITC, FLORA],
        extras=["Pill organizer (first box)", "Your daily schedule", "A \"why this brand\" card for every product"], cta="Subscribe to Her Stack"),
   dict(id="energy", name="Energy", price="€129", per="/ month · free shipping", badge=None,
-       tagline="For training days and long workdays, with creatine. 6 products.",
+       tagline="For active adults, with creatine for training. 6 products.",
        items=[("Sport multivitamin", "Vitakruid", "Multi Dag Man Sport", "30 tablets · 1 a day", "multivitamin", "vitakruid-multi-sport"), OMEGA, MAG, CREA, VITC, FLORA],
        extras=["Shaker (first box)", "Pill organizer (first box)", "Training-day schedule"], cta="Subscribe to Energy Stack"),
   dict(id="winter", name="Winter", price="€109", per="one-time · free shipping", badge="Christmas gift",
-       tagline="Five products for the dark months, plus tea, honey and lip balm.",
+       tagline="For the winter months: 5 products, plus tea, honey and lip balm.",
        items=[VITC, MULTI, OMEGA, MAG, FLORA],
        extras=["Ginger-lemon tea", "Dutch honey", "Lip balm", "Gift card"], cta="Order the Winter Stack", note="Order before 15 December for delivery before Christmas."),
 ]
